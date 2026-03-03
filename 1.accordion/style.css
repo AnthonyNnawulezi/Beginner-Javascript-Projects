@@ -1,0 +1,71 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  background-color: green;
+  font-family: "Poppins", sans-serif;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+.accordion {
+  background-color: #fff;
+  width: 700px;
+  border-radius: 5px;
+  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
+}
+.accordion-item {
+  border-bottom: 1px solid #f1f1f1;
+}
+.accordion-title {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px;
+  cursor: pointer;
+}
+.accordion-title h3 {
+  font-size: 18px;
+  color: #333;
+}
+.accordion-title i {
+  font-size: 18px;
+  color: #333;
+  transition: transform 0.3s ease;
+}
+.accordion-title.active i {
+  transform: rotate(180deg);
+}
+.section {
+  min-height: 100vh;
+  padding: 100px;
+}
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.container h1 {
+  font-size: 36px;
+  color: #333;
+  margin-bottom: 20px;
+  text-align: center;
+}
+.content {
+  padding: 0 20px 20px;
+  display: none;
+}
+.content p {
+  font-size: 16px;
+  color: #555;
+}
+.content.active {
+  display: block;
+}
+.accordion-title.active + .content {
+  display: block;
+}
