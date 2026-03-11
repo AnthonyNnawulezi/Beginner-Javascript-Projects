@@ -4,31 +4,29 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="style.css" />
-    <title>Rando Color Generator</title>
+    <title>Color Picker</title>
   </head>
   <body>
-    <div class="rgb-container">
-      <div class="hex-color">
-        <p class="hex-color-value">#ffffff</p>
-        <button class="hex-btn">Create hex color</button>
+    <div class="container">
+      <div class="hex-color-container">
+        <p class="hex-color">#ffffff</p>
+        <button id="hex-btn">Create Hex Color</button>
+        <button class="hex-copy-btn">Copy To Clipboard</button>
       </div>
-      <div class="rgb-color">
+      <div class="rgb-color-container">
+        <p class="rgb-color">rgb(255,255,255)</p>
         <div>
           <label for="red">Red</label>
-          <input type="range" min="0" max="255" value="0" id="red" />
-        </div>
-        <div>
+          <input type="range" id="red" value="0" min="0" max="255" />
           <label for="green">Green</label>
-          <input type="range" min="0" max="255" value="0" id="green" />
-        </div>
-        <div>
+          <input type="range" id="green" value="0" min="0" max="255" />
           <label for="blue">Blue</label>
-          <input type="range" min="0" max="255" value="0" id="blue" />
+          <input type="range" id="blue" value="0" min="0" max="255" />
         </div>
-        <button class="rgb-btn">Create RGB color</button>
+        <button class="rgb-btn">Create RGB Color</button>
+        <button class="rgb-copy-btn">Copy To Clipboard</button>
       </div>
     </div>
-
     <script src="script.js"></script>
   </body>
 </html>

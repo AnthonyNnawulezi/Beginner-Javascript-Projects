@@ -3,49 +3,57 @@
   margin: 0;
   box-sizing: border-box;
 }
+
 body {
   padding: 20px;
-  font-size: 20px;
-}
-
-.rgb-container {
-  display: flex;
-  gap: 20px;
-  border: 10px solid black;
-}
-button {
-  padding: 12px 20px;
-  cursor: pointer;
+  height: 100vh;
+  /* background-color: rgb(139, 90, 43); */
   font-size: 18px;
   font-weight: bold;
-  background-color: rgb(230, 240, 127);
+  font-family: "Times New Roman", Times, serif;
 }
-.hex-color {
+.container {
   display: flex;
-  padding: 20px;
-  background-color: green;
-  justify-content: center;
   align-items: center;
+  justify-content: center;
+  border: 1px solid red;
+}
+.hex-color-container,
+.rgb-color-container {
+  display: flex;
   flex-direction: column;
   gap: 30px;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  width: 50vw;
 }
 
-.rgb-color {
+.hex-color-container {
+  background-color: rgb(139, 90, 43);
+}
+.rgb-color-container {
+  background-color: rgba(240, 194, 152, 0.609);
+}
+
+.rgb-color-input {
+  display: flex;
+  flex-direction: row;
+}
+.rgb-color-input {
   display: flex;
   flex-direction: column;
-  gap: 20px;
-  background-color: rgb(140, 130, 183);
-  justify-content: center;
-  align-items: center;
 }
-.rgb-color,
-.hex-color {
-  flex: 1;
-  min-height: 100vh;
-}
-
-.hex-color-value {
+.hex-color,
+.rgb-color {
   font-size: 30px;
   font-weight: bold;
-  color: white;
+  /* color: bisque; */
+}
+button {
+  background-color: rgb(150, 75, 0);
+  padding: 20px;
+  font-size: 20px;
+  border-radius: 15px;
+  font-weight: bold;
 }
