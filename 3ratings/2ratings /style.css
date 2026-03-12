@@ -1,0 +1,53 @@
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+
+body {
+  padding: 20px;
+  font-family: "Times New Roman", Times, serif;
+}
+
+h1 {
+  font-weight: bold;
+  font-size: 50px;
+  text-align: center;
+}
+
+.rating-container {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  background-color: rgb(103, 73, 40);
+  padding: 20px;
+}
+
+.fa-star-o {
+  font-size: 50px;
+  width: 2rem;
+  cursor: pointer;
+}
+
+.fa-star {
+  color: gold;
+}
+
+p {
+  text-align: center;
+  font-size: 30px;
+}
+.fa-star-o::before {
+  content: "\f006";
+  font-size: 30px;
+}
+.fa-star::before {
+  content: "\f005";
+  font-size: 50px;
+  color: #ffcc00;
+}
+
+.star-ratings-regular {
+  text-align: center;
+}

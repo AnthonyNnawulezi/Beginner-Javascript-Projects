@@ -12,7 +12,7 @@ stars.forEach((star, index) => {
 function mouseOver(event) {
   const currRating = event.currentTarget.dataset.rating;
   if (!currRating) return;
-  else updateRating(currRating);
+  updateRating(currRating);
 }
 
 function updateRating(rating) {
