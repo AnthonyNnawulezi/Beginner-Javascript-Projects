@@ -49,5 +49,14 @@ function handleImageSlider() {
   btnNext.addEventListener("click", () => {
     currentSlide++;
     if (slides.length - 1 < currentSlide) currentSlide = 0;
+    changeSlide(slides);
+    activeSlide(slides[currentSlide]);
+  });
+
+  btnPrev.addEventListener("click", () => {
+    currentSlide--;
+    if (currentSlide < 0) currentSlide = slides.length - 1;
+    changeSlide(slides);
+    activeSlide(slides[currentSlide]);
   });
 }
