@@ -39,3 +39,15 @@ function showImages(images) {
 }
 
 fetchImages();
+
+let currentSlide = 0;
+
+function handleImageSlider() {
+  function activeSlide(slide) {}
+  function changeSlide(slides) {}
+
+  btnNext.addEventListener("click", () => {
+    currentSlide++;
+    if (slides.length - 1 < currentSlide) currentSlide = 0;
+  });
+}
