@@ -40,23 +40,31 @@ function showImages(images) {
 
 fetchImages();
 
-let currentSlide = 0;
+setTimeout(() => {
+  let currentSlide = 0;
 
-function handleImageSlider() {
-  function activeSlide(slide) {}
+  function activeSlide(slide) {
+    document
+      .querySelectorAll(".dot")
+      .forEach((s) => s.classList.remove("active"));
+    document
+      .querySelector(`.dot[data-slide="${slide}"]`)
+      .classList.add("active");
+  }
   function changeSlide(slides) {}
 
   btnNext.addEventListener("click", () => {
     currentSlide++;
     if (slides.length - 1 < currentSlide) currentSlide = 0;
-    changeSlide(slides);
-    activeSlide(slides[currentSlide]);
   });
+  changeSlide(currentSlide);
+  activeSlide(currentSlide);
 
   btnPrev.addEventListener("click", () => {
     currentSlide--;
     if (currentSlide < 0) currentSlide = slides.length - 1;
-    changeSlide(slides);
-    activeSlide(slides[currentSlide]);
+    changeSlide(currentSlide);
+    activeSlide(currentSlide);
   });
-}
+  dotsContainer.addEventListener("click", (e) => {});
+}, 1000);
