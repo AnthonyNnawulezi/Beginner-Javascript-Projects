@@ -10,6 +10,7 @@ body {
   padding: 15px;
 }
 .slider {
+  position: relative;
   width: 50%;
   height: 50%;
   margin: 50px auto;

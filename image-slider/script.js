@@ -50,12 +50,14 @@ function initImageSlider() {
       .querySelector(`.dot[data-slide="${slide}"]`)
       .classList.add("active");
   }
+
   function changeSlide(currentSlide) {
     slides.forEach(
       (slide, index) =>
         (slide.style.transform = `translateX(${100 * (index - currentSlide)}%)`),
     );
   }
+  changeSlide(currentSlide);
 
   btnNext.addEventListener("click", () => {
     currentSlide++;
