@@ -72,7 +72,15 @@ function initImageSlider() {
     changeSlide(currentSlide);
     activeSlide(currentSlide);
   });
-  dotsContainer.addEventListener("click", (e) => {});
+
+  dotsContainer.addEventListener("click", (e) => {
+    // console.log(e.target.classList, e.target.dataset);
+    if (e.target.classList.contains("dot")) {
+      const currentSlide = e.target.dataset.slide;
+      changeSlide(currentSlide);
+      activeSlide(currentSlide);
+    }
+  });
 }
 
 fetchImages();
