@@ -1,8 +1,5 @@
 const slider = document.querySelector(".slider");
 const dotsContainer = document.querySelector(".dots-container");
-const slides = document.querySelectorAll(".slide");
-const btnPrev = document.querySelector(".btn-prev");
-const btnNext = document.querySelector(".btn-next");
 
 async function fetchImages() {
   try {
@@ -36,13 +33,15 @@ function showImages(images) {
     `,
     )
     .join("");
+
+  initImageSlider();
 }
 
-fetchImages();
-
-setTimeout(() => {
+function initImageSlider() {
+  const btnPrev = document.querySelector(".btn-prev");
+  const btnNext = document.querySelector(".btn-next");
   let currentSlide = 0;
-
+  const slides = document.querySelectorAll(".slide");
   function activeSlide(slide) {
     document
       .querySelectorAll(".dot")
@@ -56,9 +55,9 @@ setTimeout(() => {
   btnNext.addEventListener("click", () => {
     currentSlide++;
     if (slides.length - 1 < currentSlide) currentSlide = 0;
+    changeSlide(currentSlide);
+    activeSlide(currentSlide);
   });
-  changeSlide(currentSlide);
-  activeSlide(currentSlide);
 
   btnPrev.addEventListener("click", () => {
     currentSlide--;
@@ -67,4 +66,6 @@ setTimeout(() => {
     activeSlide(currentSlide);
   });
   dotsContainer.addEventListener("click", (e) => {});
-}, 1000);
+}
+
+fetchImages();
