@@ -5,9 +5,6 @@ async function fetchImages() {
   try {
     const response = await fetch(
       "https://picsum.photos/v2/list?page=5&limit=10",
-      {
-        method: "GET",
-      },
     );
     const result = await response.json();
     if (result?.length > 0) showImages(result);
@@ -21,7 +18,7 @@ function showImages(images) {
   slider.innerHTML = images
     .map(
       (image) => `
-    <div class="slide"><img src="${image.download_url}" alt="${image.author}"></div>
+    <div class="slide"><img src="${image.download_url}" alt="${image.author}" loading="lazy"></div>
 `,
     )
     .join("");
