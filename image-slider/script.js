@@ -89,104 +89,91 @@ const dotsContainer = document.querySelector(".dots-container");
 const btnPrev = document.querySelector(".btn-prev");
 const btnNext = document.querySelector(".btn-next");
 
+let currentSlide = 0;
+let slides = [];
+let dots = [];
+
 async function fetchImages() {
   try {
     const response = await fetch(
       "https://picsum.photos/v2/list?page=5&limit=10",
     );
 
-    if (!response.ok) {
-      throw new Error(`Failed to fetch images: ${response.status}`);
-    }
+    if (!response.ok) throw new Error("Failed to fetch images");
 
-    const result = await response.json();
+    const images = await response.json();
 
-    if (result?.length > 0) {
-      showImages(result);
-    } else {
-      slider.innerHTML = `<p class="slider-error">No images found.</p>`;
-    }
+    if (!images?.length) return;
+
+    renderImages(images);
+    initSlider();
   } catch (error) {
     console.error("Error fetching images:", error);
-    slider.innerHTML = `<p class="slider-error">Failed to load images. Please try again.</p>`;
   }
 }
 
-function showImages(images) {
+function renderImages(images) {
   slider.innerHTML = images
     .map(
-      (_, index) =>
-        `<div class="slide">
-          <img
-            src="${images[index].download_url}"
-            alt="${images[index].author}"
-            width="800"
-            height="600"
-            loading="lazy"
-          >
-        </div>`,
+      (img) => `
+      <div class="slide">
+        <img src="${img.download_url}" alt="${img.author || "Image"}">
+      </div>
+    `,
     )
     .join("");
 
   dotsContainer.innerHTML = images
     .map(
-      (_, index) =>
-        `<span
-          class="dot ${index === 0 ? "active" : ""}"
-          data-slide="${index}"
-          aria-label="Go to slide ${index + 1}"
-        ></span>`,
+      (_, i) => `
+      <span class="dot ${i === 0 ? "active" : ""}" data-slide="${i}"></span>
+    `,
     )
     .join("");
 
-  initImageSlider();
+  slides = document.querySelectorAll(".slide");
+  dots = document.querySelectorAll(".dot");
 }
 
-function initImageSlider() {
-  if (!btnPrev || !btnNext || !slider || !dotsContainer) {
-    console.error("Slider: required DOM elements are missing.");
-    return;
-  }
+function updateActiveDot(index) {
+  dots.forEach((dot) => dot.classList.remove("active"));
+  dots[index]?.classList.add("active");
+}
 
-  const slides = document.querySelectorAll(".slide");
-  const dots = document.querySelectorAll(".dot");
-  let currentSlide = 0;
-
-  function goToSlide(index) {
-    slides.forEach((slide, i) => {
-      slide.style.transform = `translateX(${100 * (i - index)}%)`;
-    });
-
-    dots.forEach((d) => d.classList.remove("active"));
-    const activeDot = dots[index];
-    if (activeDot) activeDot.classList.add("active");
-  }
-
-  // Clone buttons to remove any previously stacked listeners
-  btnNext.replaceWith(btnNext.cloneNode(true));
-  btnPrev.replaceWith(btnPrev.cloneNode(true));
-
-  const freshNext = document.querySelector(".btn-next");
-  const freshPrev = document.querySelector(".btn-prev");
-
-  freshNext.addEventListener("click", () => {
-    currentSlide = currentSlide === slides.length - 1 ? 0 : currentSlide + 1;
-    goToSlide(currentSlide);
+function updateSlides(index) {
+  slides.forEach((slide, i) => {
+    slide.style.transform = `translateX(${100 * (i - index)}%)`;
   });
+}
 
-  freshPrev.addEventListener("click", () => {
-    currentSlide = currentSlide === 0 ? slides.length - 1 : currentSlide - 1;
-    goToSlide(currentSlide);
-  });
+function goToSlide(index) {
+  currentSlide = index;
+  updateSlides(currentSlide);
+  updateActiveDot(currentSlide);
+}
+
+function nextSlide() {
+  currentSlide = (currentSlide + 1) % slides.length;
+  goToSlide(currentSlide);
+}
+
+function prevSlide() {
+  currentSlide = (currentSlide - 1 + slides.length) % slides.length;
+  goToSlide(currentSlide);
+}
+
+function initSlider() {
+  updateSlides(currentSlide);
+
+  btnNext?.addEventListener("click", nextSlide);
+  btnPrev?.addEventListener("click", prevSlide);
 
   dotsContainer.addEventListener("click", (e) => {
-    const dot = e.target.closest(".dot");
-    if (!dot) return;
-    currentSlide = Number(dot.dataset.slide);
-    goToSlide(currentSlide);
-  });
+    if (!e.target.classList.contains("dot")) return;
 
-  goToSlide(currentSlide);
+    const index = Number(e.target.dataset.slide);
+    goToSlide(index);
+  });
 }
 
 fetchImages();
