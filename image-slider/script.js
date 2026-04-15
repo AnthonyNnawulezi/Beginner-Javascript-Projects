@@ -86,29 +86,20 @@ fetchImages();
 
 const slider = document.querySelector(".slider");
 const dotsContainer = document.querySelector(".dots-container");
-const btnPrev = document.querySelector(".btn-prev");
-const btnNext = document.querySelector(".btn-next");
-
-let currentSlide = 0;
-let slides = [];
-let dots = [];
 
 async function fetchImages() {
   try {
     const response = await fetch(
       "https://picsum.photos/v2/list?page=5&limit=10",
     );
-
-    if (!response.ok) throw new Error("Failed to fetch images");
-
     const images = await response.json();
 
-    if (!images?.length) return;
-
-    renderImages(images);
-    initSlider();
-  } catch (error) {
-    console.error("Error fetching images:", error);
+    if (Array.isArray(images) && images.length > 0) {
+      renderImages(images);
+      initSlider();
+    }
+  } catch (err) {
+    console.error("Failed to fetch images:", err);
   }
 }
 
@@ -117,62 +108,60 @@ function renderImages(images) {
     .map(
       (img) => `
       <div class="slide">
-        <img src="${img.download_url}" alt="${img.author || "Image"}">
-      </div>
-    `,
+        <img src="${img.download_url}" alt="${img.author}">
+      </div>`,
     )
     .join("");
 
   dotsContainer.innerHTML = images
     .map(
       (_, i) => `
-      <span class="dot ${i === 0 ? "active" : ""}" data-slide="${i}"></span>
-    `,
+      <span class="dot ${i === 0 ? "active" : ""}" data-slide="${i}"></span>`,
     )
     .join("");
-
-  slides = document.querySelectorAll(".slide");
-  dots = document.querySelectorAll(".dot");
-}
-
-function updateActiveDot(index) {
-  dots.forEach((dot) => dot.classList.remove("active"));
-  dots[index]?.classList.add("active");
-}
-
-function updateSlides(index) {
-  slides.forEach((slide, i) => {
-    slide.style.transform = `translateX(${100 * (i - index)}%)`;
-  });
-}
-
-function goToSlide(index) {
-  currentSlide = index;
-  updateSlides(currentSlide);
-  updateActiveDot(currentSlide);
-}
-
-function nextSlide() {
-  currentSlide = (currentSlide + 1) % slides.length;
-  goToSlide(currentSlide);
-}
-
-function prevSlide() {
-  currentSlide = (currentSlide - 1 + slides.length) % slides.length;
-  goToSlide(currentSlide);
 }
 
 function initSlider() {
-  updateSlides(currentSlide);
+  const slides = document.querySelectorAll(".slide");
+  const dots = document.querySelectorAll(".dot");
+  const btnPrev = document.querySelector(".btn-prev");
+  const btnNext = document.querySelector(".btn-next");
 
-  btnNext?.addEventListener("click", nextSlide);
-  btnPrev?.addEventListener("click", prevSlide);
+  let current = 0;
+
+  const updateDots = (i) => {
+    dots.forEach((d) => d.classList.remove("active"));
+    const dot = document.querySelector(`.dot[data-slide="${i}"]`);
+    if (dot) dot.classList.add("active");
+  };
+
+  const goToSlide = (i) => {
+    slides.forEach(
+      (slide, idx) =>
+        (slide.style.transform = `translateX(${100 * (idx - i)}%)`),
+    );
+  };
+
+  goToSlide(0);
+
+  btnNext.addEventListener("click", () => {
+    current = (current + 1) % slides.length;
+    goToSlide(current);
+    updateDots(current);
+  });
+
+  btnPrev.addEventListener("click", () => {
+    current = (current - 1 + slides.length) % slides.length;
+    goToSlide(current);
+    updateDots(current);
+  });
 
   dotsContainer.addEventListener("click", (e) => {
     if (!e.target.classList.contains("dot")) return;
-
-    const index = Number(e.target.dataset.slide);
-    goToSlide(index);
+    const i = Number(e.target.dataset.slide);
+    current = i;
+    goToSlide(i);
+    updateDots(i);
   });
 }
 
