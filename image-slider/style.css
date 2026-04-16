@@ -76,3 +76,9 @@ h1 {
 .dots-container .dot.active {
   background-color: red;
 }
+
+.slider-error {
+  text-align: center;
+  color: red;
+  font-size: 20px;
+}
