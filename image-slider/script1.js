@@ -45,3 +45,10 @@ function renderImages(images) {
   slides = document.querySelectorAll(".slide");
   dots = document.querySelectorAll(".dot");
 }
+
+function initImageSlider() {
+  if (!btnPrev || !btnNext || !slider || !dotsContainer) {
+    console.error("Slider: required DOM elements are missing.");
+    return;
+  }
+}
