@@ -71,7 +71,7 @@ function initImageSlider() {
     activeSlide(currentSlide);
   });
 
-  // Dots navigation
+  // On clicking dots
   dotsContainer.addEventListener("click", (e) => {
     // console.log(e.target.classList, e.target.dataset);
     if (e.target.classList.contains("dot")) {
