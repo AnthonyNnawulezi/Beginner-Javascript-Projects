@@ -44,8 +44,10 @@ function renderImages(images) {
 }
 
 function initImageSlider() {
-  slides = document.querySelectorAll(".slide");
-  dots = document.querySelectorAll(".dot");
+  const slides = document.querySelectorAll(".slide");
+  const dots = document.querySelectorAll(".dot");
+  const btnPrev = document.querySelector(".btn-prev");
+  const btnNext = document.querySelector(".btn-next");
   let currentSlide = 0;
 
   //   if (!btnPrev || !btnNext || !slider || !dotsContainer) {
@@ -61,4 +63,17 @@ function initImageSlider() {
     dots.forEach((dot) => dot.classList.remove("active"));
     dots[index]?.classList.add("active");
   }
+
+  function nextSlide() {
+    currentSlide = (currentSlide + 1) % slides.length;
+    goToSlide(currentSlide);
+  }
+
+  function prevSlide() {
+    currentSlide = (currentSlide - 1 + slides.length) % slides.length;
+    goToSlide(currentSlide);
+  }
+
+  btnNext?.addEventListener("click", nextSlide);
+  btnPrev?.addEventListener("click", prevSlide);
 }
