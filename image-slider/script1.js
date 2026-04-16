@@ -14,11 +14,34 @@ async function fetchImages() {
     const images = await response.json();
 
     if (Array.isArray(images) && images.length > 0) {
-      showImages(images);
+      renderImages(images);
     } else {
       slider.innerHTML = `<p class="slider-error">No images found.</p>`;
     }
   } catch (error) {
     console.error("Error fetching images:", error);
   }
+}
+
+function renderImages(images) {
+  slider.innerHTML = images
+    .map(
+      (image) => `
+      <div class="slide">
+        <img src="${image.download_url}" alt="${image.author || "Image"}">
+      </div>
+    `,
+    )
+    .join("");
+
+  dotsContainer.innerHTML = images
+    .map(
+      (_, i) => `
+      <span class="dot ${i === 0 ? "active" : ""}" data-slide="${i}"></span>
+    `,
+    )
+    .join("");
+
+  slides = document.querySelectorAll(".slide");
+  dots = document.querySelectorAll(".dot");
 }
