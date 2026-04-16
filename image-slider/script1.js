@@ -41,14 +41,24 @@ function renderImages(images) {
     `,
     )
     .join("");
-
-  slides = document.querySelectorAll(".slide");
-  dots = document.querySelectorAll(".dot");
 }
 
 function initImageSlider() {
-  if (!btnPrev || !btnNext || !slider || !dotsContainer) {
-    console.error("Slider: required DOM elements are missing.");
-    return;
+  slides = document.querySelectorAll(".slide");
+  dots = document.querySelectorAll(".dot");
+  let currentSlide = 0;
+
+  //   if (!btnPrev || !btnNext || !slider || !dotsContainer) {
+  //     console.error("Slider: required DOM elements are missing.");
+  //     return;
+  //   }
+
+  function goToSlide(index) {
+    slides.forEach((slide, i) => {
+      slide.style.transform = `translateX(${100 * (i - index)}%)`;
+    });
+
+    dots.forEach((dot) => dot.classList.remove("active"));
+    dots[index]?.classList.add("active");
   }
 }
