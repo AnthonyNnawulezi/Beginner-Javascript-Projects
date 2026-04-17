@@ -15,6 +15,7 @@ async function fetchImages() {
 
     if (Array.isArray(images) && images.length > 0) {
       renderImages(images);
+      initImageSlider();
     } else {
       slider.innerHTML = `<p class="slider-error">No images found.</p>`;
     }
@@ -28,7 +29,7 @@ function renderImages(images) {
     .map(
       (image) => `
       <div class="slide">
-        <img src="${image.download_url}" alt="${image.author || "Image"}">
+        <img src="${image.download_url}" alt="${image.author || "Image"}" loading="lazy">
       </div>
     `,
     )
@@ -46,14 +47,7 @@ function renderImages(images) {
 function initImageSlider() {
   const slides = document.querySelectorAll(".slide");
   const dots = document.querySelectorAll(".dot");
-  const btnPrev = document.querySelector(".btn-prev");
-  const btnNext = document.querySelector(".btn-next");
   let currentSlide = 0;
-
-  //   if (!btnPrev || !btnNext || !slider || !dotsContainer) {
-  //     console.error("Slider: required DOM elements are missing.");
-  //     return;
-  //   }
 
   function goToSlide(index) {
     slides.forEach((slide, i) => {
@@ -63,6 +57,8 @@ function initImageSlider() {
     dots.forEach((dot) => dot.classList.remove("active"));
     dots[index]?.classList.add("active");
   }
+
+  goToSlide(0);
 
   function nextSlide() {
     currentSlide = (currentSlide + 1) % slides.length;
@@ -76,4 +72,14 @@ function initImageSlider() {
 
   btnNext?.addEventListener("click", nextSlide);
   btnPrev?.addEventListener("click", prevSlide);
+
+  // Add click event listener to dots
+  dotsContainer.addEventListener("click", (e) => {
+    const dot = e.target.closest(".dot");
+    if (!dot) return;
+    currentSlide = Number(dot.dataset.slide);
+    goToSlide(currentSlide);
+  });
 }
+
+fetchImages();
