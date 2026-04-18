@@ -30,18 +30,44 @@ function renderImages(images) {
     `,
     )
     .join("");
-  dots.innerHTML = images.map((image) => `<span class="dots"></span>`).join("");
+  dots.innerHTML = images
+    .map(
+      (image, i) =>
+        `<span class="dots ${dots[i] === 0 ? "active" : ""}"></span>`,
+    )
+    .join("");
 }
 
 function initSlider(images) {
-  const slides = document.querySelector(".slider-container");
-  const dots = document.querySelector(".dots");
+  const slides = document.querySelectorAll(".slider-container");
+  const dots = document.querySelectorAll(".dots");
   let currentSlide = 0;
-  function goToSlide(currentSlide) {}
+  function goToSlide(currentSlide) {
+    slides.forEach(
+      (slide, i) =>
+        (slide.style.transform = "translateX(${100 * (i - currentSlide)}%)"),
+    );
+    dots.forEach(
+      (dot) => `
+      dot.classList.remove('active')
+    if(dot[currentSlide].classList.contains('active')){
+dot.classList.remove('active')
+        }else{
+            dot.classList.add('active')
+        }
+    `,
+    );
+  }
   goToSlide(0);
-  btnNext.addEventListener("click", {});
-  btnPrev.addEventListener("click", {});
-  btnNext.addEventListener("click", {});
+  btnNext.addEventListener("click", () => {
+    currentSlide++;
+    goToSlide(currentSlide);
+  });
+  btnPrev.addEventListener("click", () => {
+    currentSlide--;
+    goToSlide(currentSlide);
+  });
+  //   dots.addEventListener("click", goToSlide(currentSlide));
 }
 
 fetchImages();

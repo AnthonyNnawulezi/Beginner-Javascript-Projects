@@ -57,3 +57,7 @@ h1 {
   background-color: black;
   /* display: inline-block; */
 }
+
+.dots.active {
+  background-color: white;
+}
