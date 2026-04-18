@@ -26,3 +26,34 @@ h1 {
   justify-content: center;
   object-fit: cover;
 }
+
+.btn-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 20px;
+}
+
+.btn-prev,
+.btn-next {
+  padding: 15px;
+  border-radius: 10px;
+  background-color: rgb(125, 88, 57);
+  width: 100px;
+  color: antiquewhite;
+}
+
+.dot-container {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+
+.dots {
+  width: 25px;
+  height: 15px;
+  border-radius: 15px;
+  background-color: black;
+  /* display: inline-block; */
+}
