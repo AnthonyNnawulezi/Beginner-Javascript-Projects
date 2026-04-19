@@ -31,10 +31,7 @@ function renderImages(images) {
     )
     .join("");
   dots.innerHTML = images
-    .map(
-      (image, i) =>
-        `<span class="dots ${dots[i] === 0 ? "active" : ""}"></span>`,
-    )
+    .map((image, i) => `<span class="dots ${i === 0 ? "active" : ""}"></span>`)
     .join("");
 }
 
@@ -46,7 +43,7 @@ function initSlider(images) {
   function goToSlide(currentSlide) {
     slides.forEach(
       (slide, i) =>
-        (slide.style.transform = `translateX(${100 * (i - currentSlide)}%)`),
+        (slide.style.transform = `translateX(${100 * (i - currentSlide)} % slides.length)`),
     );
 
     dots.forEach((dot) => {
