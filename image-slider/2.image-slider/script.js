@@ -54,22 +54,19 @@ function initSlider(images) {
 
   goToSlide(0);
   btnNext.addEventListener("click", () => {
-    if (currentSlide > slides.length - 1) {
+    if (currentSlide === slides.length - 1) {
       currentSlide = 0;
-      currentSlide--;
-      goToSlide(currentSlide);
+    } else {
+      currentSlide++;
     }
+    goToSlide(currentSlide);
   });
   btnPrev.addEventListener("click", () => {
-    if (currentSlide < 0) {
-      currentSlide = slides.length;
-      currentSlide++;
-      goToSlide(currentSlide);
+    if (currentSlide <= 0) {
+      currentSlide = slides.length - 1;
+    } else {
+      currentSlide--;
     }
-  });
-  dots.addEventListener("click", () => {
-    // currentSlide++;
-    // currentSlide--;
     goToSlide(currentSlide);
   });
 }
