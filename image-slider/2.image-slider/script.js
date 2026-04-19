@@ -42,22 +42,19 @@ function initSlider(images) {
   const slides = document.querySelectorAll(".slider-container");
   const dots = document.querySelectorAll(".dots");
   let currentSlide = 0;
+
   function goToSlide(currentSlide) {
     slides.forEach(
       (slide, i) =>
-        (slide.style.transform = "translateX(${100 * (i - currentSlide)}%)"),
+        (slide.style.transform = `translateX(${100 * (i - currentSlide)}%)`),
     );
-    dots.forEach(
-      (dot) => `
-      dot.classList.remove('active')
-    if(dot[currentSlide].classList.contains('active')){
-dot.classList.remove('active')
-        }else{
-            dot.classList.add('active')
-        }
-    `,
-    );
+
+    dots.forEach((dot) => {
+      dot.classList.remove("active");
+      dot[currentSlide]?.classList.add("active");
+    });
   }
+
   goToSlide(0);
   btnNext.addEventListener("click", () => {
     currentSlide++;
