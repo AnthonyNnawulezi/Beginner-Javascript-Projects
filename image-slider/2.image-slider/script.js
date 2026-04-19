@@ -54,12 +54,18 @@ function initSlider(images) {
 
   goToSlide(0);
   btnNext.addEventListener("click", () => {
-    currentSlide++;
-    goToSlide(currentSlide);
+    if (currentSlide > slides.length - 1) {
+      currentSlide = 0;
+      currentSlide--;
+      goToSlide(currentSlide);
+    }
   });
   btnPrev.addEventListener("click", () => {
-    currentSlide--;
-    goToSlide(currentSlide);
+    if (currentSlide < 0) {
+      currentSlide = slides.length;
+      currentSlide++;
+      goToSlide(currentSlide);
+    }
   });
   dots.addEventListener("click", () => {
     // currentSlide++;
