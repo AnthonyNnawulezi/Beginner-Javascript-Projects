@@ -43,13 +43,13 @@ function initSlider(images) {
   function goToSlide(currentSlide) {
     slides.forEach(
       (slide, i) =>
-        (slide.style.transform = `translateX(${100 * (i - currentSlide)} % slides.length)`),
+        (slide.style.transform = `translateX(${100 * (i - currentSlide)}%)`),
     );
 
     dots.forEach((dot) => {
       dot.classList.remove("active");
-      dot?.classList.add("active");
     });
+    dots[currentSlide].classList.add("active");
   }
 
   goToSlide(0);
@@ -61,7 +61,11 @@ function initSlider(images) {
     currentSlide--;
     goToSlide(currentSlide);
   });
-  //   dots.addEventListener("click", goToSlide(currentSlide));
+  dots.addEventListener("click", () => {
+    // currentSlide++;
+    // currentSlide--;
+    goToSlide(currentSlide);
+  });
 }
 
 fetchImages();

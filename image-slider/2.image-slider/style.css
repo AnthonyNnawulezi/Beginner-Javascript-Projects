@@ -16,6 +16,11 @@ h1 {
 .slider {
   position: relative;
   overflow: hidden;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .slider-container {
@@ -23,9 +28,7 @@ h1 {
 }
 
 .slider-container img {
-  width: 100%;
-  height: 100%;
-  display: block;
+  display: flex;
   align-items: center;
   justify-content: center;
   object-fit: cover;
@@ -59,9 +62,9 @@ h1 {
   height: 15px;
   border-radius: 15px;
   background-color: black;
-  /* display: inline-block; */
+  display: inline-block;
 }
 
-.dots.active {
+.dots .active {
   background-color: white;
 }
