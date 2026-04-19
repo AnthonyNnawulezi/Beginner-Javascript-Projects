@@ -18,10 +18,14 @@ h1 {
   overflow: hidden;
 }
 
+.slider-container {
+  position: absolute;
+}
+
 .slider-container img {
   width: 100%;
   height: 100%;
-  display: flex;
+  display: block;
   align-items: center;
   justify-content: center;
   object-fit: cover;

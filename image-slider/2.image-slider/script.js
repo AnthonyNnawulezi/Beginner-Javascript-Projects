@@ -48,7 +48,7 @@ function initSlider(images) {
 
     dots.forEach((dot) => {
       dot.classList.remove("active");
-      dot[currentSlide]?.classList.add("active");
+      dot?.classList.add("active");
     });
   }
 
