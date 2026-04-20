@@ -11,7 +11,7 @@ async function fetchImages() {
     const images = await response.json();
     console.log(images);
 
-    if (!images || images.length === 0) {
+    if (!response.ok) {
       slider.innerHTML = '<p class="error">Error fetching Images</p>';
     } else {
       renderImages(images);
