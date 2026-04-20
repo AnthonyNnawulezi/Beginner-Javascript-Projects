@@ -1,4 +1,4 @@
-const slides = document.querySelector(".slider");
+const slider = document.querySelector(".slider");
 const dotContainer = document.querySelector(".dot-container");
 const btnPrev = document.querySelector(".btn-prev");
 const btnNext = document.querySelector(".btn-next");
@@ -12,7 +12,7 @@ async function fetchImages() {
     console.log(images);
 
     if (!images) {
-      slides.innerHTML = '<p class="error">Error fetching Images</p>';
+      slider.innerHTML = '<p class="error">Error fetching Images</p>';
     } else {
       renderImages(images);
       initSlider(images);
@@ -23,7 +23,7 @@ async function fetchImages() {
 }
 
 function renderImages(images) {
-  slides.innerHTML = images
+  slider.innerHTML = images
     .map(
       (image) => `
     <div class='slider-container'><img src=${image.download_url} alt='${image.author}'/></div>
@@ -72,7 +72,7 @@ function initSlider(images) {
   });
 
   dotContainer.addEventListener("click", (e) => {
-    index = e.target;
+    let index = Number(e.target);
     dots.forEach((dot, i) => {
       if (dot === index) {
         index = i;
