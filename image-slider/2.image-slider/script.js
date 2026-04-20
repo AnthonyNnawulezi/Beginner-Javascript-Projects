@@ -11,7 +11,7 @@ async function fetchImages() {
     const images = await response.json();
     console.log(images);
 
-    if (!images) {
+    if (!images || images.length === 0) {
       slider.innerHTML = '<p class="error">Error fetching Images</p>';
     } else {
       renderImages(images);
@@ -72,7 +72,7 @@ function initSlider(images) {
   });
 
   dotContainer.addEventListener("click", (e) => {
-    let index = Number(e.target);
+    let index = e.target;
     dots.forEach((dot, i) => {
       if (dot === index) {
         index = i;
