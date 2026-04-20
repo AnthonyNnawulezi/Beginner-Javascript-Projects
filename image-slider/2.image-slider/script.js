@@ -1,5 +1,5 @@
 const slides = document.querySelector(".slider");
-const dots = document.querySelector(".dot-container");
+const dotContainer = document.querySelector(".dot-container");
 const btnPrev = document.querySelector(".btn-prev");
 const btnNext = document.querySelector(".btn-next");
 
@@ -30,7 +30,7 @@ function renderImages(images) {
     `,
     )
     .join("");
-  dots.innerHTML = images
+  dotContainer.innerHTML = images
     .map((image, i) => `<span class="dots ${i === 0 ? "active" : ""}"></span>`)
     .join("");
 }
@@ -61,6 +61,7 @@ function initSlider(images) {
     }
     goToSlide(currentSlide);
   });
+
   btnPrev.addEventListener("click", () => {
     if (currentSlide <= 0) {
       currentSlide = slides.length - 1;
@@ -68,6 +69,16 @@ function initSlider(images) {
       currentSlide--;
     }
     goToSlide(currentSlide);
+  });
+
+  dotContainer.addEventListener("click", (e) => {
+    index = e.target;
+    dots.forEach((dot, i) => {
+      if (dot === index) {
+        index = i;
+      }
+    });
+    goToSlide(index);
   });
 }
 
