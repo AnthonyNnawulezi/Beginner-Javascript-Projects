@@ -24,10 +24,10 @@ function displayProducts(products) {
     const productDescription = document.createElement("p");
     const productPrice = document.createElement("p");
 
-    productTitle.textContent = product.title;
     productThumbnail.src = product.thumbnail;
-    productDescription.textContent = product.description;
+    productTitle.textContent = product.title;
     productPrice.textContent = `Price: $${product.price}`;
+    productDescription.textContent = product.description;
 
     productTitle.classList.add("product-title");
     productThumbnail.classList.add("product-thumbnail");
@@ -35,10 +35,10 @@ function displayProducts(products) {
     productPrice.classList.add("product-price");
     productCard.classList.add("product-card");
 
-    productCard.appendChild(productTitle);
     productCard.appendChild(productThumbnail);
-    productCard.appendChild(productDescription);
+    productCard.appendChild(productTitle);
     productCard.appendChild(productPrice);
+    productCard.appendChild(productDescription);
 
     productsContainer.appendChild(productCard);
   });
@@ -47,7 +47,7 @@ function displayProducts(products) {
 fetchProducts(currentPage);
 
 if (productsContainer.children.length === 0) {
-    loadMoreBtn.setAttribute("disabled", "true");
+  loadMoreBtn.setAttribute("disabled", "true");
 }
 
 console.log(productsContainer.children.length);
