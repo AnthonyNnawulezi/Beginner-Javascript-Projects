@@ -1,11 +1,14 @@
 const productsContainer = document.querySelector(".products-container");
 const loadMoreBtn = document.getElementById("loadMoreBtn");
+let currentPage = 0;
 
-async function fetchProducts() {
+async function fetchProducts(getCurrentPage) {
   try {
-    const response = await fetch("https://dummyjson.com/products");
+    const response = await fetch(
+      `https://dummyjson.com/products?limit=10&skip=${getCurrentPage === 0 ? 0 : getCurrentPage * 10}`,
+    );
     const data = await response.json();
-    // console.log(data);
+
     if (data && data.products) displayProducts(data.products);
   } catch (error) {
     console.error("Error fetching products:", error);
@@ -41,4 +44,14 @@ function displayProducts(products) {
   });
 }
 
-fetchProducts();
+fetchProducts(currentPage);
+
+if (productsContainer.children.length === 0) {
+    loadMoreBtn.setAttribute("disabled", "true");
+}
+
+console.log(productsContainer.children.length);
+
+loadMoreBtn.addEventListener("click", () => {
+  fetchProducts(currentPage++);
+});
