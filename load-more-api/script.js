@@ -44,11 +44,11 @@ function displayProducts(products) {
   });
 }
 
-fetchProducts(currentPage);
-
-if (productsContainer.children.length === 0) {
+if (productsContainer.children.length === 100) {
   loadMoreBtn.setAttribute("disabled", "true");
 }
+
+fetchProducts(currentPage);
 
 console.log(productsContainer.children.length);
 
