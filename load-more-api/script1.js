@@ -36,4 +36,24 @@ async function fetchProducts(page) {
     loadMoreBtn.textContent = "Load More";
     loadMoreBtn.disabled = false;
   }
+
+  function displayProducts(products) {
+    products.forEach(({ title, thumbnail, description, price }) => {
+      const productCard = document.createElement("div");
+      productCard.className = "product-card";
+      productCard.innerHTML = `
+      <img 
+        class="product-thumbnail" 
+        src="${thumbnail}" 
+        alt="${title}"
+        loading="lazy"
+      />
+      <p class="product-title">${title}</p>
+      <p class="product-description">${description}</p>
+      <p class="product-price">Price: $${price.toFixed(2)}</p>
+    `;
+    });
+
+    productsContainer.appendChild(productCard);
+  }
 }
