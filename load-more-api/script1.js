@@ -6,8 +6,7 @@ const LIMIT = 10;
 let isLoading = false;
 
 async function fetchProducts(page) {
-  if (isFetching) return;
-  isFetching = true;
+  isLoading = true;
   loadMoreBtn.textContent = "Loading...";
   loadMoreBtn.disabled = true;
 
@@ -20,6 +19,7 @@ async function fetchProducts(page) {
     if (!response.ok) throw new Error("Failed to fetch data");
 
     const data = await response.json();
+    // console.log(data);
 
     if (data?.products?.length) {
       displayProducts(data.products);
@@ -32,35 +32,32 @@ async function fetchProducts(page) {
     loadMoreBtn.textContent = "Error loading products";
     loadMoreBtn.disabled = true;
   } finally {
-    isFetching = false;
-    loadMoreBtn.textContent = "Load More";
-    loadMoreBtn.disabled = false;
+    isLoading = false;
   }
+}
 
-  function displayProducts(products) {
-    products.forEach(({ title, thumbnail, description, price }) => {
-      const productCard = document.createElement("div");
-      productCard.classList.add("product-card");
-      productCard.innerHTML = `
-      <img 
-        class="product-thumbnail" 
-        src="${thumbnail}" 
-        alt="${title}"
-        loading="lazy"
-      />
-      <p class="product-title">${title}</p>
-      <p class="product-description">${description}</p>
-      <p class="product-price">Price: $${price.toFixed(2)}</p>
-    `;
-    });
-
+function displayProducts(products) {
+  products.forEach(({ title, thumbnail, description, price }) => {
+    const productCard = document.createElement("div");
+    productCard.classList.add("product-card");
+    productCard.innerHTML = `
+    <img 
+      class="product-thumbnail" 
+      src="${thumbnail}" 
+      alt="${title}"
+      loading="lazy"
+    />
+    <p class="product-title">${title}</p>
+    <p class="product-description">${description}</p>
+    <p class="product-price">Price: $${price.toFixed(2)}</p>
+  `;
     productsContainer.appendChild(productCard);
-  }
-
-  fetchProducts(currentPage);
-
-  loadMoreBtn.addEventListener("click", () => {
-    currentPage += 1;
-    fetchProducts(currentPage);
   });
 }
+
+fetchProducts(currentPage);
+
+loadMoreBtn.addEventListener("click", () => {
+  currentPage += 1;
+  fetchProducts(currentPage);
+});
