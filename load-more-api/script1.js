@@ -7,8 +7,8 @@ let isLoading = false;
 
 async function fetchProducts(page) {
   isLoading = true;
-  loadMoreBtn.textContent = "Loading...";
-  loadMoreBtn.disabled = true;
+  loadMoreBtn.textContent = "Load More Products...";
+  loadMoreBtn.disabled = false;
 
   try {
     const skip = page * LIMIT;
