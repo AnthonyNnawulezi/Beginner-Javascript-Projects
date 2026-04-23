@@ -40,7 +40,7 @@ async function fetchProducts(page) {
   function displayProducts(products) {
     products.forEach(({ title, thumbnail, description, price }) => {
       const productCard = document.createElement("div");
-      productCard.className = "product-card";
+      productCard.classList.add("product-card");
       productCard.innerHTML = `
       <img 
         class="product-thumbnail" 
@@ -56,4 +56,11 @@ async function fetchProducts(page) {
 
     productsContainer.appendChild(productCard);
   }
+
+  fetchProducts(currentPage);
+
+  loadMoreBtn.addEventListener("click", () => {
+    currentPage += 1;
+    fetchProducts(currentPage);
+  });
 }
