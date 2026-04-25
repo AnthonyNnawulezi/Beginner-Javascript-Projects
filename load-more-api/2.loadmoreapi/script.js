@@ -1,16 +1,17 @@
-const container = document.getElementsByClassName(".container");
+const container = document.querySelector(".container");
 const loadMoreBtn = document.getElementById("loadMore");
 
 let currentPage = 0;
+const LIMIT = 10;
 const skip = currentPage * 10;
 
-async function fetchProducts() {
+async function fetchProducts(currentPage) {
   try {
     const response = await fetch(
-      `https://dummyjson.com/products?limit=${currentPage}&skip=${skip}`,
+      `https://dummyjson.com/products?limit=${LIMIT}&skip=${skip}`,
     );
 
-    if (!response) throw new Error("Error fetching products");
+    if (!response.ok) throw new Error("Error fetching products");
 
     const data = await response.json();
 
@@ -26,15 +27,17 @@ async function fetchProducts() {
 }
 
 function displayProducts(products) {
-  container.innerHTML = products.map(
-    ({ thumbnail, price, title, description }) => `
-    const productCard = document.createElement('div');
-    productCard.classList.add('.productCard');
-    <p class='thumbnail'>${thumbnail}</>
-    <p class='price'>${price}</>
+  products.forEach(({ thumbnail, price, title, description }) => {
+    const productCard = document.createElement("div");
+    productCard.classList.add("productCard");
+    productCard.innerHTML = `
+    <img src="${thumbnail}" class='thumbnail' loading='lazy' alt='${title}'/>
+    <p class='title'>${title}</p>
+    <p class='price'>${price}</p>
     <h3 class='description'>${description}</h3>
-    `,
-  );
+    `;
+    container.appendChild(productCard);
+  });
 }
 
 fetchProducts();

@@ -1,0 +1,28 @@
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+
+body {
+  padding: 30px;
+}
+
+.container {
+  background-color: red;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.productCard {
+  width: 400px;
+  height: 500px;
+  background-color: bisque;
+  border: 1px solid brown;
+  gap: 30px;
+  flex-direction: column;
+  text-overflow: ellipsis;
+  object-fit: cover;
+  overflow: hidden;
+}
