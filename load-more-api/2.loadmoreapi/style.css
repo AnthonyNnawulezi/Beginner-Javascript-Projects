@@ -6,23 +6,36 @@
 
 body {
   padding: 30px;
+  line-height: 1.4;
 }
 
 .container {
   background-color: red;
   display: flex;
-  align-items: center;
-  justify-content: center;
+  flex-wrap: wrap;
+  gap: 30px;
+  padding: 10px;
 }
 
 .productCard {
   width: 400px;
   height: 500px;
   background-color: bisque;
-  border: 1px solid brown;
-  gap: 30px;
-  flex-direction: column;
-  text-overflow: ellipsis;
+  border: 1px solid green;
+  padding: 15px;
+  flex: 0 1 400px;
+}
+
+.productCard img {
   object-fit: cover;
-  overflow: hidden;
+}
+
+#loadMore {
+  padding: 20px;
+  margin: 20px auto;
+  background-color: blue;
+  display: block;
+  font-size: 22px;
+  font-weight: bold;
+  border-radius: 18px;
 }

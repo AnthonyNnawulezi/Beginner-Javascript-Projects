@@ -41,3 +41,8 @@ function displayProducts(products) {
 }
 
 fetchProducts();
+
+loadMoreBtn.addEventListener("click", () => {
+  currentPage += 1;
+  fetchProducts(currentPage);
+});
