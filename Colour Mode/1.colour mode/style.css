@@ -24,6 +24,16 @@ body.dark-mode {
   gap: 25px;
 }
 
+:root {
+  --bg-color: #000;
+  --text-color: #fff;
+}
+
+[data-theme="dark"] {
+  --bg-color: #f0f0f0;
+  --text-color: #333;
+}
+
 h1 {
   font-size: 2.5rem;
 }
