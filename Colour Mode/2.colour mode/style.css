@@ -15,6 +15,32 @@ body {
   justify-content: center;
 }
 
+[data-theme="dark"] {
+  --bg-color: #000;
+  --bg-button: #fff;
+  --bg-text: #000;
+}
+[data-theme="light"] {
+  --bg-color: #fff;
+  --bg-button: #000;
+  --bg-text: #fff;
+}
+[data-theme="blue"] {
+  --bg-color: rgb(11, 11, 110);
+  --bg-button: rgb(103, 73, 40);
+  --bg-text: #000;
+}
+[data-theme="brown"] {
+  --bg-color: rgb(103, 73, 40);
+  --bg-button: #fff;
+  --bg-text: #000;
+}
+[data-theme="grey"] {
+  --bg-color: rgba(128, 128, 128, 0.615);
+  --bg-button: #fff;
+  --bg-text: #000;
+}
+
 .container {
   padding: 15px;
   background-color: aqua;
