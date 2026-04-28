@@ -16,5 +16,10 @@ const body = document.body;
 // });
 
 toggleButton.addEventListener("click", () => {
-  body.setAttribute("data-theme", "dark");
+  if (body.getAttribute("data-theme") === "dark") {
+    body.setAttribute("data-theme", "blue");
+  } else {
+    body.setAttribute("data-theme", "dark");
+  }
+  //   body.setAttribute("data-theme", "dark");
 });

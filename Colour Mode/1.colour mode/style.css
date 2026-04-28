@@ -15,6 +15,31 @@ body.dark-mode {
   background-color: #333;
   color: #f0e3e3;
 } */
+
+:root {
+  --bg-color: #000;
+  --text-color: #fff;
+  --btn-bg-color: rgb(67, 67, 27);
+  --btn-text-color: black;
+}
+
+[data-theme="dark"] {
+  --bg-color: #f0f0f0;
+  --text-color: #333;
+  --btn-bg-color: black;
+  --btn-text-color: rgb(67, 67, 27);
+}
+[data-theme="blue"] {
+  --bg-color: blue;
+  --text-color: red;
+  --btn-bg-color: rgb(81, 173, 92);
+  --btn-text-color: rgb(99, 105, 185);
+}
+
+body {
+  background-color: var(--bg-color);
+  color: var(--text-color);
+}
 .container {
   height: 100vh;
   display: flex;
@@ -24,21 +49,11 @@ body.dark-mode {
   gap: 25px;
 }
 
-:root {
-  --bg-color: #000;
-  --text-color: #fff;
-}
-
-[data-theme="dark"] {
-  --bg-color: #f0f0f0;
-  --text-color: #333;
-}
-
 h1 {
   font-size: 2.5rem;
 }
 
-button.light {
+/* button.light {
   padding: 10px 20px;
   font-size: 1rem;
   border: none;
@@ -57,7 +72,19 @@ button.dark {
   background-color: #f0e3e3;
   color: #333;
   transition: background-color 0.3s ease;
+} */
+
+button {
+  padding: 10px 20px;
+  font-size: 1rem;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  background-color: var(--btn-bg-color);
+  color: var(--btn-text-color);
+  transition: background-color 0.3s ease;
 }
+
 button:hover {
   background-color: #555;
 }
