@@ -1,0 +1,38 @@
+*::before,
+*::before {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  padding: 25px;
+  font-family: "Courier New", Courier, monospace;
+  width: 100vw;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.container {
+  padding: 15px;
+  background-color: aqua;
+  width: 40%;
+  height: 500px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+}
+
+h1 {
+  font-size: bold;
+  font-weight: 20px;
+}
+
+button {
+  padding: 15px;
+  font-size: 15px;
+  font-weight: bold;
+}
