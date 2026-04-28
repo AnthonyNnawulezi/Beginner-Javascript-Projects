@@ -16,13 +16,16 @@ const body = document.body;
 // }); this is old code not supported for scaling, now we will use data attributes to toggle themes
 
 const themes = ["dark", "blue", "green", "purple"];
-let currentThemeIndex = 0;
+let currentTheme = localStorage.getItem("theme") || themes[0];
 
-// Initialize default theme
-body.setAttribute("data-theme", themes[currentThemeIndex]);
+body.setAttribute("data-theme", currentTheme);
 
 toggleButton.addEventListener("click", () => {
-  currentThemeIndex = (currentThemeIndex + 1) % themes.length;
+  const currentIndex = themes.indexOf(currentTheme);
 
-  body.setAttribute("data-theme", themes[currentThemeIndex]);
+  currentTheme = themes[(currentIndex + 1) % themes.length];
+
+  body.setAttribute("data-theme", currentTheme);
+
+  localStorage.setItem("theme", currentTheme);
 });
