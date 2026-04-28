@@ -22,19 +22,36 @@ body.dark-mode {
   --text-color: #fff;
   --btn-bg-color: rgb(67, 67, 27);
   --btn-text-color: black;
+  --btn-hover-bg: #555;
 }
 
 [data-theme="dark"] {
-  --bg-color: #f0f0f0;
-  --text-color: #333;
-  --btn-bg-color: black;
-  --btn-text-color: rgb(67, 67, 27);
+  --bg-color: #111;
+  --text-color: #fff;
+  --btn-bg-color: #fff;
+  --btn-text-color: #111;
+  --btn-hover-bg: #ddd;
 }
 [data-theme="blue"] {
   --bg-color: blue;
-  --text-color: red;
+  --text-color: white;
   --btn-bg-color: rgb(81, 173, 92);
-  --btn-text-color: rgb(99, 105, 185);
+  --btn-text-color: white;
+  --btn-hover-bg: rgb(61, 153, 72);
+}
+[data-theme="green"] {
+  --bg-color: green;
+  --text-color: white;
+  --btn-bg-color: rgb(81, 173, 92);
+  --btn-text-color: white;
+  --btn-hover-bg: rgb(61, 153, 72);
+}
+[data-theme="purple"] {
+  --bg-color: purple;
+  --text-color: white;
+  --btn-bg-color: rgb(81, 173, 92);
+  --btn-text-color: white;
+  --btn-hover-bg: rgb(61, 153, 72);
 }
 
 body {
@@ -87,5 +104,5 @@ button {
 }
 
 button:hover {
-  background-color: #555;
+  background-color: var(--btn-hover-bg);
 }

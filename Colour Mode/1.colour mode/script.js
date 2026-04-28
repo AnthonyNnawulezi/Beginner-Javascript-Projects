@@ -15,7 +15,7 @@ const body = document.body;
 //   }
 // }); this is old code not supported for scaling, now we will use data attributes to toggle themes
 
-const themes = ["dark", "blue"];
+const themes = ["dark", "blue", "green", "purple"];
 let currentThemeIndex = 0;
 
 // Initialize default theme
