@@ -21,5 +21,4 @@ toggleButton.addEventListener("click", () => {
   } else {
     body.setAttribute("data-theme", "dark");
   }
-  //   body.setAttribute("data-theme", "dark");
 });
