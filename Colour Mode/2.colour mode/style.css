@@ -1,5 +1,6 @@
+*,
 *::before,
-*::before {
+*::after {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
@@ -13,17 +14,19 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
+  background-color: var(--bg-color);
+  color: var(--bg-text);
 }
 
 [data-theme="dark"] {
   --bg-color: #000;
   --bg-button: #fff;
-  --bg-text: #000;
+  --bg-text: #c4adad;
 }
 [data-theme="light"] {
   --bg-color: #fff;
   --bg-button: #000;
-  --bg-text: #fff;
+  --bg-text: rgb(116, 81, 57);
 }
 [data-theme="blue"] {
   --bg-color: rgb(11, 11, 110);
@@ -43,7 +46,6 @@ body {
 
 .container {
   padding: 15px;
-  background-color: aqua;
   width: 40%;
   height: 500px;
   display: flex;
@@ -53,12 +55,15 @@ body {
 }
 
 h1 {
-  font-size: bold;
-  font-weight: 20px;
+  font-size: 20px;
+  font-weight: bold;
 }
 
 button {
   padding: 15px;
   font-size: 15px;
   font-weight: bold;
+  background-color: var(--bg-button);
+  color: var(--bg-text);
+  cursor: pointer;
 }
