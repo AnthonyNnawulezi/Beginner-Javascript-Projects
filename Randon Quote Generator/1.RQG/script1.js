@@ -37,3 +37,10 @@ function showQuote(quote) {
     </div>
   `;
 }
+
+async function generateQuote() {
+  try {
+    toggleLoader(true);
+    wrapper.innerHTML = "";
+  } catch (error) {}
+}
