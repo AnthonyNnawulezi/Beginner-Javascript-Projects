@@ -2,11 +2,6 @@ const wrapper = document.querySelector(".wrapper");
 const button = document.querySelector(".refresh-button");
 const loader = document.querySelector(".loader");
 
-if (!wrapper || !button || !loader) {
-  console.error("Required DOM elements are missing. Check your HTML.");
-  return;
-}
-
 function toggleLoader(show) {
   loader.classList.toggle("hidden", !show);
   wrapper.classList.toggle("hidden", show);
@@ -43,7 +38,7 @@ async function generateQuote() {
     toggleLoader(true);
     wrapper.innerHTML = "";
 
-    const response = await fetch("http://api.quotable.io/quotes/random");
+    const response = await fetch("https://api.quotable.io/quotes/random");
 
     if (!response.ok) {
       throw new Error(`API error: ${response.status} ${response.statusText}`);
@@ -51,9 +46,28 @@ async function generateQuote() {
 
     const result = await response.json();
 
-    // 16. Guard against empty or malformed array responses
     if (!Array.isArray(result) || result.length === 0) {
       throw new Error("API returned an empty result.");
     }
-  } catch (error) {}
+    showQuote(result[0]);
+  } catch (error) {
+    wrapper.innerHTML = `
+      <p class="error">An error occurred while fetching the quote.</p>
+    `;
+    console.error(error);
+  } finally {
+    toggleLoader(false);
+  }
 }
+
+function init() {
+  if (!wrapper || !button || !loader) {
+    console.error("Required DOM elements are missing. Check your HTML.");
+    return;
+  }
+
+  button.addEventListener("click", generateQuote);
+  generateQuote();
+}
+
+init();
