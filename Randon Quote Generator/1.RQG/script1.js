@@ -42,5 +42,18 @@ async function generateQuote() {
   try {
     toggleLoader(true);
     wrapper.innerHTML = "";
+
+    const response = await fetch("http://api.quotable.io/quotes/random");
+
+    if (!response.ok) {
+      throw new Error(`API error: ${response.status} ${response.statusText}`);
+    }
+
+    const result = await response.json();
+
+    // 16. Guard against empty or malformed array responses
+    if (!Array.isArray(result) || result.length === 0) {
+      throw new Error("API returned an empty result.");
+    }
   } catch (error) {}
 }
