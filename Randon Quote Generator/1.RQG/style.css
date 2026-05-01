@@ -51,10 +51,11 @@
   color: #555;
 }
 
-.loader.show {
+/* not needed as we are using toggleLoader function to show and hide the loader and wrapper for script1.js */
+/* .loader.show {
   display: block;
 }
 
 .wrapper.hide {
   display: none;
-}
+} */

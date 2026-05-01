@@ -38,7 +38,7 @@ async function generateQuote() {
     toggleLoader(true);
     wrapper.innerHTML = "";
 
-    const response = await fetch("https://api.quotable.io/quotes/random");
+    const response = await fetch("https://dummyjson.com/quotes");
 
     if (!response.ok) {
       throw new Error(`API error: ${response.status} ${response.statusText}`);
@@ -49,7 +49,12 @@ async function generateQuote() {
     if (!Array.isArray(result) || result.length === 0) {
       throw new Error("API returned an empty result.");
     }
-    showQuote(result[0]);
+
+    showQuote({
+      author: result.author,
+      content: result.quote,
+      tags: ["quote"],
+    });
   } catch (error) {
     wrapper.innerHTML = `
       <p class="error">An error occurred while fetching the quote.</p>
