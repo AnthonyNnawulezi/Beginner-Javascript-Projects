@@ -17,4 +17,8 @@ container.addEventListener("click", (event) => {
 
   const targetContent = document.getElementById(currentTabId);
   if (!targetContent) return;
+
+  [...tabs, ...contents].forEach((el) => el.classList.remove("active"));
+  clickedTab.classList.add("active");
+  targetContent.classList.add("active");
 });
