@@ -6,6 +6,8 @@ const restartButton = document.querySelector(".restart-button");
 const players = ["X", "O"];
 let currentPlayer = players[0];
 
+message.textContent = `Player ${currentPlayer}'s turn`;
+
 const winningCombinations = [
   [0, 1, 2],
   [3, 4, 5],
@@ -19,22 +21,27 @@ const winningCombinations = [
 
 for (let i = 0; i < squares.length; i++) {
   squares[i].addEventListener("click", function () {
-    if (squares[i].textContent !== "") {
+    if (squares[i].textContent !== "" || checkWin(currentPlayer)) {
       return;
     }
-    squares[i].textContent = currentPlayer;
-    currentPlayer = currentPlayer === players[0] ? players[1] : players[0];
-    message.textContent = `Player ${currentPlayer}'s turn`;
 
-    if (checkWin()) {
-      message.textContent = `Player ${currentPlayer === players[0] ? players[1] : players[0]} wins!`;
+    squares[i].textContent = currentPlayer;
+
+    if (checkWin(currentPlayer)) {
+      message.textContent = `Game Over. Player ${currentPlayer} wins! Please restart`;
+      return;
     } else if (checkDraw()) {
       message.textContent = "It's a draw!";
+      return;
     }
+
+    currentPlayer = currentPlayer === players[0] ? players[1] : players[0];
+
+    message.textContent = `Player ${currentPlayer}'s turn`;
   });
 }
 
-function checkWin() {
+function checkWin(currentPlayer) {
   for (let i = 0; i < winningCombinations.length; i++) {
     const [a, b, c] = winningCombinations[i];
     if (
@@ -44,11 +51,11 @@ function checkWin() {
     ) {
       return true;
     }
-    return false;
   }
   //   if (Array.from(squares).every((square) => square.textContent !== "")) {
   //     message.textContent = "It's a draw!";
   //   }
+  return false;
 }
 function checkDraw() {
   // if (Array.from(squares).every((square) => square.textContent !== "")) {
