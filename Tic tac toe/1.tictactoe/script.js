@@ -1,7 +1,6 @@
 const board = document.querySelector(".board");
 const squares = document.querySelectorAll(".square");
 const message = document.querySelector(".message");
-const resetButton = document.querySelector(".reset-button");
 const restartButton = document.querySelector(".restart-button");
 const players = ["X", "O"];
 let currentPlayer = players[0];
