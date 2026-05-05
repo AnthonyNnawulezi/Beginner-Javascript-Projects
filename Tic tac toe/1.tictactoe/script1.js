@@ -29,3 +29,7 @@ function checkDraw() {
   return [...squares].every((square) => square.textContent !== "");
   return Array.from(squares).every((square) => square.textContent !== "");
 }
+
+function setMessage(text) {
+  message.textContent = text;
+}
