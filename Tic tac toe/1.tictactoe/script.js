@@ -56,11 +56,6 @@ function checkWin(currentPlayer) {
   return false;
 }
 function checkDraw() {
-  // if (Array.from(squares).every((square) => square.textContent !== "")) {
-  //   message.textContent = "It's a draw!";
-  // }
-
-  //or
   for (let i = 0; i < squares.length; i++) {
     if (squares[i].textContent === "") {
       return false;
