@@ -33,3 +33,29 @@ function checkDraw() {
 function setMessage(text) {
   message.textContent = text;
 }
+
+// — Core click handler —
+squares.forEach((square) => {
+  square.addEventListener("click", () => {
+    if (gameOver || square.textContent !== "") return; // explicit flag, no accidental guard
+
+    square.textContent = currentPlayer;
+
+    if (checkWin(currentPlayer)) {
+      setMessage(
+        `Game over — Player ${currentPlayer} wins! Restart to play again.`,
+      );
+      gameOver = true; // set the flag so further clicks are blocked cleanly
+      return;
+    }
+
+    if (checkDraw()) {
+      setMessage("It's a draw!");
+      gameOver = true;
+      return;
+    }
+
+    currentPlayer = currentPlayer === "X" ? "O" : "X"; // toggle between two known values
+    setMessage(`Player ${currentPlayer}'s turn`);
+  });
+});
