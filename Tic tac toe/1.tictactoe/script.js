@@ -39,13 +39,13 @@ for (let i = 0; i < squares.length; i++) {
   });
 }
 
-function checkWin(currentPlayer) {
+function checkWin(player) {
   for (let i = 0; i < winningCombinations.length; i++) {
     const [a, b, c] = winningCombinations[i];
     if (
-      squares[a].textContent === currentPlayer &&
-      squares[b].textContent === currentPlayer &&
-      squares[c].textContent === currentPlayer
+      squares[a].textContent === player &&
+      squares[b].textContent === player &&
+      squares[c].textContent === player
     ) {
       return true;
     }
