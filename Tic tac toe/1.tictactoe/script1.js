@@ -24,3 +24,8 @@ function checkWin(player) {
       squares[c].textContent === player,
   );
 }
+
+function checkDraw() {
+  return [...squares].every((square) => square.textContent !== "");
+  return Array.from(squares).every((square) => square.textContent !== "");
+}
