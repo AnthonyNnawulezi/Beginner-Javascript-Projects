@@ -50,9 +50,6 @@ function checkWin(currentPlayer) {
       return true;
     }
   }
-  //   if (Array.from(squares).every((square) => square.textContent !== "")) {
-  //     message.textContent = "It's a draw!";
-  //   }
   return false;
 }
 function checkDraw() {

@@ -45,7 +45,7 @@ squares.forEach((square) => {
       setMessage(
         `Game over — Player ${currentPlayer} wins! Restart to play again.`,
       );
-      gameOver = true; // set the flag so further clicks are blocked cleanly
+      gameOver = true; //to prevent further clicks
       return;
     }
 
@@ -59,3 +59,12 @@ squares.forEach((square) => {
     setMessage(`Player ${currentPlayer}'s turn`);
   });
 });
+
+function restartGame() {
+  squares.forEach((square) => {
+    square.textContent = "";
+  });
+  currentPlayer = "X";
+  gameOver = false;
+  setMessage(`Player ${currentPlayer}'s turn`);
+}
