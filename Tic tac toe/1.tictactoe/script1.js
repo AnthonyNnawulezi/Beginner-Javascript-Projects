@@ -26,7 +26,7 @@ function checkWin(player) {
 }
 
 function checkDraw() {
-  return [...squares].every((square) => square.textContent !== "");
+  //   return [...squares].every((square) => square.textContent !== "");
   return Array.from(squares).every((square) => square.textContent !== "");
 }
 
@@ -37,7 +37,7 @@ function setMessage(text) {
 // — Core click handler —
 squares.forEach((square) => {
   square.addEventListener("click", () => {
-    if (gameOver || square.textContent !== "") return; // explicit flag, no accidental guard
+    if (gameOver || square.textContent !== "") return;
 
     square.textContent = currentPlayer;
 
@@ -55,7 +55,7 @@ squares.forEach((square) => {
       return;
     }
 
-    currentPlayer = currentPlayer === "X" ? "O" : "X"; // toggle between two known values
+    currentPlayer = currentPlayer === "X" ? "O" : "X";
     setMessage(`Player ${currentPlayer}'s turn`);
   });
 });
@@ -68,3 +68,6 @@ function restartGame() {
   gameOver = false;
   setMessage(`Player ${currentPlayer}'s turn`);
 }
+
+restartButton.addEventListener("click", restartGame);
+restartGame();
