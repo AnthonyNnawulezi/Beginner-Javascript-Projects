@@ -32,7 +32,7 @@ function setMessage(text) {
 }
 
 function isDraw() {
-  [...squares].every((square) => square.textContent !== "");
+  return [...squares].every((square) => square.textContent !== "");
 }
 
 board.addEventListener("click", (e) => {
@@ -53,3 +53,14 @@ board.addEventListener("click", (e) => {
   }
   player = player === "X" ? "O" : "X";
 });
+
+function restartGame() {
+  squares.forEach((square) => {
+    square.textContent = "";
+    setMessage("");
+    gameOver = false;
+  });
+}
+restartGame();
+
+restartButton.addEventListener("click", restartGame);
