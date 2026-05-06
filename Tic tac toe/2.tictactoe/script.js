@@ -18,13 +18,12 @@ const winningCombinations = [
 ];
 
 function isWinner(currentPlayer) {
-  return winningCombinations.some(([a, b, c]) => {
-    return (
+  return winningCombinations.some(
+    ([a, b, c]) =>
       squares[a].textContent === currentPlayer &&
       squares[b].textContent === currentPlayer &&
-      squares[c].textContent === currentPlayer
-    );
-  });
+      squares[c].textContent === currentPlayer,
+  );
 }
 
 function setMessage(text) {
@@ -52,15 +51,17 @@ board.addEventListener("click", (e) => {
     return;
   }
   player = player === "X" ? "O" : "X";
+  setMessage(`Player ${player}'s turn`);
 });
 
 function restartGame() {
   squares.forEach((square) => {
     square.textContent = "";
-    setMessage("");
-    gameOver = false;
   });
+  player = "X";
+  gameOver = false;
+  setMessage("Player X's turn");
 }
-restartGame();
+// restartGame();
 
 restartButton.addEventListener("click", restartGame);
