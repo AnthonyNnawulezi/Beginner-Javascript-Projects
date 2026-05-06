@@ -1,0 +1,56 @@
+*,
+*::after,
+*::before {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+
+body {
+  background-color: rgb(148, 122, 84);
+  text-align: center;
+  font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS", sans-serif;
+}
+
+.container {
+  width: 100vw;
+  height: 100vh;
+}
+
+.board {
+  width: 450px;
+  height: 450px;
+  margin: 10px auto;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+  background-color: rgb(237, 224, 204);
+  border-radius: 9px;
+  padding: 8px;
+}
+
+.square {
+  width: 135px;
+  height: 135px;
+  border: 1px solid navy;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 9px;
+  margin: 2px auto;
+}
+
+.message {
+  font-size: 22px;
+  margin-bottom: 10px;
+  font-weight: bolder;
+}
+
+.restart-button {
+  padding: 12px 16px;
+  border-radius: 9px;
+  font-size: 19px;
+  margin-bottom: 10px;
+  font-weight: bolder;
+  border: none;
+}
