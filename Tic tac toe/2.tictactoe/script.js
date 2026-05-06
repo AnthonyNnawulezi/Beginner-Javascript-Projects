@@ -62,6 +62,6 @@ function restartGame() {
   gameOver = false;
   setMessage("Player X's turn");
 }
-// restartGame();
+restartGame();
 
 restartButton.addEventListener("click", restartGame);
