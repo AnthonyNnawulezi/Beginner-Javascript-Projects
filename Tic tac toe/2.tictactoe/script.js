@@ -32,7 +32,7 @@ function setMessage(text) {
 }
 
 function isDraw() {
-  if (squares.textContent !== "") return;
+  [...squares].every((square) => square.textContent !== "");
 }
 
 board.addEventListener("click", (e) => {
