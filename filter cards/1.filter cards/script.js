@@ -1,5 +1,6 @@
 const categories = ["All", "Men", "Women", "Kids"];
-const content = [
+const contentWrapper = document.querySelector(".content");
+const contents = [
   {
     id: "Men",
     label: "Men Shirt 1",
@@ -74,4 +75,14 @@ function createCategory() {
   });
 }
 
+function createContent() {
+  contents.forEach((content) => {
+    const item = document.createElement("div");
+    item.classList.add("card", content.id);
+    item.textContent = content.label;
+    contentWrapper.appendChild(item);
+  });
+}
+
 createCategory();
+createContent();
