@@ -87,23 +87,23 @@ function createContent() {
 createCategory();
 createContent();
 
-const allFilter = document.querySelectorAll(".filter-button");
-const allCards = document.querySelectorAll(".filter-button");
+const FilterButtons = document.querySelectorAll(".filter-button");
+const allCards = document.querySelectorAll(".card");
 
 function filterByCategory(currentCategory, allCards) {
   allCards.forEach((card) => {
     const showCards = currentCategory.toLowerCase() === "all";
-    const itemsFiltered = !item.classList.containes(currentCategory);
+    const itemsFiltered = !card.classList.contains(currentCategory);
 
     if (itemsFiltered && !showCards) {
-      item.classList.add("hide");
+      card.classList.add("hide");
     } else {
-      item.classList.remove("hide");
+      card.classList.remove("hide");
     }
   });
 }
 
-allFilter.forEach((button) => {
+FilterButtons.forEach((button) => {
   button.addEventListener("click", () => {
     const currentCategory = button.dataset.filter;
 
