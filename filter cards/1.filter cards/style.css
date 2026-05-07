@@ -41,3 +41,7 @@ body {
   background-color: rgb(0, 251, 255);
   font-size: 30px;
 }
+
+.active {
+  background-color: burlywood;
+}

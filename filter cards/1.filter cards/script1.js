@@ -40,3 +40,46 @@ function renderCategories() {
     buttonContainer.appendChild(button);
   });
 }
+
+function renderProducts() {
+  PRODUCTS.forEach((product) => {
+    const productCard = document.createElement("div");
+    productCard.classList.add("card");
+    productCard.dataset.category = product.category.toLowerCase();
+    productCard.textContent = product.label;
+    contentContainer.appendChild(productCard);
+  });
+}
+
+function filterProducts(selectedCategory) {
+  const productCards = document.querySelectorAll(".card");
+  const category = card.dataset.category;
+  const isMatch = category === selectedCategory;
+  const showAll = selectedCategory === "all";
+
+  productCards.forEach((card) => {
+    if (isMatch && showAll) {
+      card.classList.remove("hide");
+    } else {
+      card.classList.add("hide");
+    }
+  });
+}
+
+function activateFilter() {
+  const filterButtons = document.querySelectorAll(".filter-button");
+
+  filterButtons.forEach((button) => {
+    button.addEventListener("click", () => {
+      const selectedCategory = button.dataset.category;
+
+      filterButtons.forEach((btn) => btn.classList.remove("active"));
+      button.classList.add("active");
+
+      filterProducts(selectedCategory);
+    });
+  });
+}
+
+renderCategories();
+renderProducts();
