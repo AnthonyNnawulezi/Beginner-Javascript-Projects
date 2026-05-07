@@ -30,3 +30,13 @@ const contentContainer = document.querySelector(".content");
 if (!buttonContainer || !contentContainer) {
   throw new Error("Missing DOM Elements not found.");
 }
+
+function renderCategories() {
+  CATEGORIES.forEach((category) => {
+    const button = document.createElement("button");
+    button.classList.add("filter-button");
+    button.dataset.category = category.toLowerCase();
+    button.textContent = category;
+    buttonContainer.appendChild(button);
+  });
+}
