@@ -90,7 +90,7 @@ createContent();
 const filterButtons = document.querySelectorAll(".filter-button");
 const allCards = document.querySelectorAll(".card");
 
-function filterByCategory(currentCategory, allCards) {
+function filterByCategory(currentCategory) {
   allCards.forEach((card) => {
     const showCards = currentCategory.toLowerCase() === "all";
     const itemsFiltered = !card.classList.contains(currentCategory);
@@ -109,6 +109,6 @@ filterButtons.forEach((button) => {
 
     console.log(currentCategory);
 
-    filterByCategory(currentCategory, allCards);
+    filterByCategory(currentCategory);
   });
 });
