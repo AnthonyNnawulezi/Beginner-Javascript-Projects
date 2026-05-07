@@ -90,9 +90,25 @@ createContent();
 const allFilter = document.querySelectorAll(".filter-button");
 const allCards = document.querySelectorAll(".filter-button");
 
+function filterByCategory(currentCategory, allCards) {
+  allCards.forEach((card) => {
+    const showCards = currentCategory.toLowerCase() === "all";
+    const itemsFiltered = !item.classList.containes(currentCategory);
+
+    if (itemsFiltered && !showCards) {
+      item.classList.add("hide");
+    } else {
+      item.classList.remove("hide");
+    }
+  });
+}
+
 allFilter.forEach((button) => {
   button.addEventListener("click", () => {
     const currentCategory = button.dataset.filter;
+
     console.log(currentCategory);
+
+    filterByCategory(currentCategory, allCards);
   });
 });
