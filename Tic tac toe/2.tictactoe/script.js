@@ -35,6 +35,7 @@ function isDraw() {
 }
 
 board.addEventListener("click", (e) => {
+  if (!e.target.classList.contains("square")) return;
   if (gameOver || e.target.textContent !== "") return;
 
   e.target.textContent = player;
