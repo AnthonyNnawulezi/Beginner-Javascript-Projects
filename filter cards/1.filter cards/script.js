@@ -63,7 +63,7 @@ const contents = [
   },
 ];
 
-const container = document.querySelector(".container");
+const buttonContainer = document.querySelector(".button-container");
 
 function createCategory() {
   categories.forEach((category) => {
@@ -71,7 +71,7 @@ function createCategory() {
     button.innerText = category;
     button.classList.add("filter-button");
     button.setAttribute("data-filter", category);
-    container.appendChild(button);
+    buttonContainer.appendChild(button);
   });
 }
 
