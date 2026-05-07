@@ -87,7 +87,7 @@ function createContent() {
 createCategory();
 createContent();
 
-const FilterButtons = document.querySelectorAll(".filter-button");
+const filterButtons = document.querySelectorAll(".filter-button");
 const allCards = document.querySelectorAll(".card");
 
 function filterByCategory(currentCategory, allCards) {
@@ -103,7 +103,7 @@ function filterByCategory(currentCategory, allCards) {
   });
 }
 
-FilterButtons.forEach((button) => {
+filterButtons.forEach((button) => {
   button.addEventListener("click", () => {
     const currentCategory = button.dataset.filter;
 
