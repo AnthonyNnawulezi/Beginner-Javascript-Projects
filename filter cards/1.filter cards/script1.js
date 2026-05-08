@@ -59,11 +59,13 @@ function filterProducts(selectedCategory) {
     const category = card.dataset.category;
     const isMatch = category === selectedCategory;
 
-    if (isMatch || showAll) {
-      card.classList.remove("hide");
-    } else {
-      card.classList.add("hide");
-    }
+    // if (isMatch || showAll) {
+    //   card.classList.remove("hide");
+    // } else {
+    //   card.classList.add("hide");
+    // }
+
+    card.classList.toggle("hide", !showAll && !isMatch);
   });
 }
 
