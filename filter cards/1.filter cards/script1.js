@@ -53,12 +53,13 @@ function renderProducts() {
 
 function filterProducts(selectedCategory) {
   const productCards = document.querySelectorAll(".card");
-  const category = card.dataset.category;
-  const isMatch = category === selectedCategory;
   const showAll = selectedCategory === "all";
 
   productCards.forEach((card) => {
-    if (isMatch && showAll) {
+    const category = card.dataset.category;
+    const isMatch = category === selectedCategory;
+
+    if (isMatch || showAll) {
       card.classList.remove("hide");
     } else {
       card.classList.add("hide");
@@ -83,3 +84,4 @@ function activateFilter() {
 
 renderCategories();
 renderProducts();
+activateFilter();
