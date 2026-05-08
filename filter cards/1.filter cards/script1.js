@@ -82,6 +82,10 @@ function activateFilter() {
   });
 }
 
-renderCategories();
-renderProducts();
-activateFilter();
+function init() {
+  renderCategories();
+  renderProducts();
+  activateFilter();
+}
+
+init();
