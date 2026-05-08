@@ -1,0 +1,11 @@
+.category {
+  padding: 15px;
+}
+
+.hide {
+  display: none;
+}
+
+.active {
+  background-color: red;
+}
