@@ -13,6 +13,7 @@ function validateInput() {
   if (qrInput.value.trim().length > 0) {
     generateCode();
   } else {
+    qrContainer.innerHTML = "";
     errorMessage.textContent = "Type in text or URL to generate code";
   }
 }
