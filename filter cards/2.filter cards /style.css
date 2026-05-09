@@ -1,5 +1,50 @@
+*,
+*::after,
+*::before {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  text-align: center;
+}
+
+h1 {
+  font-size: 32px;
+  font-weight: bolder;
+  margin: 15px 0;
+}
+
+.button-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  margin: 15px 0;
+}
+
 .category {
-  padding: 15px;
+  padding: 10px;
+  font-size: 22px;
+  font-weight: bolder;
+}
+
+.products-container {
+  font-size: 32px;
+  font-weight: bolder;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.product {
+  width: 32%;
+  height: 150px;
+  background-color: rgb(226, 206, 175);
+  border: 2px solid rgb(222, 201, 168);
+  border-radius: 8px;
+  margin: 0 auto;
 }
 
 .hide {
@@ -7,5 +52,5 @@
 }
 
 .active {
-  background-color: red;
+  background-color: rgb(219, 191, 148);
 }
