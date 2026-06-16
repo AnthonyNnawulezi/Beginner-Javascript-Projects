@@ -1,14 +1,11 @@
+const rippleButtons = document.querySelectorAll(".ripple-effect");
+
+rippleButtons;
+
 const getButtons = document.querySelectorAll(".ripple-effect");
 
 getButtons.forEach((btn) => {
   btn.addEventListener("click", (event) => {
-    console.log(
-      event.clientX,
-      event.clientY,
-      event.target.offsetLeft,
-      event.target.offsetTop,
-    );
-
     const rect = btn.getBoundingClientRect();
     let xCoordinate = event.clientX - rect.left;
     let yCoordinate = event.clientY - rect.top;
