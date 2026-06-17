@@ -1,5 +1,5 @@
 *,
-*::after,
+*:after,
 *::before {
   margin: 0;
   padding: 0;
@@ -7,29 +7,33 @@
 }
 
 body {
-  background: #a48361;
-  height: 100vh;
   display: flex;
-  align-items: center;
   justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background-color: #c19a6b;
 }
 
 .ripple-effect {
-  padding: 10px 12px;
-  font-size: 22px;
-  font-weight: bold;
-  border-radius: 12px;
-  margin: 10px;
-  background: linear-gradient(90deg, rgb(245, 222, 179), blue);
-  border: none;
   position: relative;
+  padding: 15px 35px;
+  display: inline-block;
+  margin: 10px;
+  font-size: 20px;
+  letter-spacing: 3px;
+  border-radius: 40px;
+  cursor: pointer;
+  overflow: hidden;
+  background: linear-gradient(90deg, rgb(210, 185, 18, 0.813), blue);
+  color: #fff;
+  font-weight: bold;
 }
 
 .ripple-effect.secondary {
   background: linear-gradient(
     90deg,
-    rgba(196, 245, 179, 0.534),
-    rgba(255, 0, 183, 0.831)
+    rgb(210, 185, 18, 0.813),
+    rgb(0, 255, 110)
   );
 }
 
