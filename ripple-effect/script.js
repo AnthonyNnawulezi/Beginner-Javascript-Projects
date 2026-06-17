@@ -8,7 +8,11 @@ function createRippleEffect(e) {
 
   const rect = button.getBoundingClientRect();
   const x = e.clientX - rect.left;
-  const Y = e.clientY - rect.top;
+  const y = e.clientY - rect.top;
 
-  document.createElement("span");
+  const rippleEffect = document.createElement("span");
+  rippleEffect.style.left = `${x}px`;
+  rippleEffect.style.top = `${y}px`;
+
+  button.appendChild(rippleEffect);
 }

@@ -22,6 +22,7 @@ body {
   margin: 10px;
   background: linear-gradient(90deg, rgb(245, 222, 179), blue);
   border: none;
+  position: relative;
 }
 
 .ripple-effect.secondary {
@@ -30,4 +31,26 @@ body {
     rgba(196, 245, 179, 0.534),
     rgba(255, 0, 183, 0.831)
   );
+}
+
+.ripple-effect span {
+  position: absolute;
+  background: rgba(232, 216, 192, 0.6);
+  transform: translate(-50%, -50%);
+  pointer-events: none;
+  border-radius: 50%;
+  animation: rippleEffect 1s linear forwards;
+}
+
+@keyframes rippleEffect {
+  0% {
+    width: 0;
+    height: 0;
+    opacity: 0.6;
+  }
+  100% {
+    width: 400px;
+    height: 400px;
+    opacity: 0;
+  }
 }
