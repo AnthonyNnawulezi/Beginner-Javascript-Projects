@@ -7,8 +7,27 @@
 }
 
 body {
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
+  background: #a48361;
   height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.ripple-effect {
+  padding: 10px 12px;
+  font-size: 22px;
+  font-weight: bold;
+  border-radius: 12px;
+  margin: 10px;
+  background: linear-gradient(90deg, rgb(245, 222, 179), blue);
+  border: none;
+}
+
+.ripple-effect.secondary {
+  background: linear-gradient(
+    90deg,
+    rgba(196, 245, 179, 0.534),
+    rgba(255, 0, 183, 0.831)
+  );
 }

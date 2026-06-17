@@ -1,23 +1,14 @@
-const rippleButtons = document.querySelectorAll(".ripple-effect");
+const rippleButton = document.querySelector(".ripple-effect");
 
-rippleButtons;
+rippleButton.addEventListener("click", createRippleEffect);
 
-const getButtons = document.querySelectorAll(".ripple-effect");
+function createRippleEffect(e) {
+  const button = e.target.closest(".ripple-effect");
+  if (!button) return;
 
-getButtons.forEach((btn) => {
-  btn.addEventListener("click", (event) => {
-    const rect = btn.getBoundingClientRect();
-    let xCoordinate = event.clientX - rect.left;
-    let yCoordinate = event.clientY - rect.top;
-    let rippleElement = document.createElement("span");
+  const rect = button.getBoundingClientRect();
+  const x = e.clientX - rect.left;
+  const Y = e.clientY - rect.top;
 
-    rippleElement.style.left = `${xCoordinate}px`;
-    rippleElement.style.top = `${yCoordinate}px`;
-
-    btn.appendChild(rippleElement);
-
-    window.setTimeout(() => {
-      rippleElement.remove();
-    }, 1000);
-  });
-});
+  document.createElement("span");
+}
