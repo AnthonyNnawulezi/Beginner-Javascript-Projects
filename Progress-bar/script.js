@@ -8,15 +8,15 @@ let currentSelected = 1;
 nextButton.addEventListener("click", () => {
   if (currentSelected < iconsWrapper.length) {
     currentSelected++;
+    updateStep();
   }
-  updateStep();
 });
 
 previousButton.addEventListener("click", () => {
   if (currentSelected > 1) {
     currentSelected--;
+    updateStep();
   }
-  updateStep();
 });
 
 function updateStep() {
