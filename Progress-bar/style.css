@@ -40,8 +40,8 @@ h1 {
   height: 5px;
   width: 100%;
   top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
+  left: 0;
+  transform: translateY(-50%);
   z-index: -1;
 }
 
@@ -52,8 +52,9 @@ h1 {
   position: absolute;
   top: 50%;
   left: 0;
-  transform: translate(-50%);
+  transform: translateY(-50%);
   z-index: -1;
+  transition: width 0.4s ease;
 }
 
 .icon-wrapper {
@@ -65,19 +66,18 @@ h1 {
   align-items: center;
   justify-content: center;
   border: 3px solid orange;
+}
+i {
+  position: absolute;
+  font-size: 25px;
+  bottom: 25px;
+}
 
-  i {
-    position: absolute;
-    font-size: 25px;
-    bottom: 25px;
-  }
-
-  .label {
-    position: absolute;
-    font-size: 25px;
-    bottom: -30px;
-    font-weight: bold;
-  }
+.label {
+  position: absolute;
+  font-size: 25px;
+  bottom: -30px;
+  font-weight: bold;
 }
 
 button {
