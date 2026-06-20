@@ -27,8 +27,8 @@ function updateUI() {
       icon.classList.remove("active");
     }
 
-    const widthPercentage = (currentStep / (icons.length - 1)) * 100;
+    const widthPercentage = (currentStep / icons.length) * 100;
 
-    progressBar.style.width = `${widthPercentage}px`;
+    progressBar.style.width = `${widthPercentage}%`;
   });
 }
