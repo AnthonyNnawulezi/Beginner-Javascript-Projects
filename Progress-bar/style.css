@@ -22,20 +22,57 @@ h1 {
 .container {
   width: 400px;
   max-width: 400px;
-  border: 1px solid orange;
-  margin-bottom: 20px;
+  display: flex;
+  justify-content: center;
+  margin-bottom: 30px;
+  align-items: center;
+  position: relative;
+  height: 80px;
 }
 
 .icon-container {
   display: flex;
   justify-content: space-between;
+  width: 100%;
+  z-index: 1;
+  height: 100%;
   align-items: center;
-  position: relative;
 }
 
-.icon-wrapper i {
-  /* text-align: center; */
+.progress-bar::before {
+  content: "";
+  width: 400px;
+  max-width: 400px;
   position: absolute;
-  left: 50%;
-  transform: translateX(-50);
+  background: #a48361;
+  position: absolute;
+  height: 5px;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.progress-bar {
+  content: "";
+  width: 400px;
+  max-width: 400px;
+  position: absolute;
+  background: #412a1e;
+  position: absolute;
+  height: 5px;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.icon-wrapper {
+  display: flex;
+  flex-direction: column;
+  background-color: yellow;
+  height: 100%;
+  width: 15px;
+  align-items: center;
+  justify-content: space-between;
+}
+.icon-wrapper i {
+}
+.icon-wrapper i {
 }
