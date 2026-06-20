@@ -1,6 +1,7 @@
-const nextButton = document.querySelector(".previous");
-const previousButton = document.querySelector(".next");
+const nextButton = document.querySelector(".next");
+const previousButton = document.querySelector(".previous");
 const icons = document.querySelectorAll(".icon-wrapper");
+const progressBar = document.querySelector(".progress-bar");
 
 let currentStep = 1;
 
@@ -21,7 +22,13 @@ previousButton.addEventListener("click", () => {
 function updateUI() {
   icons.forEach((icon, i) => {
     if (i < currentStep) {
-      icon.classList.toggle("active", i < currentStep);
+      icon.classList.add("active");
+    } else {
+      icon.classList.remove("active");
     }
+
+    const widthPercentage = (currentStep / (icons.length - 1)) * 100;
+
+    progressBar.style.width = `${widthPercentage}px`;
   });
 }
