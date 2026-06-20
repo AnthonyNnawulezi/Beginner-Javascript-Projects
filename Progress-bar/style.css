@@ -39,31 +39,21 @@ h1 {
   align-items: center;
 }
 
-.progress-bar::before {
-  content: "";
-  width: 400px;
-  max-width: 400px;
+.progress-track {
   position: absolute;
+  width: 100%;
+  height: 5px;
   background: #a48361;
-  position: absolute;
-  height: 100%;
   top: 50%;
   left: 0;
   transform: translateY(-50%);
-  z-index: 0;
 }
 
 .progress-bar {
-  width: 0;
-  max-width: 400px;
-  position: absolute;
-  background: #a48361;
-  height: 5px;
-  top: 50%;
-  transform: translateY(-50%);
+  width: 0%;
+  height: 100%;
+  background: #412a1e;
   transition: width 0.3s ease;
-  z-index: 1;
-  left: 0;
 }
 
 .icon-wrapper {

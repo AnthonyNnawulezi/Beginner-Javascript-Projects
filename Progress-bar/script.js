@@ -26,9 +26,9 @@ function updateUI() {
     } else {
       icon.classList.remove("active");
     }
-
-    const widthPercentage = (currentStep / icons.length) * 100;
-
-    progressBar.style.width = `${widthPercentage}%`;
   });
+  const widthPercentage = ((currentStep - 1) / (icons.length - 1)) * 100;
+
+  progressBar.style.width = `${widthPercentage}%`;
+  console.log(`Width set to: ${widthPercentage}%`);
 }
