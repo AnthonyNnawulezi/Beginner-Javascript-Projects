@@ -66,8 +66,7 @@ if (!progressBar || !previousButton || !nextButton || steps.length === 0) {
 
   // 5. UI update function
   function updateUI() {
-    // Update icons: mark all steps up to currentStep as 'active'
-    stepElements.forEach((icon, index) => {
+    steps.forEach((icon, index) => {
       icon.classList.toggle("active", index < currentStep);
     });
 
