@@ -47,11 +47,11 @@ if (!progressBar || !previousButton || !nextButton || steps.length === 0) {
   updateUI();
 
   // 4. Event listeners
-  previousButton.addEventListener("click", handleNextStep);
-  nextButton.addEventListener("click", handlePreviousStep);
+  previousButton.addEventListener("click", handlePreviousStep);
+  nextButton.addEventListener("click", handleNextStep);
 
   function handleNextStep() {
-    if (currentStep < stepIcons.length) {
+    if (currentStep < steps.length) {
       currentStep++;
       updateUI();
     }
@@ -66,20 +66,28 @@ if (!progressBar || !previousButton || !nextButton || steps.length === 0) {
 
   // 5. UI update function
   function updateUI() {
+    updateSteps();
+    updateProgressBar();
+    updateButtons();
+  }
+
+  function updateSteps() {
     steps.forEach((icon, index) => {
       icon.classList.toggle("active", index < currentStep);
     });
-
-    // Update progress bar width
-    const progressPercent =
-      totalSteps === 1 ? 100 : ((currentStep - 1) / (totalSteps - 1)) * 100;
-    progressBar.style.width = `${progressPercent}%`;
-
-    // Update button states
-    previousButton.disabled = currentStep === 1;
-    nextButton.disabled = currentStep === totalSteps;
   }
 
-  // 6. Initialise the UI
-  updateUI();
+  // Update progress bar width
+  function updateProgressBar() {
+    const progressPercent = ((currentStep - 1) / (TOTAL_STEPS - 1)) * 100;
+    progressBar.style.width = `${progressPercent}%`;
+  }
+
+  // Update button states
+  function updateButtons() {
+    previousButton.disabled = currentStep === 1;
+    nextButton.disabled = currentStep === steps.length;
+  }
 }
+
+updateUI();
