@@ -46,12 +46,7 @@ if (!progressBar || !previousButton || !nextButton || steps.length === 0) {
   // 4. Event listeners
   previousButton.addEventListener("click", handleNextStep);
 
-  nextButton.addEventListener("click", () => {
-    if (currentStep < totalSteps) {
-      currentStep++;
-      updateUI();
-    }
-  });
+  nextButton.addEventListener("click", handlePreviousStep);
 
   // 5. UI update function
   function updateUI() {
