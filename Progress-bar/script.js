@@ -1,34 +1,75 @@
 const nextButton = document.querySelector(".next");
 const previousButton = document.querySelector(".previous");
-const icons = document.querySelectorAll(".icon-wrapper");
+const steps = document.querySelectorAll(".icon-wrapper");
 const progressBar = document.querySelector(".progress-bar");
 
-let currentStep = 1;
+// let currentStep = 1;
 
-nextButton.addEventListener("click", () => {
-  if (currentStep < icons.length) {
-    currentStep++;
-  }
-  updateUI();
-});
+// nextButton.addEventListener("click", () => {
+//   if (currentStep < steps.length) {
+//     currentStep++;
+//   }
+//   updateUI();
+// });
 
-previousButton.addEventListener("click", () => {
-  if (currentStep > 1) {
-    currentStep--;
-  }
-  updateUI();
-});
+// previousButton.addEventListener("click", () => {
+//   if (currentStep > 1) {
+//     currentStep--;
+//   }
+//   updateUI();
+// });
 
-function updateUI() {
-  icons.forEach((icon, i) => {
-    if (i < currentStep) {
-      icon.classList.add("active");
-    } else {
-      icon.classList.remove("active");
+// function updateUI() {
+//   steps.forEach((icon, i) => {
+//     if (i < currentStep) {
+//       icon.classList.add("active");
+//     } else {
+//       icon.classList.remove("active");
+//     }
+//   });
+//   const widthPercentage = ((currentStep - 1) / (steps.length - 1)) * 100;
+
+//   progressBar.style.width = `${widthPercentage}%`;
+//   console.log(`Width set to: ${widthPercentage}%`);
+// }
+
+//optimised
+
+// 2. Guard against missing elements
+if (!progressBar || !previousButton || !nextButton || steps.length === 0) {
+  console.warn("Steps not found – aborting.");
+} else {
+  // 3. State
+  let currentStep = 1;
+  const TOTAL_STEPS = steps.length;
+
+  // 4. Event listeners
+  previousButton.addEventListener("click", handleNextStep);
+
+  nextButton.addEventListener("click", () => {
+    if (currentStep < totalSteps) {
+      currentStep++;
+      updateUI();
     }
   });
-  const widthPercentage = ((currentStep - 1) / (icons.length - 1)) * 100;
 
-  progressBar.style.width = `${widthPercentage}%`;
-  console.log(`Width set to: ${widthPercentage}%`);
+  // 5. UI update function
+  function updateUI() {
+    // Update icons: mark all steps up to currentStep as 'active'
+    stepElements.forEach((icon, index) => {
+      icon.classList.toggle("active", index < currentStep);
+    });
+
+    // Update progress bar width
+    const progressPercent =
+      totalSteps === 1 ? 100 : ((currentStep - 1) / (totalSteps - 1)) * 100;
+    progressBar.style.width = `${progressPercent}%`;
+
+    // Update button states
+    previousButton.disabled = currentStep === 1;
+    nextButton.disabled = currentStep === totalSteps;
+  }
+
+  // 6. Initialise the UI
+  updateUI();
 }
