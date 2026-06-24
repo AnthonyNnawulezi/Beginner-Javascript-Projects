@@ -44,11 +44,25 @@ if (!progressBar || !previousButton || !nextButton || steps.length === 0) {
   const TOTAL_STEPS = steps.length;
 
   // Initialize the UI on page load to ensure proper button states
-  updateProgressUI();
+  updateUI();
 
   // 4. Event listeners
   previousButton.addEventListener("click", handleNextStep);
   nextButton.addEventListener("click", handlePreviousStep);
+
+  function handleNextStep() {
+    if (currentStep < stepIcons.length) {
+      currentStep++;
+      updateUI();
+    }
+  }
+
+  function handlePreviousStep() {
+    if (currentStep > 1) {
+      currentStep--;
+      updateUI();
+    }
+  }
 
   // 5. UI update function
   function updateUI() {
