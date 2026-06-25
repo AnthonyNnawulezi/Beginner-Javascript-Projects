@@ -88,6 +88,5 @@ if (!progressBar || !previousButton || !nextButton || steps.length === 0) {
     previousButton.disabled = currentStep === 1;
     nextButton.disabled = currentStep === steps.length;
   }
+  updateUI();
 }
-
-updateUI();
