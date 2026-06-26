@@ -6,7 +6,7 @@ async function fetchPosts() {
     const response = await fetch("https://dummyjson.com/posts");
     const { posts = [] } = await response.json();
 
-    initPosts(posts ?? []);
+    initPosts(posts);
     console.log(posts);
   } catch (error) {
     console.error(error);
