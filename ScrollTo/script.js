@@ -1,47 +1,47 @@
-const trackBar = document.querySelector(".track-bar");
-const postContainer = document.querySelector(".post-container");
+// const trackBar = document.querySelector(".track-bar");
+// const postContainer = document.querySelector(".post-container");
 
-async function fetchPosts() {
-  try {
-    const response = await fetch("https://dummyjson.com/posts");
-    const { posts = [] } = await response.json();
+// async function fetchPosts() {
+//   try {
+//     const response = await fetch("https://dummyjson.com/posts");
+//     const { posts = [] } = await response.json();
 
-    initPosts(posts);
-    console.log(posts);
-  } catch (error) {
-    console.error(error);
-  }
-}
+//     initPosts(posts);
 
-function initPosts(posts) {
-  const post = posts
-    .map(
-      ({ title, body, tags = [] }) =>
-        `
-<div class="post">
-        <h3>${title}</h3>
-        <p>${body}</p>
-        ${tags.map((tag) => `<p>${tag}</p>`).join("")}
-    </div>
-        `,
-    )
-    .join("");
+//   } catch (error) {
+//     console.error(error);
+//   }
+// }
 
-  postContainer.innerHTML += post;
-}
+// function initPosts(posts) {
+//   const post = posts
+//     .map(
+//       ({ title, body, tags = [] }) =>
+//         `
+// <div class="post">
+//         <h3>${title}</h3>
+//         <p>${body}</p>
+//         ${tags.map((tag) => `<p>${tag}</p>`).join("")}
+//     </div>
+//         `,
+//     )
+//     .join("");
 
-fetchPosts();
+//   postContainer.innerHTML += post;
+// }
 
-window.onscroll = function () {
-  handleScroll();
-};
+// fetchPosts();
 
-function handleScroll() {
-  const scrolledFromTop =
-    document.body.scrollTop || document.documentElement.scrollTop;
-  const height =
-    document.documentElement.scrollHeight -
-    document.documentElement.clientHeight;
-  const percentageScrolled = (scrolledFromTop / height) * 100;
-  trackBar.style.width = `${percentageScrolled}%`;
-}
+// window.onscroll = function () {
+//   handleScroll();
+// };
+
+// function handleScroll() {
+//   const scrolledFromTop =
+//     document.body.scrollTop || document.documentElement.scrollTop;
+//   const height =
+//     document.documentElement.scrollHeight -
+//     document.documentElement.clientHeight;
+//   const percentageScrolled = (scrolledFromTop / height) * 100;
+//   trackBar.style.width = `${percentageScrolled}%`;
+// }
