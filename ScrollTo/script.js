@@ -19,7 +19,7 @@ async function fetchPosts() {
 }
 
 function renderPosts(posts) {
-  const post = posts
+  const postsHTML = posts
     .map(
       ({ title, body, tags = [] }) =>
         `
@@ -32,7 +32,7 @@ function renderPosts(posts) {
     )
     .join("");
 
-  postContainer.innerHTML += post;
+  postContainer.innerHTML += postsHTML;
 }
 
 fetchPosts();
