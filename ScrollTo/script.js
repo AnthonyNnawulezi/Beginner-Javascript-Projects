@@ -45,12 +45,6 @@ function renderPosts(posts) {
   });
 }
 
-fetchPosts();
-
-window.onscroll = function () {
-  handleScroll();
-};
-
 function handleScroll() {
   const { scrollTop, scrollHeight, clientHeight } = document.documentElement;
 
@@ -70,3 +64,6 @@ function handleScroll() {
 
   scrollProgress.style.width = `${percentageScrolled}%`;
 }
+
+window.addEventListener("scroll", handleScroll);
+fetchPosts();
