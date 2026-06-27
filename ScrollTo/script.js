@@ -52,17 +52,12 @@ function handleScroll() {
 
   if (!scrollableHeight) return;
 
-  if (scrollableHeight <= 0) {
-    scrollProgress.style.width = "100%";
-    return;
-  }
-
   const scrollPercentage = Math.min(
     100,
     Math.max(0, (window.scrollY / scrollableHeight) * 100),
   );
 
-  scrollProgress.style.width = `${percentageScrolled}%`;
+  scrollProgress.style.width = `${scrollPercentage}%`;
 }
 
 window.addEventListener("scroll", handleScroll);
