@@ -11,13 +11,13 @@ async function fetchPosts() {
 
     const { posts = [] } = await response.json();
 
-    initPosts(posts);
+    renderPosts(posts);
   } catch (error) {
     console.error(error);
   }
 }
 
-function initPosts(posts) {
+function renderPosts(posts) {
   const post = posts
     .map(
       ({ title, body, tags = [] }) =>
