@@ -35,7 +35,7 @@ function renderPosts(posts) {
     })
     .join("");
 
-  postContainer.innerHTML += postsHTML;
+  postContainer.insertAdjacentHTML("beforeend", postsHTML);
 }
 
 fetchPosts();
