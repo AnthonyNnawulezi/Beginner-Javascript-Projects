@@ -14,6 +14,7 @@ async function fetchPosts() {
     renderPosts(posts);
   } catch (error) {
     console.error(error);
+    postContainer.innerHTML = `<p class="error">Failed to load posts: ${error.message}</p>`;
   }
 }
 
