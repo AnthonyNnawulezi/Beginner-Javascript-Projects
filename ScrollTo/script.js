@@ -36,6 +36,13 @@ function renderPosts(posts) {
     .join("");
 
   postContainer.insertAdjacentHTML("beforeend", postsHTML);
+  //    postContainer.innerHTML = postsHTML;
+
+  const postElements = postContainer.querySelectorAll(".post");
+  posts.forEach(({ title, body }, index) => {
+    postElements[index].querySelector("h3").textContent = title;
+    postElements[index].querySelector("p").textContent = body;
+  });
 }
 
 fetchPosts();
