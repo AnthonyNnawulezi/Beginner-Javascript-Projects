@@ -1,9 +1,14 @@
-const trackBar = document.querySelector(".track-bar");
+const scrollProgress = document.querySelector(".track-bar");
 const postContainer = document.querySelector(".post-container");
 
 async function fetchPosts() {
   try {
     const response = await fetch("https://dummyjson.com/posts");
+
+    if (!response.ok) {
+      throw new Error(`HTTP error — status: ${response.status}`);
+    }
+
     const { posts = [] } = await response.json();
 
     initPosts(posts);
@@ -42,5 +47,5 @@ function handleScroll() {
     document.documentElement.scrollHeight -
     document.documentElement.clientHeight;
   const percentageScrolled = (scrolledFromTop / height) * 100;
-  trackBar.style.width = `${percentageScrolled}%`;
+  scrollProgress.style.width = `${percentageScrolled}%`;
 }
