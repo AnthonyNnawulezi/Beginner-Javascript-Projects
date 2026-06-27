@@ -1,4 +1,4 @@
-/* *,
+*,
 *::before,
 *::after {
   padding: 0;
@@ -53,4 +53,4 @@ body {
   border-radius: 9px;
   border: none;
   gap: 10px;
-} */
+}
