@@ -26,12 +26,12 @@ function renderPosts(posts) {
         : "";
 
       return `
-  <div class="post">
-          <h3>${title}</h3>
-          <p>${body}</p>
-          ${tagsHTML}
-      </div>
-          `;
+        <article class="post">
+          <h3></h3>
+          <p></p>
+          <div class="tags">${tagsHTML}</div>
+        </article>
+      `;
     })
     .join("");
 
