@@ -20,16 +20,19 @@ async function fetchPosts() {
 
 function renderPosts(posts) {
   const postsHTML = posts
-    .map(
-      ({ title, body, tags = [] }) =>
-        `
-<div class="post">
-        <h3>${title}</h3>
-        <p>${body}</p>
-        ${tags.map((tag) => `<p>${tag}</p>`).join("")}
-    </div>
-        `,
-    )
+    .map(({ title, body, tags = [] }) => {
+      const tagsHTML = tags.length
+        ? `<div class="tags">${tags.map((tag) => `<span class="tag">${tag}</span>`).join("")}</div>`
+        : "";
+
+      return `
+  <div class="post">
+          <h3>${title}</h3>
+          <p>${body}</p>
+          ${tagsHTML}
+      </div>
+          `;
+    })
     .join("");
 
   postContainer.innerHTML += postsHTML;
