@@ -54,14 +54,19 @@ window.onscroll = function () {
 function handleScroll() {
   const { scrollTop, scrollHeight, clientHeight } = document.documentElement;
 
-  const scrollableHeight =
-    document.documentElement.scrollHeight -
-    document.documentElement.clientHeight;
+  const scrollableHeight = scrollHeight - clientHeight;
 
   if (!scrollableHeight) return;
 
-  const scrollPercentage =
-    maxScrollableDistance > 0 ? (scrollTop / maxScrollableDistance) * 100 : 0;
+  if (scrollableHeight <= 0) {
+    scrollProgress.style.width = "100%";
+    return;
+  }
+
+  const scrollPercentage = Math.min(
+    100,
+    Math.max(0, (window.scrollY / scrollableHeight) * 100),
+  );
 
   scrollProgress.style.width = `${percentageScrolled}%`;
 }
