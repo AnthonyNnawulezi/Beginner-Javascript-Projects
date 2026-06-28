@@ -22,8 +22,13 @@ body {
   background-color: #aa845a;
   left: 0;
   width: 100%;
-  padding-bottom: 20px;
-  padding-top: 30px;
+  padding: 20px 0 20px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+}
+
+.scroll-container h1 {
+  margin-bottom: 10px;
+  /* color: #fff; */
 }
 
 .posts-container {
@@ -41,6 +46,9 @@ body {
   height: 10px;
   background-color: #412a1e;
   width: 100%;
+  overflow: hidden;
+  margin: 0 auto;
+  border-radius: 6px;
 }
 .track-bar {
   height: 10px;
