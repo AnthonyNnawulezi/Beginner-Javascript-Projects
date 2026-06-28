@@ -1,4 +1,4 @@
-const scrollProgress = document.querySelector(".track-bar");
+const trackBar = document.querySelector(".track-bar");
 const postContainer = document.querySelector(".post-container");
 
 async function fetchPosts() {
@@ -22,14 +22,14 @@ function renderPosts(posts) {
   const postsHTML = posts
     .map(({ title, body, tags = [] }) => {
       const tagsHTML = tags.length
-        ? `<div class="tags">${tags.map((tag) => `<span class="tag">${tag}</span>`).join("")}</div>`
+        ? `<div class="tags">${tags.map((tag) => `<span class="tag">${tag}</span>`).join(",")}</div>`
         : "";
 
       return `
         <article class="post">
           <h3></h3>
           <p></p>
-          <div class="tags">${tagsHTML}</div>
+          ${tagsHTML}
         </article>
       `;
     })
@@ -38,6 +38,7 @@ function renderPosts(posts) {
   postContainer.insertAdjacentHTML("beforeend", postsHTML);
   //    postContainer.innerHTML = postsHTML;
 
+  //prevents XSS
   const postElements = postContainer.querySelectorAll(".post");
   posts.forEach(({ title, body }, index) => {
     postElements[index].querySelector("h3").textContent = title;
@@ -57,7 +58,7 @@ function handleScroll() {
     Math.max(0, (window.scrollY / scrollableHeight) * 100),
   );
 
-  scrollProgress.style.width = `${scrollPercentage}%`;
+  trackBar.style.width = `${scrollPercentage}%`;
 }
 
 window.addEventListener("scroll", handleScroll);
