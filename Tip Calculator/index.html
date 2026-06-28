@@ -7,6 +7,32 @@
     <link rel="stylesheet" href="style.css" />
   </head>
   <body>
+    <h1>Tip Calculator</h1>
+    <section class="container">
+      <div class="bill-amount">
+        <label for="bill-amount">Bill Amount</label>
+        <input type="text" id="bill-amount" />
+      </div>
+      <div class="discount-percentage">
+        <label for="discount-percentage">Discount Percentage</label>
+        <span id="total-discount-percentage">0</span>
+        <input type="range" id="discount-percentage" />
+      </div>
+      <div class="tip-percentage">
+        <label for="tip-percentage">Tips Percentage</label>
+        <span id="total-discount-percentage">0</span>
+        <input type="range" id="tip-percentage" />
+      </div>
+      <div class="no-of-customers">
+        <label for="no-of-customers">Number of Customers</label>
+        <span id="total-discount-percentage">0</span>
+        <input type="range" id="no-of-customers" />
+      </div>
+      <button>Generate Bill</button>
+      <label for="total-tip">Total Tip Paid: 0</label>
+      <label for="total-amount">Total Amount To Pay: 0</label>
+      <label for="each-custormer-to-pay">Each Customer To Pay: 0</label>:
+    </section>
     <script src="script.js"></script>
   </body>
 </html>
