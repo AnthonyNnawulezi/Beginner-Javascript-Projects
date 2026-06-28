@@ -94,4 +94,12 @@ body {
   padding: 2px 8px;
   border-radius: 12px;
   font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+}
+
+.error {
+  color: red;
+  text-align: center;
+  padding: 20px;
 }
