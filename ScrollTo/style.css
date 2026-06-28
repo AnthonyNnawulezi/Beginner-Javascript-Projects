@@ -55,12 +55,43 @@ body {
   width: 0;
   background-color: #aa845a;
   border: 2px solid #412a1e;
+  transition: width 0.1s ease;
+  border-radius: 6px;
+  background: linear-gradient(90deg, #f7d794, #f5cd79);
 }
 
 .post {
+  display: flex;
+  color: #fff;
+  flex-direction: column;
   background: linear-gradient(90deg, #aa845a, #312e81);
   padding: 12px 15px;
   border-radius: 9px;
   border: none;
   gap: 10px;
+  border-left: 6px solid #aa845a;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+}
+
+.post h3 {
+  color: #2d2a2a;
+  font-size: 1.2rem;
+}
+
+.post p {
+  color: #3d3a3a;
+  line-height: 1.6;
+}
+
+.tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.tag {
+  background: rgba(255, 255, 255, 0.2);
+  padding: 2px 8px;
+  border-radius: 12px;
+  font-size: 13px;
 }

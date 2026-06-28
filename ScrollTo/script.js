@@ -22,7 +22,7 @@ function renderPosts(posts) {
   const postsHTML = posts
     .map(({ title, body, tags = [] }) => {
       const tagsHTML = tags.length
-        ? `<div class="tags">${tags.map((tag) => `<span class="tag">${tag}</span>`).join(",")}</div>`
+        ? `<div class="tags">${tags.map((tag) => `<span class="tag">${tag}</span>`).join("")}</div>`
         : "";
 
       return `
