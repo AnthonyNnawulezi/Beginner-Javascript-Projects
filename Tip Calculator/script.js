@@ -10,12 +10,13 @@ const totalNoOfCustormers = document.getElementById("total-no-of-custormers");
 const totalTip = document.getElementById("total-tip");
 const totalAmount = document.getElementById("total-amount");
 const custormerToPay = document.getElementById("each-custormer-to-pay");
+const generateBillButton = document.getElementById("generate-bill");
 
 function generateBill() {
-  const discount = (discountPercentage.value / 100).toFixed(0, 2);
-  const totalAmountToPay = (billAmount.value * discount).toFixed(0, 2);
-  const eachCustormerToPay = (totalAmount / noOfCustormers.value).toFixed(0, 2);
-  const tipAmount = (tipPercentage / 100).toFixed(0, 2);
+  const discount = (discountPercentage.value / 100).toFixed(2);
+  const totalAmountToPay = (billAmount.value * discount).toFixed(2);
+  const eachCustormerToPay = (billAmount / noOfCustormers.value).toFixed(2);
+  const tipAmount = (tipPercentage / 100).toFixed(2);
 
   console.log();
 
@@ -26,3 +27,4 @@ function generateBill() {
   totalAmount.textContent = totalAmountToPay;
   custormerToPay.textContent = eachCustormerToPay;
 }
+generateBillButton.addEventListener("click", generateBill);
