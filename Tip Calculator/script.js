@@ -13,17 +13,19 @@ const custormerToPay = document.getElementById("each-custormer-to-pay");
 const generateBillButton = document.getElementById("generate-bill");
 
 function generateBill() {
-  const discount = (discountPercentage.value / 100).toFixed(2);
+  const discount = discountPercentage.value;
   const totalAmountToPay = (billAmount.value * discount).toFixed(2);
-  const eachCustormerToPay = (billAmount / noOfCustormers.value).toFixed(2);
-  const tipAmount = (tipPercentage / 100).toFixed(2);
+  const eachCustormerToPay = (billAmount.value / noOfCustormers.value).toFixed(
+    2,
+  );
+  const tipAmount = (tipPercentage.value / 100).toFixed(2);
 
   console.log();
 
   totalDiscountPercentage.textContent = discount;
-  totalTipPercentage.textContent = tipAmount;
+  totalTipPercentage.textContent = tipAmount * billAmount.value;
   totalNoOfCustormers.textContent = totalNoOfCustormers.value;
-  totalNoOfCustormers.textContent = totalNoOfCustormers.value;
+  totalNoOfCustormers.textContent = noOfCustormers.value;
   totalAmount.textContent = totalAmountToPay;
   custormerToPay.textContent = eachCustormerToPay;
 }
