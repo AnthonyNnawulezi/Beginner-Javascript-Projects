@@ -9,29 +9,43 @@
   <body>
     <h1>Tip Calculator</h1>
     <section class="container">
-      <div class="bill-amount">
+      <div class="wrapper">
         <label for="bill-amount">Bill Amount</label>
         <input type="text" id="bill-amount" />
       </div>
-      <div class="discount-percentage">
+      <div class="wrapper">
         <label for="discount-percentage">Discount Percentage</label>
         <span id="total-discount-percentage">0</span>
-        <input type="range" id="discount-percentage" />
+        <input type="range" min="0" max="100" id="discount-percentage" />
       </div>
-      <div class="tip-percentage">
+      <div class="wrapper">
         <label for="tip-percentage">Tips Percentage</label>
-        <span id="total-discount-percentage">0</span>
-        <input type="range" id="tip-percentage" />
+        <span id="total-tip-percentage">0</span>
+        <input type="range" min="0" max="100" id="tip-percentage" />
       </div>
-      <div class="no-of-customers">
-        <label for="no-of-customers">Number of Customers</label>
-        <span id="total-discount-percentage">0</span>
-        <input type="range" id="no-of-customers" />
+      <div class="wrapper">
+        <label for="no-of-customers">No of Customers</label>
+        <span id="total-no-of-custormers">0</span>
+        <input type="range" min="0" max="100" id="no-of-customers" />
       </div>
-      <button>Generate Bill</button>
-      <label for="total-tip">Total Tip Paid: 0</label>
-      <label for="total-amount">Total Amount To Pay: 0</label>
-      <label for="each-custormer-to-pay">Each Customer To Pay: 0</label>:
+      <button
+        onclick="
+          {
+            generateBill;
+          }
+        "
+      >
+        Generate Bill
+      </button>
+      <label for="total-tip"
+        >Total Tip Paid: <span id="total-tip">0</span></label
+      >
+      <label for="total-amount"
+        >Total Amount To Pay: <span id="total-amount">0</span></label
+      >
+      <label for="each-custormer-to-pay"
+        >Each Customer To Pay: <span id="each-custormer-to-pay">0</span></label
+      >
     </section>
     <script src="script.js"></script>
   </body>
