@@ -14,7 +14,7 @@ const generateBillButton = document.getElementById("generate-bill");
 
 function generateBill() {
   const discount = discountPercentage.value;
-  const totalAmountToPay = (billAmount.value * discount).toFixed(2); // bugfix
+  const totalAmountToPay = (billAmount.value * (1 - discount / 100)).toFixed(2);
   const eachCustormerToPay = (billAmount.value / noOfCustormer.value).toFixed(
     2,
   ); //bugfix
