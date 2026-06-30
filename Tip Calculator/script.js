@@ -13,7 +13,7 @@ const customersToPay = document.getElementById("each-customers-to-pay");
 const generateBillButton = document.getElementById("generate-bill");
 
 function generateBill() {
-  const discount = discountPercentage.value;
+  const discount = billAmount * (discountPercentage / 100);
   const totalAmountToPay = (billAmount.value * (1 - discount / 100)).toFixed(2);
   const eachCustomersToPay = (billAmount.value / noOfCustomers.value).toFixed(
     2,
