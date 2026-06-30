@@ -14,6 +14,10 @@ const generateBillButton = document.getElementById("generate-bill");
 
 function generateBill() {
   const discount = bill * (discountPercentage / 100);
+  if (isNaN(bill) || bill <= 0) {
+    alert("Please enter a valid bill amount.");
+    return;
+  }
   const totalAmountToPay = (bill.value * (1 - discount / 100)).toFixed(2);
   const eachCustomersToPay = (bill.value / noOfCustomers.value).toFixed(2); //bugfix
   const tipAmount = bill * (tipPercentage / 100);
