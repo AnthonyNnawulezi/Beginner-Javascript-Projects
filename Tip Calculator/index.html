@@ -10,7 +10,7 @@
     <h1>Tip Calculator</h1>
     <section class="container">
       <div class="wrapper">
-        <label for="bill-amount">Bill Amount</label>
+        <label for="bill-amount">Bill Amount (£)</label>
         <input
           type="number"
           id="bill-amount"
@@ -20,9 +20,15 @@
         />
       </div>
       <div class="wrapper">
-        <label for="discount-percentage">Discount Percentage</label>
-        <span id="total-discount-percentage">0</span>
-        <input type="range" min="1" max="100" id="discount-percentage" />
+        <label for="discount-percentage">Discount (%)</label>
+        <span id="discount-display">0</span>
+        <input
+          type="range"
+          min="0"
+          max="100"
+          id="discount-percentage"
+          value="0"
+        />
       </div>
       <div class="wrapper">
         <label for="tip-percentage">Tips Percentage</label>
