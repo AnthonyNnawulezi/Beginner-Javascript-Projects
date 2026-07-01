@@ -1,15 +1,16 @@
-const bill = document.getElementById("bill-amount");
-const discountPercentage = document.getElementById("discount-percentage");
-const tipPercentage = document.getElementById("tip-percentage");
-const noOfCustomers = document.getElementById("no-of-customers");
-const totalDiscountPercentage = document.getElementById(
-  "total-discount-percentage",
-);
-const totalTipPercentage = document.getElementById("total-tip-percentage");
-const totalNoOfCustomers = document.getElementById("total-no-of-customers");
-const totalTip = document.getElementById("total-tip");
-const totalAmount = document.getElementById("total-amount");
-const customersToPay = document.getElementById("each-customers-to-pay");
+const billAmountInput = document.getElementById("bill-amount");
+const discountRangeInput = document.getElementById("discount-percentage");
+const tipRangeInput = document.getElementById("tip-percentage");
+const customersInput = document.getElementById("num-customers");
+
+const discountDisplay = document.getElementById("discount-display");
+const tipDisplay = document.getElementById("tip-display");
+const customersDisplay = document.getElementById("customers-display");
+
+const totalTipEl = document.getElementById("total-tip");
+const totalAmountEl = document.getElementById("total-amount");
+const eachCustomerPayEl = document.getElementById("each-customer-pay");
+
 const generateBillButton = document.getElementById("generate-bill");
 
 function generateBill() {
