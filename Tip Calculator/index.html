@@ -32,7 +32,7 @@
       </div>
       <div class="wrapper">
         <label for="tip-percentage">Tip Percentage (%)</label>
-        <span id="tip-display">0%</span>
+        <span id="tip-display">0</span>
         <input type="range" min="0" max="100" value="0" id="tip-percentage" />
       </div>
       <div class="wrapper">
@@ -40,16 +40,12 @@
         <span id="customer-display">1</span>
         <input type="range" min="1" max="20" id="customer-count" value="1" />
       </div>
+
       <button id="generate-bill">Generate Bill</button>
-      <label for="total-tip"
-        >Total Tip Paid: <span id="total-tip">0</span></label
-      >
-      <label for="total-amount"
-        >Total Amount To Pay: <span id="total-amount">0</span></label
-      >
-      <label for="each-custormer-to-pay"
-        >Each Customer To Pay: <span id="each-custormer-to-pay">0</span></label
-      >
+
+      <div>Total Tip Paid: $<span id="total-tip">0.00</span></div>
+      <div>Total Amount To Pay: $<span id="total-amount">0.00</span></div>
+      <div>Each Customer To Pay: $<span id="each-customer-pay">0.00</span></div>
     </section>
     <script src="script.js"></script>
   </body>
