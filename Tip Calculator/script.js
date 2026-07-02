@@ -54,19 +54,16 @@ function updateSliderDisplays() {
   customersDisplay.textContent = customerCount.value;
 }
 
-discountSlider.addEventListener("input", updateSliderDisplays);
-tipSlider.addEventListener("input", updateSliderDisplays);
-customerSlider.addEventListener("input", updateSliderDisplays);
+discountInput.addEventListener("input", updateSliderDisplays);
+tipInput.addEventListener("input", updateSliderDisplays);
+customerCount.addEventListener("input", updateSliderDisplays);
 
-// --- 3. Core calculation ---
 function calculateAndDisplay() {
-  // 3a. Parse inputs as numbers with safe fallbacks
   const bill = parseFloat(billInput.value) || 0;
   const discountPct = parseFloat(discountSlider.value) || 0;
   const tipPct = parseFloat(tipSlider.value) || 0;
-  const customers = parseInt(customerSlider.value, 10) || 1; // minimum 1
+  const customers = parseInt(customerSlider.value, 10) || 1;
 
-  // 3b. Step-by-step math
   const discountAmount = bill * (discountPct / 100);
   const subtotal = bill - discountAmount;
   const tipAmount = subtotal * (tipPct / 100);
