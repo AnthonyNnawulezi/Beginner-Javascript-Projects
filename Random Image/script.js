@@ -1,7 +1,8 @@
 const loadMoreButton = document.querySelector(".load-more");
 const container = document.querySelector(".container");
 
-let count = 1;
+const IMAGES_PER_LOAD = 5;
+let currentIndex = 1;
 
 function fetchRandomImage() {
   for (let i = 1; i <= count + 4; i++) {
