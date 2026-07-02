@@ -58,29 +58,28 @@ discountInput.addEventListener("input", updateSliderDisplays);
 tipInput.addEventListener("input", updateSliderDisplays);
 customerCount.addEventListener("input", updateSliderDisplays);
 
-function calculateAndDisplay() {
+function generateBill() {
   const bill = parseFloat(billInput.value) || 0;
-  const discountPct = parseFloat(discountSlider.value) || 0;
-  const tipPct = parseFloat(tipSlider.value) || 0;
-  const customers = parseInt(customerSlider.value, 10) || 1;
+  const discountRate = parseFloat(discountInput.value) || 0;
+  const tipRate = parseFloat(tipInput.value) || 0;
+  const customers = parseInt(customerCount.value, 10) || 1;
 
-  const discountAmount = bill * (discountPct / 100);
+  const discountedAmount = bill * (discountRate / 100);
   const subtotal = bill - discountAmount;
-  const tipAmount = subtotal * (tipPct / 100);
+  const tipAmount = subtotal * (tipRate / 100);
   const total = subtotal + tipAmount;
 
-  // 3c. Split per customer
+  // Split per customer
   const perCustomer = total / customers;
 
   // 3d. Display results with 2 decimal places
-  totalTipSpan.textContent = `$${tipAmount.toFixed(2)}`;
-  totalAmountSpan.textContent = `$${total.toFixed(2)}`;
-  eachCustomerSpan.textContent = `$${perCustomer.toFixed(2)}`;
+  totalTipEl.textContent = `$${tipAmount.toFixed(2)}`;
+  totalAmountEl.textContent = `$${total.toFixed(2)}`;
+  eachCustomerPayEl.textContent = `$${perCustomer.toFixed(2)}`;
 }
 
-// --- 4. Event listeners ---
-generateBtn.addEventListener("click", calculateAndDisplay);
+generateBillButton.addEventListener("click", generateBill);
 
 // --- 5. Initialise the UI on page load ---
 updateSliderDisplays();
-calculateAndDisplay();
+generateBill();
