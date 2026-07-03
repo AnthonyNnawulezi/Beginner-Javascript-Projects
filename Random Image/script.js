@@ -19,8 +19,6 @@ function loadImages() {
   currentIndex += IMAGES_PER_LOAD;
 }
 
-fetchRandomImage();
+loadImages();
 
-loadMoreButton.addEventListener("click", () => {
-  fetchRandomImage(count + 4);
-});
+loadMoreButton.addEventListener("click", loadImages);
