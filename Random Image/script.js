@@ -7,10 +7,12 @@ let currentIndex = 1;
 function loadImages() {
   const fragment = document.createDocumentFragment();
 
-  for (let i = 1; i <= count + 4; i++) {
-    const imageEl = document.createElement("img");
-    imageEl.src = `https://picsum.photos/200/300?random=${i}`;
-    container.appendChild(imageEl);
+  for (let i = currentIndex; i < currentIndex + IMAGES_PER_LOAD; i++) {
+    const img = document.createElement("img");
+    img.src = `https://picsum.photos/200/300?random=${i}`;
+    img.alt = `Random image ${i}`;
+    imageElement.loading = "lazy";
+    fragment.appendChild(img);
   }
 }
 
