@@ -14,6 +14,9 @@ function loadImages() {
     imageElement.loading = "lazy";
     fragment.appendChild(img);
   }
+
+  imageContainer.appendChild(fragment);
+  currentIndex += IMAGES_PER_LOAD;
 }
 
 fetchRandomImage();
