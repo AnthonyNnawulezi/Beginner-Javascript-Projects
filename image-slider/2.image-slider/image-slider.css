@@ -28,3 +28,16 @@ body {
   display: flex;
   justify-content: space-between;
 }
+
+.slide-image {
+  display: flex;
+  width: 85%;
+  height: 85%;
+  object-fit: cover;
+}
+
+.dot {
+  height: 10px;
+  width: 15px;
+  background-color: rgb(237, 224, 204);
+}
