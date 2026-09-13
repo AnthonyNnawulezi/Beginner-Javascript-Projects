@@ -3,9 +3,11 @@ const slideContainer = document.querySelector(".slider-container");
 const dotContainer = document.querySelector(".dot-container");
 const prevButton = document.querySelector(".prev-btn");
 const nextButton = document.querySelector(".next-btn");
+const dots = document.querySelectorAll(".dot");
 
 let setLoading = false;
 let errors = "";
+let currentIndex = 0;
 
 const LIMIT = 10;
 const PAGE = 1;
@@ -35,27 +37,51 @@ function renderSlide(slides) {
   const images = slides
     .map(
       (slide) => `
-      <img class="slide" alt=${slide.author} src=${slide.download_url} />
+      <img class="slide" alt=${slide.author} data-${slide} src=${slide.download_url} />
     `,
     )
     .join("");
 
   slideImage.innerHTML += images;
+  slideIndex = images.dataset;
 
-  changeImage();
-  goTo();
+  changeImage(slides, slideIndex);
 }
 
-function changeImage(slides) {
-  const dots = slides
+function changeImage(images, i) {
+  const dots = images
     .map(
-      (_, index) => `
-      <div class="dot"></div>
+      (slide, index) => `
+      <div class="dot" data-${index}></div>
     `,
     )
     .join("");
 
   dotContainer.innerHTML += dots;
+
+  if (i.id === index) {
+    dots.dataset.id = i.id;
+    matchingId = dots.dataset.id;
+  }
+
+  goTo(slides, matchingId);
+}
+
+function goTo(slides, matchingId) {
+  if (currentIndex > 0) {
+    nextButton.addEventListener("click", () => {
+      currentIndex++;
+      document.querySelectorAll(".dot").classList().remove("active");
+      slides.map((_, i) => i.classList.add("active"));
+    });
+  }
+  if (currentIndex < slides.length - 1) {
+    prevButton.addEventListener("click", () => {
+      currentIndex--;
+      document.querySelectorAll(".dot").classList().remove("active");
+      slides.map((_, i) => i.classList.add("active"));
+    });
+  }
 }
 
 fetchImages();

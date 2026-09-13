@@ -27,6 +27,8 @@ body {
 .slide-footer {
   display: flex;
   justify-content: space-between;
+  margin-top: 20px;
+  align-items: center;
 }
 
 .slide-image {
@@ -37,7 +39,26 @@ body {
 }
 
 .dot {
-  height: 10px;
-  width: 15px;
+  height: 20px;
+  width: 25px;
   background-color: rgb(237, 224, 204);
+  border-radius: 12px;
+}
+
+.dot-container {
+  display: flex;
+  gap: 10px;
+}
+
+button {
+  padding: 20px;
+  background-color: rgb(237, 224, 204);
+  font-size: 15px;
+  border-radius: 10px;
+  border: none;
+  outline: none;
+}
+
+.active {
+  background-color: black;
 }
