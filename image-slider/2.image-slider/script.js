@@ -5,7 +5,6 @@ const prevButton = document.querySelector(".prev-btn");
 const nextButton = document.querySelector(".next-btn");
 const dots = document.querySelectorAll(".dot");
 
-let setLoading = false;
 let errors = "";
 let currentIndex = 0;
 
@@ -13,17 +12,18 @@ const LIMIT = 10;
 const PAGE = 1;
 
 async function fetchImages() {
-  setLoading = true;
+  //   slideImage.textContent = "Loading images...";
 
   try {
     const response = await fetch(
       `https://picsum.photos/v2/list?page=${PAGE}&limit=${LIMIT}`,
     );
-    if (!response.ok) throw new Error("Error fetching Slide Images");
+    if (!response.ok)
+      throw new Error(`Request failed with status ${response.status}`);
 
     const slideImages = await response.json();
 
-    slideContainer.addEventListener("click", renderSlide(slideImages));
+    renderSlide(slideImages);
 
     console.log(slideImages);
   } catch (error) {
@@ -34,52 +34,53 @@ async function fetchImages() {
 }
 
 function renderSlide(slides) {
-  const images = slides
+  const currentSlide = slides[currentIndex]
     .map(
-      (slide) => `
-      <img class="slide" alt=${slide.author} data-${slide} src=${slide.download_url} />
+      (slide, index) => `
+      <img class="slide" alt=${slide.author} data-index="${index}" src=${currentSlide.download_url} />
     `,
     )
     .join("");
 
   slideImage.innerHTML += images;
-  slideIndex = images.dataset;
 
-  changeImage(slides, slideIndex);
+  changeImage(slides, currentIndex);
+  goTo(slides);
 }
 
-function changeImage(images, i) {
-  const dots = images
+function changeImage(images, activeIndex) {
+  const dotMarkup = images
     .map(
       (slide, index) => `
-      <div class="dot" data-${index}></div>
+      <div class="dot ${index === 0 ? "active" : ""}" data-index="${index}"></div>
     `,
     )
     .join("");
 
-  dotContainer.innerHTML += dots;
+  dotContainer.innerHTML += dotMarkup;
 
-  if (i.id === index) {
-    dots.dataset.id = i.id;
-    matchingId = dots.dataset.id;
-  }
+  const dotElements = dotContainer.querySelectorAll(".dot");
 
-  goTo(slides, matchingId);
+  dotElements.forEach((dot, i) => {
+    dot.classList.toggle("active", i === activeIndex);
+  });
 }
 
-function goTo(slides, matchingId) {
-  if (currentIndex > 0) {
+function goTo(slides) {
+  if (currentIndex === 0) {
     nextButton.addEventListener("click", () => {
-      currentIndex++;
-      document.querySelectorAll(".dot").classList().remove("active");
-      slides.map((_, i) => i.classList.add("active"));
+      currentIndex = (currentIndex + 1) % slides.length;
+      const dots = document.querySelectorAll(".dot");
+      dots.forEach((dot, index) => dot.classList.remove("active"));
+      dots[currentIndex].classList.add("active");
     });
   }
-  if (currentIndex < slides.length - 1) {
+  if (currentIndex < slides.length) {
     prevButton.addEventListener("click", () => {
-      currentIndex--;
-      document.querySelectorAll(".dot").classList().remove("active");
-      slides.map((_, i) => i.classList.add("active"));
+      currentIndex = (currentIndex - 1 + slides.length) % slides.length;
+      const dots = document.querySelectorAll(".dot");
+      dots.forEach((dot, index) => dot.classList.remove("active"));
+      dots[currentIndex].classList.add("active");
     });
   }
 }
