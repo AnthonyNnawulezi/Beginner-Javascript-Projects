@@ -34,10 +34,10 @@ async function fetchImages() {
 }
 
 function renderSlide(slides) {
-  const currentSlide = slides[currentIndex]
+  const images = slides
     .map(
       (slide, index) => `
-      <img class="slide" alt=${slide.author} data-index="${index}" src=${currentSlide.download_url} />
+      <img class="slide" alt=${slide.author} data-index="${index}" src=${slide.download_url} />
     `,
     )
     .join("");
@@ -45,7 +45,7 @@ function renderSlide(slides) {
   slideImage.innerHTML += images;
 
   changeImage(slides, currentIndex);
-  goTo(slides);
+  goTo(slides, currentIndex);
 }
 
 function changeImage(images, activeIndex) {
@@ -64,6 +64,11 @@ function changeImage(images, activeIndex) {
   dotElements.forEach((dot, i) => {
     dot.classList.toggle("active", i === activeIndex);
   });
+
+  images.forEach(
+    (image, index) =>
+      (image.style.transform = `translateX(${100 * (index - activeIndex)}%)`),
+  );
 }
 
 function goTo(slides) {

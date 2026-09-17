@@ -9,14 +9,31 @@
   <body>
     <h1>Image Slider Example</h1>
 
-    <div class="slider-container">
-      <div class="slide-image"></div>
-      <div class="slide-footer">
-        <button class="prev-btn">Left</button>
-        <div class="dot-container" title="dot-container"></div>
-        <button class="next-btn">Next</button>
+    <section
+      class="slider-container"
+      aria-roledescription="carousel"
+      aria-label="Image slider"
+    >
+      <div class="slide-viewport" aria-live="polite">
+        <p class="status-message">Loading images...</p>
       </div>
-    </div>
+
+      <div class="slider-controls">
+        <button class="prev-button" type="button" aria-label="Previous image">
+          Previous
+        </button>
+
+        <div
+          class="dot-container"
+          role="tablist"
+          aria-label="Choose slide"
+        ></div>
+
+        <button class="next-button" type="button" aria-label="Next image">
+          Next
+        </button>
+      </div>
+    </section>
 
     <script src="script.js"></script>
   </body>
