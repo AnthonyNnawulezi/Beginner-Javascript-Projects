@@ -32,8 +32,47 @@ async function fetchSlides() {
       "Sorry, the images couldn't be loaded. Please try again later.",
     );
   }
+}
 
-  function setStatusMessage(message) {
-    slideTrack.innerHTML = `<p class="slide-status">${message}</p>`;
-  }
+function setStatusMessage(message) {
+  slideTrack.innerHTML = `<p class="slide-status">${message}</p>`;
+}
+
+function escapeHtml(value) {
+  const container = document.createElement("div");
+  container.textContent = value;
+  return container.innerHTML;
+}
+
+function renderSlides(images) {
+  slideViewport.innerHTML = images
+    .map(
+      (image, index) =>
+        `<img class="slide" alt="${escapeHtml(image.author)}" data-index="${index}" src="${image.download_url}" />`,
+    )
+    .join("");
+
+  dotContainer.innerHTML = images
+    .map(
+      (_, index) =>
+        `<button class="dot" type="button" data-index="${index}" aria-label="Go to slide ${index + 1}"></button>`,
+    )
+    .join("");
+
+  goToSlide(0);
+}
+
+function goToSlide(index) {
+  if (slides.length === 0) return;
+
+  currentIndex = (index + slides.length) % slides.length;
+
+  slideViewport.querySelectorAll(".slide").forEach((slide, i) => {
+    // Update image positions based on the current index
+    slide.style.transform = `translateX(${100 * (i - currentIndex)}%)`;
+  });
+
+  dotContainer.querySelectorAll(".dot").forEach((dot, i) => {
+    dot.classList.toggle("active", i === currentIndex);
+  });
 }
