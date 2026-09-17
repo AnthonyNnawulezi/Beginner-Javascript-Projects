@@ -24,7 +24,7 @@ body {
   padding: 12px;
 }
 
-.slide-footer {
+.slide-controls {
   display: flex;
   justify-content: space-between;
   margin-top: 20px;
