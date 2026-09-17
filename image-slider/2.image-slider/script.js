@@ -76,3 +76,6 @@ function goToSlide(index) {
     dot.classList.toggle("active", i === currentIndex);
   });
 }
+
+prevButton.addEventListener("click", () => goToSlide(currentIndex - 1));
+nextButton.addEventListener("click", () => goToSlide(currentIndex + 1));
