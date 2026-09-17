@@ -79,3 +79,12 @@ function goToSlide(index) {
 
 prevButton.addEventListener("click", () => goToSlide(currentIndex - 1));
 nextButton.addEventListener("click", () => goToSlide(currentIndex + 1));
+
+//take to slide on clicking dot
+dotContainer.addEventListener("click", (event) => {
+  const dot = event.target.closest(".dot");
+  if (!dot) return;
+  goToSlide(Number(dot.dataset.index));
+});
+
+fetchSlides();
