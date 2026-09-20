@@ -3,7 +3,7 @@ const dotContainer = document.querySelector(".dot-container");
 const prevButton = document.querySelector(".prev-button");
 const nextButton = document.querySelector(".next-button");
 
-const SLIDES_PER_PAGE = 100;
+const SLIDES_PER_PAGE = 10;
 const PAGE_NUMBER = 1;
 const API_URL = `https://picsum.photos/v2/list?page=${PAGE_NUMBER}&limit=${SLIDES_PER_PAGE}`;
 
