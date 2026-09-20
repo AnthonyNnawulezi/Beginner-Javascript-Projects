@@ -1,7 +1,7 @@
 const slideViewport = document.querySelector(".slide-viewport");
 const dotContainer = document.querySelector(".dot-container");
-const prevButton = document.querySelector(".prev-btn");
-const nextButton = document.querySelector(".next-btn");
+const prevButton = document.querySelector(".prev-button");
+const nextButton = document.querySelector(".next-button");
 
 const SLIDES_PER_PAGE = 100;
 const PAGE_NUMBER = 1;
@@ -26,6 +26,8 @@ async function fetchSlides() {
       setStatusMessage("No images were found.");
       return;
     }
+
+    renderSlides(slides);
   } catch (error) {
     console.error(error);
     setStatusMessage(
@@ -35,7 +37,7 @@ async function fetchSlides() {
 }
 
 function setStatusMessage(message) {
-  slideTrack.innerHTML = `<p class="slide-status">${message}</p>`;
+  slideViewport.innerHTML = `<p class="slide-status">${message}</p>`;
 }
 
 function escapeHtml(value) {
@@ -65,20 +67,20 @@ function renderSlides(images) {
 function goToSlide(index) {
   if (slides.length === 0) return;
 
-  currentIndex = (index + slides.length) % slides.length;
+  currentSlideIndex = (index + slides.length) % slides.length;
 
   slideViewport.querySelectorAll(".slide").forEach((slide, i) => {
     // Update image positions based on the current index
-    slide.style.transform = `translateX(${100 * (i - currentIndex)}%)`;
+    slide.style.transform = `translateX(${100 * (i - currentSlideIndex)}%)`;
   });
 
   dotContainer.querySelectorAll(".dot").forEach((dot, i) => {
-    dot.classList.toggle("active", i === currentIndex);
+    dot.classList.toggle("active", i === currentSlideIndex);
   });
 }
 
-prevButton.addEventListener("click", () => goToSlide(currentIndex - 1));
-nextButton.addEventListener("click", () => goToSlide(currentIndex + 1));
+prevButton.addEventListener("click", () => goToSlide(currentSlideIndex - 1));
+nextButton.addEventListener("click", () => goToSlide(currentSlideIndex + 1));
 
 //take to slide on clicking dot
 dotContainer.addEventListener("click", (event) => {

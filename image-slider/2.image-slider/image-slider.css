@@ -16,7 +16,7 @@ body {
   gap: 20px;
 }
 
-.slider-container {
+.slide-viewport {
   background: rgb(222, 184, 135);
   width: 900px;
   height: 650px;
