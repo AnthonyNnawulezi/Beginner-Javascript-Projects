@@ -50,7 +50,7 @@ body {
   color: #555;
 }
 
-.slider-footer {
+.slider-controls {
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -60,6 +60,25 @@ body {
 .dot-container {
   display: flex;
   gap: 10px;
+}
+
+.dot {
+  width: 25px;
+  height: 20px;
+  border: none;
+  border-radius: 12px;
+  background-color: rgb(237, 224, 204);
+  cursor: pointer;
+}
+
+button {
+  padding: 20px;
+  border: none;
+  outline: none;
+  border-radius: 10px;
+  background-color: rgb(237, 224, 204);
+  font-size: 15px;
+  cursor: pointer;
 }
 
 .active {
