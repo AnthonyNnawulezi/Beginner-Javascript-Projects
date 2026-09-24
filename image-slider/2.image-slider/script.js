@@ -91,64 +91,59 @@ dotContainer.addEventListener("click", (event) => {
 
 fetchSlides();
 
-// 1. Add the Pagination Algorithm Helper Function
-function getPaginationRange(current, total) {
-  // If we have 7 or fewer slides, just show all dots without ellipses
-  if (total <= 7) {
-    return Array.from({ length: total }, (_, i) => i);
+function getDotTokens(totalSlides, activeIndex, maxVisible = MAX_VISIBLE_DOTS) {
+  if (totalSlides <= maxVisible) {
+    return Array.from({ length: totalSlides }, (_, index) => index);
   }
 
-  // State 1: We are near the beginning (e.g., [0, 1, 2, 3, 4, '...', 20])
-  if (current <= 3) {
-    return [0, 1, 2, 3, 4, "...", total - 1];
+  const tokens = [];
+  const neighbors = 1;
+
+  const start = Math.max(1, activeIndex - neighbors);
+  const end = Math.min(totalSlides - 2, activeIndex + neighbors);
+
+  tokens.push(0);
+
+  if (start > 1) {
+    tokens.push("ellipsis");
   }
 
-  // State 2: We are near the end (e.g., [0, '...', 16, 17, 18, 19, 20])
-  if (current >= total - 4) {
-    return [0, "...", total - 5, total - 4, total - 3, total - 2, total - 1];
+  for (let index = start; index <= end; index++) {
+    tokens.push(index);
   }
 
-  // State 3: We are in the middle (e.g., [0, '...', 9, 10, 11, '...', 20])
-  return [0, "...", current - 1, current, current + 1, "...", total - 1];
+  if (end < totalSlides - 2) {
+    tokens.push("ellipsis");
+  }
+
+  tokens.push(totalSlides - 1);
+
+  return tokens;
 }
 
-// 2. Modify renderMarkup (Remove dot generation from here)
-function renderMarkup(data) {
-  // Only render the images here, because images don't change
-  const imageMarkup = data
-    .map(
-      (item, index) => `
-    <img class="slide" alt="Image by ${item.author}" src="${item.download_url}" data-index="${index}" />
-  `,
-    )
-    .join("");
+function renderDots() {
+  const tokens = getDotTokens(slides.length, currentSlideIndex);
 
-  sliderTrack.innerHTML = imageMarkup;
-  slideElements = document.querySelectorAll(".slide");
-}
-
-// 3. Modify updateUI (Dynamically generate dots here)
-function updateUI() {
-  // Update image transforms (same as before)
-  slideElements.forEach((slide, index) => {
-    slide.style.transform = `translateX(${100 * (index - currentIndex)}%)`;
-  });
-
-  // Calculate which dots and ellipses to show
-  const paginationRange = getPaginationRange(
-    currentIndex,
-    slideElements.length,
-  );
-
-  // Generate the HTML for the dots and inject it
-  dotContainer.innerHTML = paginationRange
-    .map((item) => {
-      if (item === "...") {
-        return `<div class="dot-ellipsis">...</div>`;
+  dotContainer.innerHTML = tokens
+    .map((token) => {
+      if (token === "ellipsis") {
+        return `<span class="dot-ellipsis" aria-hidden="true">…</span>`;
       }
-      // If it's a number, render a clickable dot
-      const isActive = item === currentIndex ? "active" : "";
-      return `<div class="dot ${isActive}" data-index="${item}"></div>`;
+
+      const isActive = token === currentSlideIndex;
+
+      return `
+        <button
+          class="dot ${isActive ? "active" : ""}"
+          type="button"
+          role="tab"
+          aria-label="Go to slide ${token + 1}"
+          aria-selected="${isActive}"
+          data-index="${token}"
+        ></button>
+      `;
     })
     .join("");
+
+  dotElements = [...dotContainer.querySelectorAll(".dot")];
 }
