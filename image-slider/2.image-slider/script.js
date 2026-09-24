@@ -91,54 +91,29 @@ dotContainer.addEventListener("click", (event) => {
 
 fetchSlides();
 
-function renderDots() {
-  const totalSlides = slides.length;
+function buildDots(totalSlides, currentIndex) {
+  dotsContainer.innerHTML = "";
 
-  if (totalSlides === 0) {
-    dotContainer.innerHTML = "";
-    return;
-  }
+  for (let i = 0; i < totalSlides; i++) {
+    const dot = document.createElement("button");
+    dot.className = "dot";
 
-  const visibleIndexes = new Set();
+    // Show only first 3, last 3, and currentIndex
+    const isVisible =
+      i < 3 || i > totalSlides - 4 || Math.abs(i - currentIndex) <= 1;
 
-  // Always show the first slide
-  visibleIndexes.add(0);
+    dot.style.display = isVisible ? "block" : "none";
 
-  // Show current slide and slides around it
-  for (
-    let index = currentSlideIndex - 1;
-    index <= currentSlideIndex + 1;
-    index++
-  ) {
-    if (index >= 0 && index < totalSlides) {
-      visibleIndexes.add(index);
-    }
-  }
-
-  // Always show the last slide
-  visibleIndexes.add(totalSlides - 1);
-
-  const sortedIndexes = [...visibleIndexes].sort((a, b) => a - b);
-
-  let dotsHtml = "";
-  let previousIndex = -1;
-
-  sortedIndexes.forEach((index) => {
-    if (previousIndex !== -1 && index - previousIndex > 1) {
-      dotsHtml += `<span class="dot-ellipsis">...</span>`;
+    // Add ellipsis
+    if (!isVisible && i === 3) {
+      const ellipsis = document.createElement("span");
+      ellipsis.textContent = "...";
+      ellipsis.className = "dot-ellipsis";
+      dotsContainer.appendChild(ellipsis);
     }
 
-    dotsHtml += `
-      <button
-        class="dot ${index === currentSlideIndex ? "active" : ""}"
-        type="button"
-        data-index="${index}"
-        aria-label="Go to slide ${index + 1}"
-      ></button>
-    `;
-
-    previousIndex = index;
-  });
-
-  dotContainer.innerHTML = dotsHtml;
+    dot.dataset.index = i;
+    dot.addEventListener("click", () => goToIndex(i));
+    dotsContainer.appendChild(dot);
+  }
 }
