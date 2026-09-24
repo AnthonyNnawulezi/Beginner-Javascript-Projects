@@ -3,7 +3,7 @@ const dotContainer = document.querySelector(".dot-container");
 const prevButton = document.querySelector(".prev-button");
 const nextButton = document.querySelector(".next-button");
 
-const SLIDES_PER_PAGE = 10;
+const SLIDES_PER_PAGE = 100;
 const PAGE_NUMBER = 1;
 const API_URL = `https://picsum.photos/v2/list?page=${PAGE_NUMBER}&limit=${SLIDES_PER_PAGE}`;
 
@@ -90,3 +90,55 @@ dotContainer.addEventListener("click", (event) => {
 });
 
 fetchSlides();
+
+function renderDots() {
+  const totalSlides = slides.length;
+
+  if (totalSlides === 0) {
+    dotContainer.innerHTML = "";
+    return;
+  }
+
+  const visibleIndexes = new Set();
+
+  // Always show the first slide
+  visibleIndexes.add(0);
+
+  // Show current slide and slides around it
+  for (
+    let index = currentSlideIndex - 1;
+    index <= currentSlideIndex + 1;
+    index++
+  ) {
+    if (index >= 0 && index < totalSlides) {
+      visibleIndexes.add(index);
+    }
+  }
+
+  // Always show the last slide
+  visibleIndexes.add(totalSlides - 1);
+
+  const sortedIndexes = [...visibleIndexes].sort((a, b) => a - b);
+
+  let dotsHtml = "";
+  let previousIndex = -1;
+
+  sortedIndexes.forEach((index) => {
+    if (previousIndex !== -1 && index - previousIndex > 1) {
+      dotsHtml += `<span class="dot-ellipsis">...</span>`;
+    }
+
+    dotsHtml += `
+      <button
+        class="dot ${index === currentSlideIndex ? "active" : ""}"
+        type="button"
+        data-index="${index}"
+        aria-label="Go to slide ${index + 1}"
+      ></button>
+    `;
+
+    previousIndex = index;
+  });
+
+  dotContainer.innerHTML = dotsHtml;
+}
