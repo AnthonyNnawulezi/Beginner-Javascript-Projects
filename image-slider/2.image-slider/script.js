@@ -64,28 +64,44 @@ function createPaginationDots(total, currentSlideIndex) {
   if (total <= 7) {
     //for small collections show all slides
     visibleIndexes = Array.from({ length: total }, (_, i) => i);
-  }
-  if (currentSlideIndex >= 0 && currentSlideIndex < total - 1) {
-    return [
+  } else if (currentSlideIndex < 3) {
+    visibleIndexes = [0, 1, 2, 3, total - 1];
+  } else if (currentSlideIndex >= total - 3) {
+    visibleIndexes = [0, total - 4, total - 3, total - 2, total - 1];
+  } else {
+    visibleIndexes = [
       0,
-      "...",
       currentSlideIndex - 1,
       currentSlideIndex,
       currentSlideIndex + 1,
       total - 1,
     ];
   }
-  if (currentSlideIndex >= 0 && currentSlideIndex > total - 4) {
-    return [0, "...", total - 4, total - 3, total - 2, total - 1];
-  }
-
-  const sortedDots = [...paginationDots].sort((a, b) => a - b);
 
   dotContainer.innerHTML = sortedDots
-    .map(
-      (dot, index) =>
-        `<button class="dot" type="button" data-index="${index}" aria-label="Go to slide ${index + 1}"></button>`,
-    )
+    .map((slideIndex, index) => {
+      const previousIndex = visibleIndexes[index - 1];
+
+      //
+      const hasGap = index > 0 && slideIndex - previousIndex > 1;
+
+      const ellipsis = hasGap
+        ? '<span class="dot-ellipsis" aria-hidden="true">…</span>'
+        : "";
+
+      const isActive = slideIndex === currentSlideIndex;
+
+      return `
+        ${ellipsis}
+        <button
+          class="dot${isActive ? " active" : ""}"
+          type="button"
+          data-index="${slideIndex}"
+          aria-label="Go to slide ${slideIndex + 1}"
+          ${isActive ? 'aria-current="true"' : ""}
+        ></button>
+        `;
+    })
     .join("");
 
   // console.log(paginationDots);
@@ -102,9 +118,7 @@ function goToSlide(index) {
     slide.style.transform = `translateX(${100 * (i - currentSlideIndex)}%)`;
   });
 
-  dotContainer.querySelectorAll(".dot").forEach((dot, i) => {
-    dot.classList.toggle("active", i === currentSlideIndex);
-  });
+  createPaginationDots(slides.length, currentSlideIndex);
 }
 
 prevButton.addEventListener("click", () => goToSlide(currentSlideIndex - 1));
