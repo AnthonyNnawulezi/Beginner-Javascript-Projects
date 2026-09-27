@@ -78,7 +78,7 @@ function createPaginationDots(total, currentSlideIndex) {
     ];
   }
 
-  dotContainer.innerHTML = sortedDots
+  dotContainer.innerHTML = visibleIndexes
     .map((slideIndex, index) => {
       const previousIndex = visibleIndexes[index - 1];
 
@@ -103,9 +103,6 @@ function createPaginationDots(total, currentSlideIndex) {
         `;
     })
     .join("");
-
-  // console.log(paginationDots);
-  return sortedDots;
 }
 
 function goToSlide(index) {

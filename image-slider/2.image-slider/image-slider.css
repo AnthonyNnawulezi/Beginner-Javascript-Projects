@@ -81,6 +81,13 @@ button {
   cursor: pointer;
 }
 
+.dot-ellipsis {
+  display: flex;
+  align-items: center;
+  color: rgb(90, 70, 50);
+  font-weight: bold;
+}
+
 .active {
   background-color: black;
 }
