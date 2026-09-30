@@ -28,7 +28,6 @@ async function fetchSlides() {
     }
 
     renderSlides(slides);
-    createPaginationDots(slides.length, currentSlideIndex);
   } catch (error) {
     console.error(error);
     setStatusMessage(
