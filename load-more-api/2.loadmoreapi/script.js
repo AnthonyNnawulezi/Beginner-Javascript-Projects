@@ -67,7 +67,6 @@ function renderProducts(products) {
 }
 
 loadMoreBtn.addEventListener("click", (e) => {
-  e.preventDefault;
   SKIP += 1;
   fetchProducts();
 });
