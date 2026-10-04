@@ -51,6 +51,6 @@
 
 .load-more-button:hover {
   background-color: rgb(229, 212, 184);
-  box-shadow: 15px, 10px;
+  box-shadow: 15px 10px;
   cursor: pointer;
 }

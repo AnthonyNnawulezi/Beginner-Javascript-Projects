@@ -1,13 +1,16 @@
-const loadMoreContainer = document.querySelector(".load-more-container");
-const loadMoreBtn = document.querySelector(".load-more-button");
+const productList = document.querySelector(".load-more-container");
+const loadMoreButton = document.querySelector(".load-more-button");
 
-const LIMIT = 10;
-let SKIP = 0;
+const PRODUCTS_PER_REQUEST = 10;
+let SKIP = 10;
 
 async function fetchProducts() {
+  loadMoreButton.disabled = true;
+  loadMoreButton.textContent = "Loading...";
+
   try {
     const response = await fetch(
-      `https://dummyjson.com/products?limit=${LIMIT}&skip=${SKIP === 0 ? 0 : SKIP * 10}`,
+      `https://dummyjson.com/products?limit=${PRODUCTS_PER_REQUEST}&skip=${SKIP === 0 ? 0 : SKIP * 10}`,
     );
 
     if (!response.ok)
@@ -19,7 +22,7 @@ async function fetchProducts() {
     const products = data.products ?? [];
 
     if (products.length === 0) {
-      loadMoreBtn.innerHTML = `<span>No products found</span>`;
+      loadMoreButton.innerHTML = `<span>No products found</span>`;
     }
 
     renderProducts(products);
@@ -58,17 +61,17 @@ function renderProducts(products) {
       productCategory,
     );
 
-    loadMoreContainer.appendChild(productContainer);
+    productList.appendChild(productContainer);
   });
 
   if (products.length === 100) {
-    loadMoreBtn.disabled = true;
+    loadMoreButton.disabled = true;
   }
 }
 
-loadMoreBtn.addEventListener("click", (e) => {
-  SKIP += 1;
+loadMoreButton.addEventListener("click", (e) => {
   fetchProducts();
+  SKIP += 1;
 });
 
 fetchProducts();
