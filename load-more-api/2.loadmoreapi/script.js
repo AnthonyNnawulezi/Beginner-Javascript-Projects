@@ -10,7 +10,7 @@ async function fetchProducts() {
   loadMoreButton.textContent = "Loading...";
 
   try {
-    const url = `https://dummyjson.com/products?limit=${PRODUCTS_PER_PAGE}&skip=${productsLoaded}`;
+    const url = `https://dummyjson.com/products?limit=${PRODUCTS_PER_REQUEST}&skip=${productsLoaded}`;
 
     const response = await fetch(url);
 
@@ -44,8 +44,8 @@ async function fetchProducts() {
 }
 
 function renderProducts(products) {
-  products.map((product) => {
-    const productContainer = document.createElement("div");
+  products.forEach((product) => {
+    const productCard = document.createElement("article");
     const productTitle = document.createElement("h3");
     const productPrice = document.createElement("span");
     const productDescription = document.createElement("p");
@@ -53,9 +53,11 @@ function renderProducts(products) {
     const productCategory = document.createElement("span");
 
     productTitle.textContent = product.title;
-    productPrice.textContent = product.price;
+    productPrice.textContent = `$${product.price}`;
     productDescription.textContent = product.description;
-    productImage.src = product.images[0];
+    productImage.src = product.images?.[0] ?? product.thumbnail ?? "";
+    productImage.alt = product.title;
+    productImage.loading = "lazy";
     productCategory.textContent = product.category;
 
     productTitle.classList.add("product-title");
@@ -63,9 +65,9 @@ function renderProducts(products) {
     productDescription.classList.add("product-description");
     productImage.classList.add("product-image");
     productCategory.classList.add("product-category");
-    productContainer.classList.add("product-container");
+    productCard.classList.add("product-container");
 
-    productContainer.append(
+    productCard.append(
       productImage,
       productTitle,
       productDescription,
@@ -73,7 +75,7 @@ function renderProducts(products) {
       productCategory,
     );
 
-    productList.appendChild(productContainer);
+    productList.appendChild(productCard);
   });
 
   if (products.length === 100) {
