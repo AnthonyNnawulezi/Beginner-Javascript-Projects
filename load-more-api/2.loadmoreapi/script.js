@@ -38,6 +38,8 @@ async function fetchProducts() {
     }
   } catch (error) {
     console.error(error);
+    loadMoreButton.textContent = "Try again";
+    loadMoreButton.disabled = false;
   }
 }
 
