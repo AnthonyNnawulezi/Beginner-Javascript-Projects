@@ -2,30 +2,38 @@ const productList = document.querySelector(".load-more-container");
 const loadMoreButton = document.querySelector(".load-more-button");
 
 const PRODUCTS_PER_REQUEST = 10;
-let SKIP = 10;
+let productsLoaded = 10;
+let totalProducts = 0;
 
 async function fetchProducts() {
   loadMoreButton.disabled = true;
   loadMoreButton.textContent = "Loading...";
 
   try {
-    const response = await fetch(
-      `https://dummyjson.com/products?limit=${PRODUCTS_PER_REQUEST}&skip=${SKIP === 0 ? 0 : SKIP * 10}`,
-    );
+    const url = `https://dummyjson.com/products?limit=${PRODUCTS_PER_PAGE}&skip=${productsLoaded}`;
+
+    const response = await fetch(url);
 
     if (!response.ok)
       throw new Error(`Error fetching Products, ${response.status}`);
 
     const data = await response.json();
-    console.log(data, data.products);
-
     const products = data.products ?? [];
 
-    if (products.length === 0) {
-      loadMoreButton.innerHTML = `<span>No products found</span>`;
-    }
+    console.log(data, data.products);
 
+    totalProducts = data.total ?? 0;
     renderProducts(products);
+
+    productsLoaded += products.length;
+
+    const allProductsLoaded =
+      products.length === 0 || productsLoaded >= data.total;
+
+    if (allProductsLoaded) {
+      loadMoreButton.textContent = "No more products";
+      return;
+    }
   } catch (error) {
     console.error(error);
   }
