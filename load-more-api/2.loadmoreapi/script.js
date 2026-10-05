@@ -32,7 +32,9 @@ async function fetchProducts() {
 
     if (allProductsLoaded) {
       loadMoreButton.textContent = "No more products";
-      return;
+    } else {
+      loadMoreButton.textContent = "Load more";
+      loadMoreButton.disabled = false;
     }
   } catch (error) {
     console.error(error);
