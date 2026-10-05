@@ -44,6 +44,8 @@ async function fetchProducts() {
 }
 
 function renderProducts(products) {
+  const fragment = document.createDocumentFragment();
+
   products.forEach((product) => {
     const productCard = document.createElement("article");
     const productTitle = document.createElement("h3");
@@ -53,12 +55,12 @@ function renderProducts(products) {
     const productCategory = document.createElement("span");
 
     productTitle.textContent = product.title;
-    productPrice.textContent = `$${product.price}`;
+    productPrice.textContent = `$${product.price.toFixed(2)}`;
     productDescription.textContent = product.description;
     productImage.src = product.images?.[0] ?? product.thumbnail ?? "";
     productImage.alt = product.title;
     productImage.loading = "lazy";
-    productCategory.textContent = product.category;
+    productCategory.textContent = product.category ?? "";
 
     productTitle.classList.add("product-title");
     productPrice.classList.add("product-price");
@@ -75,17 +77,12 @@ function renderProducts(products) {
       productCategory,
     );
 
-    productList.appendChild(productCard);
+    fragment.appendChild(productCard);
   });
 
-  if (products.length === 100) {
-    loadMoreButton.disabled = true;
-  }
+  productList.appendChild(fragment);
 }
 
-loadMoreButton.addEventListener("click", (e) => {
-  fetchProducts();
-  SKIP += 1;
-});
+loadMoreButton.addEventListener("click", fetchProducts);
 
 fetchProducts();
