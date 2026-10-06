@@ -1,4 +1,4 @@
-const productList = document.querySelector(".load-more-container");
+const productList = document.querySelector(".products-container");
 const loadMoreButton = document.querySelector(".load-more-button");
 
 const PRODUCTS_PER_REQUEST = 10;
@@ -60,14 +60,14 @@ function renderProducts(products) {
     productImage.src = product.images?.[0] ?? product.thumbnail ?? "";
     productImage.alt = product.title;
     productImage.loading = "lazy";
-    productCategory.textContent = product.category ?? "";
+    productCategory.textContent = "Category: " + product.category ?? "";
 
     productTitle.classList.add("product-title");
     productPrice.classList.add("product-price");
     productDescription.classList.add("product-description");
     productImage.classList.add("product-image");
     productCategory.classList.add("product-category");
-    productCard.classList.add("product-container");
+    productCard.classList.add("product-card");
 
     productCard.append(
       productImage,
