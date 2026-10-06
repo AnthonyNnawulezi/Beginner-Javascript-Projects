@@ -1,0 +1,52 @@
+*,
+*::before,
+*::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100dvh;
+}
+
+:root {
+  --bg-color: rgb(232, 216, 192);
+  --color: rgb(17, 24, 39);
+}
+
+.color-change-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  gap: 20px;
+}
+
+[data-theme="dark"] {
+  color: white;
+  background: #000;
+}
+
+[data-theme="blue"] {
+  color: white;
+  background: rgb(0, 0, 128);
+}
+
+[data-theme="navy"] {
+  color: white;
+  background: rgb(0, 15, 45);
+}
+
+[data-theme="gray"] {
+  color: white;
+  background: rgb(13, 27, 42);
+}
+
+[data-theme="zinc"] {
+  color: white;
+  background: rgb(39, 39, 42);
+}
