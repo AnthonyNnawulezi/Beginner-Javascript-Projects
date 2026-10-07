@@ -40,6 +40,10 @@ body {
   color: white;
   background: rgb(0, 15, 45);
 }
+[data-theme="light"] {
+  color: rgb(17, 24, 39);
+  background: rgb(232, 216, 192);
+}
 
 [data-theme="gray"] {
   color: white;
