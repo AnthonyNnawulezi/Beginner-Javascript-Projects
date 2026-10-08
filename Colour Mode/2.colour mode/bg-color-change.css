@@ -13,9 +13,10 @@ body {
   height: 100dvh;
 }
 
-:root {
-  --bg-color: rgb(232, 216, 192);
-  --color: rgb(17, 24, 39);
+:root,
+[data-theme="light"] {
+  --background-color: rgb(232, 216, 192);
+  --text-color: rgb(17, 24, 39);
 }
 
 .color-change-container {

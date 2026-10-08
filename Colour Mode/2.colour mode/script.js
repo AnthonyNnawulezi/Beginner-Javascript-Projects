@@ -1,15 +1,10 @@
 const toggleContainer = document.querySelector(".color-change-container");
 const changeButton = document.querySelector(".change-button");
-const dataThemes = ["dark", "blue", "navy", "gray", "zinc"];
-let currentSelectedTheme = 0;
+const themes = ["light", "dark", "blue", "navy", "gray", "zinc"];
+let currentThemeIndex = 0;
 
 changeButton.addEventListener("click", () => {
-  currentSelectedTheme = (currentSelectedTheme + 1) % dataThemes.length;
-  document.body.setAttribute("data-theme", dataThemes[currentSelectedTheme]);
-  //   if (toggleContainer.getAttribute(dataThemes)) {
-  //     toggleContainer.classList.toggle("data-theme", dataThemes[0]);
-  //   }
-  //   if (changeButton.getAttribute(dataThemes)) {
-  // }
-  //   changeButton.setAttribute("data-theme", dataThemes[currentSelectedTheme]);
+  currentThemeIndex = (currentThemeIndex + 1) % themes.length;
+  //   document.body.setAttribute("data-theme", themes[currentThemeIndex]);
+  document.body.dataset.theme = themes[currentThemeIndex];
 });
