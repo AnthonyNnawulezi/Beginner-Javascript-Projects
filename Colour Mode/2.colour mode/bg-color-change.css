@@ -55,3 +55,20 @@ body {
   --background-color: rgb(39, 39, 42);
   --text-color: white;
 }
+
+.change-button {
+  padding: 12px 24px;
+  font-size: 1rem;
+  border: 2px solid var(--text-color);
+  border-radius: 8px;
+  background-color: transparent;
+  color: var(
+    --text-color
+  ); /* buttons don't inherit text colour, so we set it */
+  cursor: pointer;
+}
+
+.change-button:hover {
+  background-color: var(--text-color);
+  color: var(--background-color);
+}
