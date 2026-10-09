@@ -11,11 +11,11 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 100dvh;
+  min-height: 100dvh;
 }
 
 .rqg-container {
-  background-color: rgb(299, 212, 181);
+  background-color: rgb(229, 212, 181);
   display: flex;
   width: 40%;
   flex-direction: column;
@@ -25,7 +25,7 @@ body {
   border-radius: 12px;
   gap: 12px;
 }
-.loader {
+.loading-message {
   display: none;
 }
 

@@ -4,13 +4,14 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="rqg.css" />
-    <title>Document</title>
+    <title>Random Quote Generator</title>
   </head>
   <body>
     <section class="rqg-container">
       <h1>Random Quote Generator</h1>
-      <button type="button" class="refresh-button">Refresh</button>
-      <p class="loader">Loading... Please wait!</p>
+      <button type="button" class="refresh-button">Get New Quote</button>
+      <p class="loading-message" hidden>Loading... Please wait!</p>
+      <p class="error-message" role="alert" hidden></p>
       <div class="quote-container"></div>
     </section>
 
