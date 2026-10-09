@@ -46,6 +46,18 @@ function displayQuotes({ author, id, quote }) {
 <p>Quote: ${quote}</p>
 </div>
 `;
+
+  //  quoteContainer.innerHTML = "";
+  quoteContainer.replaceChildren();
+
+  const quoteWrapper = document.createElement("blockquote");
+  const quoteAuthor = document.createElement("p");
+
+  quoteWrapper.classList.add("quote-text");
+  quoteAuthor.classList.add("quote-author");
+
+  quoteText.textContent = `“${quote}”`;
+  quoteAuthor.textContent = `— ${author}`;
 }
 
 refreshButton.addEventListener("click", loadRandomQuote);
