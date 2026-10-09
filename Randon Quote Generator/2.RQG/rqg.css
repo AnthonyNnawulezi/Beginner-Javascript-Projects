@@ -12,6 +12,7 @@ body {
   justify-content: center;
   align-items: center;
   min-height: 100dvh;
+  padding: 20px;
 }
 
 .rqg-container {
@@ -24,6 +25,8 @@ body {
   padding: 20px;
   border-radius: 12px;
   gap: 12px;
+  width: 90%;
+  max-width: 500px;
 }
 .loading-message {
   display: none;
@@ -34,5 +37,19 @@ body {
   background-color: rgb(201, 170, 128);
   border-radius: 12px;
   font-size: 15px;
+  font-weight: bold;
+}
+
+.refresh-button:hover:not(:disabled) {
+  background-color: rgb(185, 150, 105);
+}
+
+.refresh-button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.error-message {
+  color: rgb(180, 40, 40);
   font-weight: bold;
 }
