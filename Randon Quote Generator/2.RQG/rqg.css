@@ -1,0 +1,38 @@
+*,
+*::before,
+*::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  background-color: rgb(201, 170, 128);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100dvh;
+}
+
+.rqg-container {
+  background-color: rgb(299, 212, 181);
+  display: flex;
+  width: 40%;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+  border-radius: 12px;
+  gap: 12px;
+}
+.loader {
+  display: none;
+}
+
+.refresh-button {
+  padding: 10px 15px;
+  background-color: rgb(201, 170, 128);
+  border-radius: 12px;
+  font-size: 15px;
+  font-weight: bold;
+}

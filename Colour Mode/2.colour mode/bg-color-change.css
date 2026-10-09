@@ -65,9 +65,7 @@ body {
   border: 2px solid var(--text-color);
   border-radius: 8px;
   background-color: transparent;
-  color: var(
-    --text-color
-  ); /* buttons don't inherit text colour, so we set it */
+  color: var(--text-color);
   cursor: pointer;
 }
 
