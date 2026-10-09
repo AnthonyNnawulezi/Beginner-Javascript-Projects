@@ -1,26 +1,40 @@
-const rqgContainer = document.querySelector(".rqg-container");
 const refreshButton = document.querySelector(".refresh-button");
-const loader = document.querySelector(".loader");
+const loader = document.querySelector(".loading-message");
 const quoteContainer = document.querySelector(".quote-container");
-let loading = false;
+const errorMessage = document.querySelector(".error-message");
+let isLoading = false;
 
-async function fetchQuotes() {
+const QUOTE_API_URL = "https://dummyjson.com/quotes/random";
+
+async function loadRandomQuote() {
+  if (isLoading) return;
+
+  isLoading = true;
+  refreshButton.disabled = true;
+  //   loader.hidden = false;
+  loader.style.display = "block";
+  quoteContainer.textContent = "";
+
   try {
-    loading = true;
+    isLoading = true;
     loader.textContent = "Loading... Please wait!";
-    const response = await fetch("https://dummyjson.com/quotes/random");
+    const response = await fetch(QUOTE_API_URL);
 
-    if (!response.ok) throw new Error("Failed to fetch quotes", Error);
+    if (!response.ok)
+      throw new Error(`Failed to fetch quote. Status: ${response.status}`);
 
     const data = await response.json();
 
-    const quotes = data ?? "";
-
     displayQuotes(quotes);
   } catch (error) {
-    ("<p>Error loading quotes, {error}</p>");
+    errorMessage.textContent =
+      "Sorry, we couldn't load a quote. Please try again.";
+    errorMessage.hidden = false;
+    // quoteContainer.textContent = `Error loading quote: ${error.message}`;
   } finally {
-    loading = false;
+    isLoading = false;
+    refreshButton.disabled = false;
+    loader.hidden = true;
   }
 }
 
@@ -34,6 +48,6 @@ function displayQuotes({ author, id, quote }) {
 `;
 }
 
-refreshButton.addEventListener("click", fetchQuotes);
+refreshButton.addEventListener("click", loadRandomQuote);
 
-fetchQuotes();
+loadRandomQuote();
