@@ -28,9 +28,9 @@ body {
   width: 90%;
   max-width: 500px;
 }
-.loading-message {
+/* .loading-message {
   display: none;
-}
+} */
 
 .refresh-button {
   padding: 10px 15px;

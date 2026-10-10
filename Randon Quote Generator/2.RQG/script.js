@@ -11,21 +11,19 @@ async function loadRandomQuote() {
 
   isLoading = true;
   refreshButton.disabled = true;
-  //   loader.hidden = false;
-  loader.style.display = "block";
-  quoteContainer.textContent = "";
+  loader.hidden = false;
+  //   loader.style.display = "block";
+  //   loader.textContent = "Loading... Please wait!";
 
   try {
-    isLoading = true;
-    loader.textContent = "Loading... Please wait!";
     const response = await fetch(QUOTE_API_URL);
 
     if (!response.ok)
       throw new Error(`Failed to fetch quote. Status: ${response.status}`);
 
-    const data = await response.json();
+    const quote = await response.json();
 
-    displayQuotes(quotes);
+    displayQuote(quote);
   } catch (error) {
     errorMessage.textContent =
       "Sorry, we couldn't load a quote. Please try again.";
@@ -38,17 +36,9 @@ async function loadRandomQuote() {
   }
 }
 
-function displayQuotes({ author, id, quote }) {
-  quoteContainer.innerHTML = `
-<div class="quote-wrapper">
-<p>Author: ${author}</p>
-<span>Author ID: ${id}</span>
-<p>Quote: ${quote}</p>
-</div>
-`;
-
+function displayQuote({ author, id, quote }) {
   //  quoteContainer.innerHTML = "";
-  quoteContainer.replaceChildren();
+  //   quoteContainer.replaceChildren();
 
   const quoteWrapper = document.createElement("blockquote");
   const quoteAuthor = document.createElement("p");
@@ -56,8 +46,10 @@ function displayQuotes({ author, id, quote }) {
   quoteWrapper.classList.add("quote-text");
   quoteAuthor.classList.add("quote-author");
 
-  quoteText.textContent = `“${quote}”`;
+  quoteWrapper.textContent = `“${quote}”`;
   quoteAuthor.textContent = `— ${author}`;
+
+  quoteContainer.replaceChildren(quoteWrapper, quoteAuthor);
 }
 
 refreshButton.addEventListener("click", loadRandomQuote);
