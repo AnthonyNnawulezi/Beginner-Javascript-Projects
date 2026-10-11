@@ -1,0 +1,50 @@
+*,
+*::after,
+*::before {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+
+body {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  height: 100dvh;
+  gap: 20px;
+}
+
+.custom-tabs-container {
+  justify-content: center;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  gap: 15px;
+  background-color: rgb(221, 208, 184);
+  padding: 20px;
+  min-width: min-content(90%, 500px);
+}
+
+.tabs {
+  display: flex;
+  gap: 15px;
+}
+
+.tab {
+  padding: 12px;
+  font-size: 15px;
+  font-weight: 20px;
+  background-color: rgb(249, 250, 251);
+}
+
+.tab.active {
+  background-color: rgb(221, 208, 184);
+  border: 1px solid rgb(249, 250, 251);
+}
+
+.content {
+  display: none;
+}
+.content.active {
+  display: block;
+}

@@ -1,21 +1,18 @@
-const tabs = document.querySelectorAll(".tabs");
+const tabs = document.querySelector(".tabs");
 const contents = document.querySelectorAll(".content");
-const container = document.querySelector(".container");
+const tabButtons = document.querySelectorAll(".tab");
 
-container.addEventListener("click", (event) => {
-  const clickedTab = event.target.closest(".tabs");
-  if (!clickedTab) return;
+tabs.addEventListener("click", (e) => {
+  const tab = e.target.closest(".tab");
 
-  const currentTabId = clickedTab.dataset.id;
-  if (!currentTabId) return;
-
-  const targetContent = document.getElementById(currentTabId);
-  if (!targetContent) return;
-
-  [...tabs, ...contents].forEach((element) => {
-    element.classList.remove("active");
+  contents.forEach((content) => {
+    content.classList.remove("active");
+    if (content.id === tab.dataset.id) {
+      tabButtons.forEach((tabButton) => {
+        tabButton.classList.remove("active");
+        tab.classList.toggle("active", true);
+        content.classList.toggle("active", true);
+      });
+    }
   });
-
-  clickedTab.classList.add("active");
-  targetContent.classList.add("active");
 });

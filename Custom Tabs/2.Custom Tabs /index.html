@@ -3,26 +3,72 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="style.css" />
     <title>Custom Tabs</title>
+    <link rel="stylesheet" href="custom-tabs.css" />
   </head>
   <body>
-    <h1>Custome Tabs</h1>
-    <div class="container">
-      <button class="tabs active" data-id="home">Home</button>
-      <button class="tabs" data-id="services">Services</button>
-      <button class="tabs" data-id="projects">Projects</button>
-      <button class="tabs" data-id="portfolio">Portfolio</button>
-      <button class="tabs" data-id="contact">Contact</button>
+    <h1>Custom Tabs</h1>
+    <div class="custom-tabs-container">
+      <div class="tabs-list" role="tablist" aria-label="Main Navigation Tabs">
+        <button
+          type="button"
+          class="tab-button active"
+          data-id="home"
+          role="tab"
+          aria-selected="true"
+          aria-controls="home"
+        >
+          Home
+        </button>
+        <button
+          type="button"
+          class="tab-button"
+          data-id="services"
+          role="tab"
+          aria-selected="false"
+          aria-controls="services"
+        >
+          Services
+        </button>
+        <button
+          type="button"
+          class="tab-button"
+          data-id="projects"
+          role="tab"
+          aria-selected="false"
+          aria-controls="projects"
+        >
+          Projects
+        </button>
+        <button
+          type="button"
+          class="tab-button"
+          data-id="portfolio"
+          role="tab"
+          aria-selected="false"
+          aria-controls="portfolio"
+        >
+          Portfolio
+        </button>
+        <button
+          type="button"
+          class="tab-button"
+          data-id="contact"
+          role="tab"
+          aria-selected="false"
+          aria-controls="contact"
+        >
+          Contact
+        </button>
+      </div>
+      <div class="contents">
+        <div id="home" class="content active">This is Home Section</div>
+        <div id="services" class="content">This is Services Section</div>
+        <div id="projects" class="content">This is Projects Section</div>
+        <div id="portfolio" class="content">This is Portfolio Section</div>
+        <div id="contact" class="content">This is Contact Section</div>
+      </div>
     </div>
-    <div class="contents">
-      <p class="content" id="home">Home</p>
-      <p class="content" id="services">Services</p>
-      <p class="content" id="projects">Projects</p>
-      <p class="content" id="portfolio">Portfolio</p>
-      <p class="content" id="contact">Contact</p>
-    </div>
-
     <script src="script.js"></script>
   </body>
 </html>
