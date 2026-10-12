@@ -22,29 +22,38 @@ body {
   gap: 15px;
   background-color: rgb(221, 208, 184);
   padding: 20px;
-  min-width: min-content(90%, 500px);
+  width: min(90%, 500px);
 }
 
-.tabs {
-  display: flex;
-  gap: 15px;
+.tabs-list {
+  .tabs-list {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
 }
 
-.tab {
+.tab-button {
   padding: 12px;
   font-size: 15px;
   font-weight: 20px;
   background-color: rgb(249, 250, 251);
 }
 
-.tab.active {
+.tab-button:hover {
+  background-color: rgb(235, 236, 237);
+}
+
+.tab-button.active {
   background-color: rgb(221, 208, 184);
   border: 1px solid rgb(249, 250, 251);
 }
 
-.content {
+.content-panel {
   display: none;
 }
-.content.active {
+
+.content-panel.active {
   display: block;
 }
