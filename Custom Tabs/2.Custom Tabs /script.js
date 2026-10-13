@@ -33,30 +33,39 @@ tabs.addEventListener("click", (e) => {
   });
 });
 
-const tabsContainer = document.querySelector(".tabs");
-const allTabs = document.querySelectorAll(".tab");
-const allContents = document.querySelectorAll(".content");
+const tabsList = document.querySelector(".tabs-list");
+const allTabButtons = document.querySelectorAll(".tab-button");
+const allContentPanels = document.querySelectorAll(".content-panel");
 
-tabsContainer.addEventListener("click", (event) => {
-  const clickedTab = event.target.closest(".tab");
-  if (!clickedTab) return;
+function handleTabClick(event) {
+  // Find closest tab button that was clicked
+  const clickedTabButton = event.target.closest(".tab-button");
 
-  const targetId = clickedTab.dataset.id;
+  // Guard Clause: Fixes Null pointer bug if user clicks background container gaps
+  if (!clickedTabButton) return;
 
-  allTabs.forEach((tab) => {
-    tab.classList.remove("active");
-    tab.setAttribute("aria-selected", "false");
+  const targetPanelId = clickedTabButton.dataset.id;
+
+  // Step 1: Reset active state on all buttons and panels
+  allTabButtons.forEach((button) => {
+    button.classList.remove("active");
+    button.setAttribute("aria-selected", "false");
   });
 
-  allContents.forEach((content) => {
-    content.classList.remove("active");
+  allContentPanels.forEach((panel) => {
+    panel.classList.remove("active");
   });
 
-  clickedTab.classList.add("active");
-  clickedTab.setAttribute("aria-selected", "true");
+  // Step 2: Activate clicked tab button
+  clickedTabButton.classList.add("active");
+  clickedTabButton.setAttribute("aria-selected", "true");
 
-  const matchingContent = document.getElementById(targetId);
-  if (matchingContent) {
-    matchingContent.classList.add("active");
+  // Step 3: Activate corresponding content panel
+  const matchingPanel = document.getElementById(targetPanelId);
+  if (matchingPanel) {
+    matchingPanel.classList.add("active");
   }
-});
+}
+
+// Event Delegation
+tabsList.addEventListener("click", handleTabClick);
