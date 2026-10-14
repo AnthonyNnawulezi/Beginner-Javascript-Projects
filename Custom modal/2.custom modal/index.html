@@ -1,0 +1,36 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="custom-modal.css" />
+    <title>Custom Modal</title>
+  </head>
+  <body>
+    <button class="open-modal-button" aria-haspopup="dialog" type="button">
+      Open Modal
+    </button>
+    <dialog class="custom-modal" aria-labelledby="modal-title">
+      <button
+        class="close-modal-button"
+        id="close-modal-button"
+        aria-label="Close modal"
+        type="button"
+      >
+        Close Modal
+      </button>
+      <h2 id="modal-title">Custom Modal</h2>
+      <span
+        >Lorem ipsum dolor sit amet consectetur adipisicing elit. Architecto
+        fugiat omnis nam. Lorem ipsum dolor, sit amet consectetur adipisicing
+        elit. Necessitatibus fugiat quisquam inventore, est voluptates
+        sit.</span
+      >
+      <div class="button-container">
+        <button type="button" class="close-modal-button">Close</button>
+        <button type="button">Submit</button>
+      </div>
+    </dialog>
+    <script src="script.js" defer></script>
+  </body>
+</html>
