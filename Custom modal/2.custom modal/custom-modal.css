@@ -28,9 +28,14 @@ body {
   flex-direction: column;
   gap: 15px;
   border-radius: 12px;
-  display: none;
+  display: none; /* since am using dialog*/
   animation: modal-slide-in 0.3s ease-out;
   border: none;
+}
+
+/* since am using dialog the display none above is considered*/
+.custom-modal[open] {
+  display: flex;
 }
 
 button {
@@ -39,6 +44,14 @@ button {
   border-radius: 12px;
   border: none;
   font-family: inherit;
+  cursor: pointer;
+}
+
+.modal-backdrop {
+  position: fixed;
+  inset: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 10;
 }
 
 button:hover {
