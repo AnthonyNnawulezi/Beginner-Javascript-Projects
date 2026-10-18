@@ -5,3 +5,27 @@
   margin: 0;
   box-sizing: border-box;
 }
+
+body {
+  background-color: rgb(240, 226, 204);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+h1 {
+  text-align: center;
+}
+
+.tic-tac-toe {
+  background-color: rgb(245, 222, 179);
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+  height: 500px;
+  width: 400px;
+}
+.square {
+  background-color: red;
+}
