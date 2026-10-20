@@ -97,9 +97,9 @@
 
 // createBoards();
 
-const ticTacToeGrid = document.querySelector(".tic-tac-toe");
+const boardElement = document.querySelector(".tic-tac-toe");
 const restartButton = document.querySelector(".restart-button");
-const messageDisplay = document.querySelector(".message");
+const messageElement = document.querySelector(".message");
 
 const winningCombinations = [
   [0, 1, 2],
@@ -113,70 +113,86 @@ const winningCombinations = [
 ];
 
 let currentPlayer = "X";
-let isGameOver = false;
+let gameOver = false;
+let squares = [];
 
-function initializeGame() {
+function createBoard() {
+  boardElement.innerHTML = "";
+
   const fragment = document.createDocumentFragment();
 
-  // Create 9 squares for the board
   for (let i = 0; i < 9; i++) {
-    const square = document.createElement("div");
+    const square = document.createElement("button");
+    square.type = "button";
     square.classList.add("square");
+    square.setAttribute("aria-label", `Square ${i + 1}`);
     fragment.append(square);
   }
 
-  ticTacToeGrid.appendChild(fragment);
+  boardElement.append(fragment);
+  squares = Array.from(boardElement.children);
 
-  const boardSquares = Array.from(ticTacToeGrid.children);
-
-  // Set initial turn message
-  messageDisplay.textContent = `${currentPlayer}'s turn`;
-
-  boardSquares.forEach((square) => {
-    square.addEventListener("click", () => {
-      // Guard clause: stop if square is already filled or game is over
-      if (square.textContent !== "" || isGameOver) return;
-
-      square.textContent = currentPlayer;
-
-      // Check for a winning condition
-      for (const combination of winningCombinations) {
-        const [a, b, c] = combination;
-        if (
-          boardSquares[a].textContent === currentPlayer &&
-          boardSquares[b].textContent === currentPlayer &&
-          boardSquares[c].textContent === currentPlayer
-        ) {
-          messageDisplay.textContent = `${currentPlayer} wins! 🎉`;
-          isGameOver = true;
-          return;
-        }
-      }
-
-      // Check for a tie condition
-      const isTie = boardSquares.every((square) => square.textContent !== "");
-      if (isTie) {
-        messageDisplay.textContent = "It's a tie! Try again.";
-        isGameOver = true;
-        return;
-      }
-
-      // Toggle player using clean ternary operator
-      currentPlayer = currentPlayer === "X" ? "O" : "X";
-      messageDisplay.textContent = `${currentPlayer}'s turn`;
-    });
-  });
-
-  // Restart button event listener
-  restartButton.addEventListener("click", () => {
-    boardSquares.forEach((square) => {
-      square.textContent = "";
-    });
-    currentPlayer = "X";
-    isGameOver = false;
-    messageDisplay.textContent = `${currentPlayer}'s turn`;
+  squares.forEach((square) => {
+    square.addEventListener("click", handleSquareClick);
   });
 }
 
-// Start the game on page load
-initializeGame();
+function handleSquareClick(event) {
+  const square = event.currentTarget;
+
+  if (square.textContent !== "" || gameOver) return;
+
+  square.textContent = currentPlayer;
+  square.classList.add("taken");
+
+  const winningLine = findWinningLine(currentPlayer);
+
+  if (winningLine) {
+    highlightWinningLine(winningLine);
+    messageElement.textContent = `${currentPlayer} wins`;
+    gameOver = true;
+    return;
+  }
+
+  const isTie = squares.every((square) => square.textContent !== "");
+
+  if (isTie) {
+    messageElement.textContent = "Tie, try again";
+    gameOver = true;
+    return;
+  }
+
+  currentPlayer = currentPlayer === "X" ? "O" : "X";
+  messageElement.textContent = `${currentPlayer} turn`;
+}
+
+function findWinningLine(player) {
+  return winningCombinations.find(([a, b, c]) => {
+    return (
+      squares[a].textContent === player &&
+      squares[b].textContent === player &&
+      squares[c].textContent === player
+    );
+  });
+}
+
+function highlightWinningLine(line) {
+  line.forEach((index) => {
+    squares[index].classList.add("winner");
+  });
+}
+
+function restartGame() {
+  squares.forEach((square) => {
+    square.textContent = "";
+    square.classList.remove("taken", "winner");
+  });
+
+  currentPlayer = "X";
+  gameOver = false;
+  messageElement.textContent = `${currentPlayer} turn`;
+}
+
+restartButton.addEventListener("click", restartGame);
+
+createBoard();
