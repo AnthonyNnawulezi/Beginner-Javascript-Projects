@@ -97,18 +97,10 @@ function createBoards() {
 
 createBoards();
 
-// 1. Find the elements we need on the page
-const board = document.querySelector(".board");
-const messageDisplay = document.querySelector(".message");
+const boardElement = document.querySelector(".tic-tac-toe");
 const restartButton = document.querySelector(".restart-button");
+const messageElement = document.querySelector(".message");
 
-// 2. Settings that never change (uppercase is the convention for these)
-const BOARD_SIZE = 9; // a 3 x 3 board
-
-// Every way to win: each group is three square positions in a line
-//  0 | 1 | 2
-//  3 | 4 | 5
-//  6 | 7 | 8
 const WINNING_COMBINATIONS = [
   [0, 1, 2],
   [3, 4, 5],
@@ -120,89 +112,93 @@ const WINNING_COMBINATIONS = [
   [2, 4, 6],
 ];
 
-// 3. Things that change while the game is played
-const squares = []; // will hold all 9 square buttons
+const board = Array(9).fill("");
+
 let currentPlayer = "X";
 let isGameOver = false;
 
-// 4. Build the board: create 9 buttons and add them to the page
 function createBoard() {
-  for (let i = 0; i < BOARD_SIZE; i++) {
-    const square = document.createElement("button");
-    square.type = "button";
-    square.classList.add("square");
-    square.addEventListener("click", handleSquareClick);
+  const fragment = document.createDocumentFragment();
 
-    squares.push(square); // remember it, so other functions can use it
-    board.append(square); // put it on the page
+  for (let index = 0; index < 9; index++) {
+    const square = document.createElement("span");
+
+    square.classList.add("square");
+    square.dataset.index = index;
+
+    fragment.appendChild(square);
   }
+
+  boardElement.appendChild(fragment);
 }
 
-// 5. Play one move: runs when a square is clicked
+function updateMessage(text) {
+  messageElement.textContent = text;
+}
+
+function checkWinner() {
+  return WINNING_COMBINATIONS.some(([a, b, c]) => {
+    return board[a] && board[a] === board[b] && board[b] === board[c];
+  });
+}
+
+function checkTie() {
+  return board.every((cell) => cell !== "");
+}
+
+function switchPlayer() {
+  currentPlayer = currentPlayer === "X" ? "O" : "X";
+}
+
 function handleSquareClick(event) {
-  const square = event.currentTarget; // the square that was clicked
+  const square = event.target;
 
-  // Ignore the click if the square is taken or the game is over
-  if (square.textContent !== "" || isGameOver) return;
+  if (!square.classList.contains("square")) {
+    return;
+  }
 
-  square.textContent = currentPlayer; // place the X or O
+  const index = Number(square.dataset.index);
 
-  // Win is checked BEFORE tie, so a win on the 9th move counts as a win
-  if (hasCurrentPlayerWon()) {
-    messageDisplay.textContent = `${currentPlayer} wins`;
+  if (board[index] || isGameOver) {
+    return;
+  }
+
+  board[index] = currentPlayer;
+  square.textContent = currentPlayer;
+
+  if (checkWinner()) {
+    updateMessage(`${currentPlayer} wins!`);
     isGameOver = true;
     return;
   }
 
-  if (isBoardFull()) {
-    messageDisplay.textContent = "Tie, try again";
+  if (checkTie()) {
+    updateMessage("It's a tie!");
     isGameOver = true;
     return;
   }
 
   switchPlayer();
-  showTurnMessage();
+  updateMessage(`${currentPlayer}'s turn`);
 }
 
-// 6. Small helper functions, each doing one job
+function resetGame() {
+  board.fill("");
 
-// Is there a combination where all three squares hold the current player's mark?
-function hasCurrentPlayerWon() {
-  return WINNING_COMBINATIONS.some(([a, b, c]) => {
-    return (
-      squares[a].textContent === currentPlayer &&
-      squares[b].textContent === currentPlayer &&
-      squares[c].textContent === currentPlayer
-    );
-  });
-}
-
-// Is every square filled?
-function isBoardFull() {
-  return squares.every((square) => square.textContent !== "");
-}
-
-// X becomes O, and O becomes X
-function switchPlayer() {
-  currentPlayer = currentPlayer === "X" ? "O" : "X";
-}
-
-function showTurnMessage() {
-  messageDisplay.textContent = `${currentPlayer}'s turn`;
-}
-
-// Put everything back to the starting state
-function restartGame() {
-  squares.forEach((square) => {
-    square.textContent = ""; // empty every square
+  document.querySelectorAll(".square").forEach((square) => {
+    square.textContent = "";
   });
 
-  currentPlayer = "X"; // X always starts, instead of whoever played last
+  currentPlayer = "X";
   isGameOver = false;
-  showTurnMessage();
+
+  updateMessage(`${currentPlayer}'s turn`);
 }
 
-// 7. Start the game
-restartButton.addEventListener("click", restartGame);
 createBoard();
-showTurnMessage(); // show "X's turn" from the very first moment
+
+boardElement.addEventListener("click", handleSquareClick);
+
+restartButton.addEventListener("click", resetGame);
+
+updateMessage(`${currentPlayer}'s turn`);
