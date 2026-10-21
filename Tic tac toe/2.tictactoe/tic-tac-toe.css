@@ -46,6 +46,16 @@ h1 {
   cursor: pointer;
 }
 
+.square.winner {
+  background-color: rgb(180, 220, 160);
+  border-color: rgb(80, 140, 60);
+}
+
+.square:focus-visible {
+  outline: 3px solid rgb(45, 60, 90);
+  outline-offset: -4px;
+}
+
 .message {
   margin: 15px 0;
   font-size: 35px;
@@ -59,8 +69,18 @@ button {
   border: none;
   font-size: 22px;
   border-radius: 12px;
+  cursor: pointer;
+}
+
+button:hover {
+  background-color: rgb(205, 165, 115);
 }
 
 .footer {
   text-align: center;
+}
+
+button:focus-visible {
+  outline: 3px solid rgb(45, 60, 90);
+  outline-offset: 3px;
 }
