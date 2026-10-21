@@ -24,7 +24,7 @@ h1 {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: 10px;
-  width: min(100%, 400px);
+  width: min(90%, 400px);
   /* aspect-ratio: 1 / 1; used alternative in .square */
 }
 .square {

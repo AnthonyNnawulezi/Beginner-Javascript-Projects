@@ -3,6 +3,7 @@ const restartButton = document.querySelector(".restart-button");
 const statusMessage = document.querySelector(".message");
 const BOARD_SIZE = 9;
 const board = Array(9).fill("");
+let squares = [];
 const WINNING_COMBINATIONS = [
   [0, 1, 2],
   [3, 4, 5],
@@ -14,8 +15,8 @@ const WINNING_COMBINATIONS = [
   [2, 4, 6],
 ];
 
-let player = "X";
-let gameOver = false;
+let currentPlayer = "X";
+let isGameOver = false;
 
 // function createBoards() {
 //   const fragment = document.createDocumentFragment();
@@ -33,7 +34,7 @@ let gameOver = false;
 
 //   squares.forEach((square) => {
 //     square.addEventListener("click", () => {
-//       if (square.textContent !== "" || gameOver) return;
+//       if (square.textContent !== "" || isGameOver) return;
 //       square.textContent = player;
 
 //       for (let i = 0; i < WINNING_COMBINATIONS.length; i++) {
@@ -44,7 +45,7 @@ let gameOver = false;
 //           squares[c].textContent === player
 //         ) {
 //           statusMessage.textContent = `Game Over. Player ${player} wins! Please restart`;
-//           gameOver = true;
+//           isGameOver = true;
 //           return;
 //         }
 //       }
@@ -59,7 +60,7 @@ let gameOver = false;
 
 //       if (filledSquares === 9) {
 //         statusMessage.textContent = "Tie, try again";
-//         gameOver = true;
+//         isGameOver = true;
 //         return;
 //       }
 
@@ -79,7 +80,7 @@ let gameOver = false;
 //       square.textContent = "";
 //     });
 //     player = "X"; // else it only chooses which player last won
-//     gameOver = false;
+//     isGameOver = false;
 //     statusMessage.textContent = `${player} turn`;
 //   });
 // }
@@ -87,87 +88,82 @@ let gameOver = false;
 // createBoards();
 
 function createBoard() {
+  boardElement.innerHTML = "";
+
   const fragment = document.createDocumentFragment();
 
-  for (let index = 0; index < 9; index++) {
+  for (let i = 0; i < 9; i++) {
     const square = document.createElement("button");
-
+    square.type = "button";
     square.classList.add("square");
-    square.dataset.index = index;
-
-    fragment.appendChild(square);
+    square.setAttribute("aria-label", `Square ${i + 1}`);
+    fragment.append(square);
   }
 
-  boardElement.appendChild(fragment);
-}
+  boardElement.append(fragment);
+  squares = Array.from(boardElement.children);
 
-function updateMessage(text) {
-  messageElement.textContent = text;
-}
-
-function checkWinner() {
-  return WINNING_COMBINATIONS.some(([a, b, c]) => {
-    return board[a] && board[a] === board[b] && board[b] === board[c];
+  squares.forEach((square) => {
+    square.addEventListener("click", handleSquareClick);
   });
 }
 
-function checkTie() {
-  return board.every((cell) => cell !== "");
-}
-
-function switchPlayer() {
-  currentPlayer = currentPlayer === "X" ? "O" : "X";
-}
-
 function handleSquareClick(event) {
-  const square = event.target;
+  const square = event.currentTarget;
 
-  if (!square.classList.contains("square")) {
-    return;
-  }
+  if (square.textContent !== "" || isGameOver) return;
 
-  const index = Number(square.dataset.index);
-
-  if (board[index] || isGameOver) {
-    return;
-  }
-
-  board[index] = currentPlayer;
   square.textContent = currentPlayer;
+  square.classList.add("taken");
 
-  if (checkWinner()) {
-    updateMessage(`${currentPlayer} wins!`);
+  const winningLine = findWinningLine(currentPlayer);
+
+  if (winningLine) {
+    highlightWinningLine(winningLine);
+    statusMessage.textContent = `${currentPlayer} wins`;
     isGameOver = true;
     return;
   }
 
-  if (checkTie()) {
-    updateMessage("It's a tie!");
+  const isTie = squares.every((square) => square.textContent !== "");
+
+  if (isTie) {
+    statusMessage.textContent = "Tie, try again";
     isGameOver = true;
     return;
   }
 
-  switchPlayer();
-  updateMessage(`${currentPlayer}'s turn`);
+  currentPlayer = currentPlayer === "X" ? "O" : "X";
+  statusMessage.textContent = `${currentPlayer} turn`;
 }
 
-function resetGame() {
-  board.fill("");
+function findWinningLine(player) {
+  return WINNING_COMBINATIONS.find(([a, b, c]) => {
+    return (
+      squares[a].textContent === player &&
+      squares[b].textContent === player &&
+      squares[c].textContent === player
+    );
+  });
+}
 
-  document.querySelectorAll(".square").forEach((square) => {
+function highlightWinningLine(line) {
+  line.forEach((index) => {
+    squares[index].classList.add("winner");
+  });
+}
+
+function restartGame() {
+  squares.forEach((square) => {
     square.textContent = "";
+    square.classList.remove("taken", "winner");
   });
 
   currentPlayer = "X";
   isGameOver = false;
-
-  updateMessage(`${currentPlayer}'s turn`);
+  statusMessage.textContent = `${currentPlayer} turn`;
 }
 
+restartButton.addEventListener("click", restartGame);
+
 createBoard();
-
-boardElement.addEventListener("click", handleSquareClick);
-
-restartButton.addEventListener("click", resetGame);
-
-updateMessage(`${currentPlayer}'s turn`);
