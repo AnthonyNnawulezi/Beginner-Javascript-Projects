@@ -19,7 +19,7 @@ h1 {
   text-align: center;
 }
 
-.tic-tac-toe {
+.board {
   background-color: rgb(245, 222, 179);
   display: grid;
   grid-template-columns: repeat(3, 1fr);
