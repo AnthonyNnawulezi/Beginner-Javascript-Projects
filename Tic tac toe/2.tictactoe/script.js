@@ -87,84 +87,211 @@ let isGameOver = false;
 
 // createBoards();
 
-// 4. Build the board: create 9 buttons and add them to the page
+// Select the game board.
+const boardElement = document.querySelector(".tic-tac-toe");
+
+// Select the Restart button.
+const restartButton = document.querySelector(".restart-button");
+
+// Select the game status message.
+const statusMessage = document.querySelector(".message");
+
+// A Tic-Tac-Toe board has three rows and three columns.
+const BOARD_SIZE = 3;
+
+// Calculate the total number of squares.
+const TOTAL_SQUARES = BOARD_SIZE * BOARD_SIZE;
+
+// All eight possible winning combinations.
+const WINNING_COMBINATIONS = [
+  [0, 1, 2],
+  [3, 4, 5],
+  [6, 7, 8],
+  [0, 3, 6],
+  [1, 4, 7],
+  [2, 5, 8],
+  [0, 4, 8],
+  [2, 4, 6],
+];
+
+// Store all nine moves in a JavaScript array.
+// An empty string means the square is available.
+let boardState = Array(TOTAL_SQUARES).fill("");
+
+// X always starts a new game.
+let currentPlayer = "X";
+
+// Track whether the game has finished.
+let isGameOver = false;
+
+/**
+ * Create an accessible label for each square.
+ *
+ * index: Position of the square in the board.
+ * symbol: The symbol occupying the square, if any.
+ */
+function getSquareLabel(index, symbol = "") {
+  const row = Math.floor(index / BOARD_SIZE) + 1;
+
+  const column = (index % BOARD_SIZE) + 1;
+
+  return `Row ${row}, column ${column}: ${symbol || "empty"}`;
+}
+
+/**
+ * Create the nine square buttons.
+ */
 function createBoard() {
-  for (let i = 0; i < BOARD_SIZE; i++) {
+  // Hold the elements before adding them to the board.
+  const fragment = document.createDocumentFragment();
+
+  // Create one button for each board position.
+  for (let index = 0; index < TOTAL_SQUARES; index++) {
     const square = document.createElement("button");
+
+    // Prevent accidental form submission.
     square.type = "button";
+
+    // Add the CSS class.
     square.classList.add("square");
-    square.addEventListener("click", handleSquareClick);
 
-    squares.push(square); // remember it, so other functions can use it
-    boardElement.append(square); // put it on the page
+    // Store the square's position in a data attribute.
+    square.dataset.index = String(index);
+
+    // Give each square an accessible name.
+    square.setAttribute("aria-label", getSquareLabel(index));
+
+    // Add the button to the fragment.
+    fragment.appendChild(square);
   }
+
+  // Replace any existing squares with the new board.
+  boardElement.replaceChildren(fragment);
 }
 
-// 5. Play one move: runs when a square is clicked
-function handleSquareClick(event) {
-  const square = event.currentTarget; // the square that was clicked
-
-  // Ignore the click if the square is taken or the game is over
-  if (square.textContent !== "" || isGameOver) return;
-
-  square.textContent = currentPlayer; // place the X or O
-
-  // Win is checked BEFORE tie, so a win on the 9th move counts as a win
-  if (hasCurrentPlayerWon()) {
-    statusMessage.textContent = `${currentPlayer} wins`;
-    isGameOver = true;
-    return;
-  }
-
-  if (isBoardFull()) {
-    statusMessage.textContent = "Tie, try again";
-    isGameOver = true;
-    return;
-  }
-
-  switchPlayer();
-  showTurnMessage();
-}
-
-// 6. Small helper functions, each doing one job
-
-// Is there a combination where all three squares hold the current player's mark?
-function hasCurrentPlayerWon() {
-  return WINNING_COMBINATIONS.some(([a, b, c]) => {
+/**
+ * Check whether the current player has won.
+ *
+ * Returns a winning combination if one exists.
+ * Otherwise, returns undefined.
+ */
+function findWinningCombination(player) {
+  return WINNING_COMBINATIONS.find(([first, second, third]) => {
     return (
-      squares[a].textContent === currentPlayer &&
-      squares[b].textContent === currentPlayer &&
-      squares[c].textContent === currentPlayer
+      boardState[first] === player &&
+      boardState[second] === player &&
+      boardState[third] === player
     );
   });
 }
 
-// Is every square filled?
-function isBoardFull() {
-  return squares.every((square) => square.textContent !== "");
-}
+/**
+ * Handle a square being clicked.
+ */
+function handleBoardClick(event) {
+  // Find the square that was clicked.
+  const selectedSquare = event.target.closest(".square");
 
-// X becomes O, and O becomes X
-function switchPlayer() {
+  // Ignore clicks outside the squares or after the game ends.
+  if (!selectedSquare || !boardElement.contains(selectedSquare) || isGameOver) {
+    return;
+  }
+
+  // Get the index of the selected square.
+  const squareIndex = Number(selectedSquare.dataset.index);
+
+  // Prevent overwriting a square that is already occupied.
+  if (boardState[squareIndex] !== "") {
+    return;
+  }
+
+  // Store the player's move in the game state.
+  boardState[squareIndex] = currentPlayer;
+
+  // Display the player's symbol in the selected square.
+  selectedSquare.textContent = currentPlayer;
+
+  // Update the accessible description of the square.
+  selectedSquare.setAttribute(
+    "aria-label",
+    getSquareLabel(squareIndex, currentPlayer),
+  );
+
+  // Check whether the current player has won.
+  const winningCombination = findWinningCombination(currentPlayer);
+
+  if (winningCombination) {
+    // Mark the game as finished.
+    isGameOver = true;
+
+    // Display the winner.
+    statusMessage.textContent = `${currentPlayer} wins!`;
+
+    // Highlight the three winning squares.
+    winningCombination.forEach((index) => {
+      squares[index].classList.add("winning-square");
+    });
+
+    // Stop here; don't check for a tie or switch players.
+    return;
+  }
+
+  // Check whether every square has been occupied.
+  const isBoardFull = boardState.every((square) => square !== "");
+
+  if (isBoardFull) {
+    // No winner and no empty squares means a tie.
+    isGameOver = true;
+
+    statusMessage.textContent = "It's a tie!";
+
+    return;
+  }
+
+  // Switch to the other player.
   currentPlayer = currentPlayer === "X" ? "O" : "X";
-}
 
-function showTurnMessage() {
+  // Display whose turn comes next.
   statusMessage.textContent = `${currentPlayer}'s turn`;
 }
 
-// Put everything back to the starting state
+/**
+ * Reset the game without recreating the board elements.
+ */
 function restartGame() {
-  squares.forEach((square) => {
-    square.textContent = ""; // empty every square
+  // Remove all recorded moves.
+  boardState.fill("");
+
+  // Reset the current player.
+  currentPlayer = "X";
+
+  // Allow players to make moves again.
+  isGameOver = false;
+
+  // Clear all square buttons.
+  squares.forEach((square, index) => {
+    // Remove X or O.
+    square.textContent = "";
+
+    // Remove any winning highlight.
+    square.classList.remove("winning-square");
+
+    // Reset the square's accessible label.
+    square.setAttribute("aria-label", getSquareLabel(index));
   });
 
-  currentPlayer = "X"; // X always starts, instead of whoever played last
-  isGameOver = false;
-  showTurnMessage();
+  // Reset the status message.
+  statusMessage.textContent = `${currentPlayer}'s turn`;
 }
 
-// 7. Start the game
-restartButton.addEventListener("click", restartGame);
+// Create the board once.
 createBoard();
-showTurnMessage(); // show "X's turn" from the very first moment
+
+// Store references to the nine square elements.
+const squares = Array.from(boardElement.children);
+
+// Use one event listener to handle clicks on the board.
+boardElement.addEventListener("click", handleBoardClick);
+
+// Register the Restart button listener once.
+restartButton.addEventListener("click", restartGame);
