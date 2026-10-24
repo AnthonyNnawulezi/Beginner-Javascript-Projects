@@ -87,83 +87,84 @@ let isGameOver = false;
 
 // createBoards();
 
+// 4. Build the board: create 9 buttons and add them to the page
 function createBoard() {
-  boardElement.innerHTML = "";
-
-  const fragment = document.createDocumentFragment();
-
-  for (let i = 0; i < 9; i++) {
+  for (let i = 0; i < BOARD_SIZE; i++) {
     const square = document.createElement("button");
     square.type = "button";
     square.classList.add("square");
-    square.setAttribute("aria-label", `Square ${i + 1}`);
-    fragment.append(square);
-  }
-
-  boardElement.append(fragment);
-  squares = Array.from(boardElement.children);
-
-  squares.forEach((square) => {
     square.addEventListener("click", handleSquareClick);
-  });
+
+    squares.push(square); // remember it, so other functions can use it
+    boardElement.append(square); // put it on the page
+  }
 }
 
+// 5. Play one move: runs when a square is clicked
 function handleSquareClick(event) {
-  const square = event.currentTarget;
+  const square = event.currentTarget; // the square that was clicked
 
+  // Ignore the click if the square is taken or the game is over
   if (square.textContent !== "" || isGameOver) return;
 
-  square.textContent = currentPlayer;
-  square.classList.add("taken");
+  square.textContent = currentPlayer; // place the X or O
 
-  const winningLine = findWinningLine(currentPlayer);
-
-  if (winningLine) {
-    highlightWinningLine(winningLine);
+  // Win is checked BEFORE tie, so a win on the 9th move counts as a win
+  if (hasCurrentPlayerWon()) {
     statusMessage.textContent = `${currentPlayer} wins`;
     isGameOver = true;
     return;
   }
 
-  const isTie = squares.every((square) => square.textContent !== "");
-
-  if (isTie) {
+  if (isBoardFull()) {
     statusMessage.textContent = "Tie, try again";
     isGameOver = true;
     return;
   }
 
-  currentPlayer = currentPlayer === "X" ? "O" : "X";
-  statusMessage.textContent = `${currentPlayer} turn`;
+  switchPlayer();
+  showTurnMessage();
 }
 
-function findWinningLine(player) {
-  return WINNING_COMBINATIONS.find(([a, b, c]) => {
+// 6. Small helper functions, each doing one job
+
+// Is there a combination where all three squares hold the current player's mark?
+function hasCurrentPlayerWon() {
+  return WINNING_COMBINATIONS.some(([a, b, c]) => {
     return (
-      squares[a].textContent === player &&
-      squares[b].textContent === player &&
-      squares[c].textContent === player
+      squares[a].textContent === currentPlayer &&
+      squares[b].textContent === currentPlayer &&
+      squares[c].textContent === currentPlayer
     );
   });
 }
 
-function highlightWinningLine(line) {
-  line.forEach((index) => {
-    squares[index].classList.add("winner");
-  });
+// Is every square filled?
+function isBoardFull() {
+  return squares.every((square) => square.textContent !== "");
 }
 
+// X becomes O, and O becomes X
+function switchPlayer() {
+  currentPlayer = currentPlayer === "X" ? "O" : "X";
+}
+
+function showTurnMessage() {
+  statusMessage.textContent = `${currentPlayer}'s turn`;
+}
+
+// Put everything back to the starting state
 function restartGame() {
   squares.forEach((square) => {
-    square.textContent = "";
-    square.classList.remove("taken", "winner");
+    square.textContent = ""; // empty every square
   });
 
-  currentPlayer = "X";
+  currentPlayer = "X"; // X always starts, instead of whoever played last
   isGameOver = false;
-  statusMessage.textContent = `${currentPlayer} turn`;
+  showTurnMessage();
 }
 
+// 7. Start the game
 restartButton.addEventListener("click", restartGame);
-
 createBoard();
+showTurnMessage(); // show "X's turn" from the very first moment
